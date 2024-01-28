@@ -1,5 +1,5 @@
-import { useLayoutEffect, useMemo, useRef } from "react"
-import { InstancedMesh, Matrix4, MeshStandardMaterial, SphereGeometry } from "three"
+import { useLayoutEffect, useRef } from "react"
+import { InstancedMesh, Matrix4 } from "three"
 
 const NB_FLOORS = 30
 const NB_CIRCLES = 5
@@ -10,9 +10,6 @@ const DISTANCE_IN_BETWEEN = 2
 
 function Balls(): JSX.Element {
   const ref = useRef<InstancedMesh>(null!)
-
-  const material = useMemo(() => new MeshStandardMaterial({ color: "white", emissive: "white", emissiveIntensity: 1, toneMapped: false }), [])
-  const ballsGeometry = useMemo(() => new SphereGeometry(0.1), [])
 
   useLayoutEffect(() => {
     const matrix = new Matrix4()
@@ -35,8 +32,12 @@ function Balls(): JSX.Element {
     }
   }, [])
 
-
-  return <instancedMesh ref={ref} args={[ballsGeometry, material, NB_FLOORS * NB_CIRCLES * NB_BALLS]} />
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, NB_FLOORS * NB_CIRCLES * NB_BALLS]}>
+      <meshStandardMaterial color={"white"} emissive={"white"} emissiveIntensity={4} toneMapped={false} />
+      <sphereGeometry args={[0.1]} />
+    </instancedMesh>
+  )
 }
 
 export default Balls
