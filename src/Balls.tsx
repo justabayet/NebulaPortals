@@ -1,12 +1,12 @@
 import { useLayoutEffect, useRef } from "react"
 import { InstancedMesh, Matrix4 } from "three"
 
-const NB_FLOORS = 30
-const NB_CIRCLES = 5
-const NB_BALLS = 3
+const NB_FLOORS = 40
+const NB_CIRCLES = 3
+const NB_BALLS = 2
 
-const MIN_RADIUS = 6
-const DISTANCE_IN_BETWEEN = 2
+const MIN_RADIUS = 4
+const DISTANCE_IN_BETWEEN = 5
 
 function Balls(): JSX.Element {
   const ref = useRef<InstancedMesh>(null!)
