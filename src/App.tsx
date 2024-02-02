@@ -8,17 +8,14 @@ import Room from './Room'
 
 function Body() {
   return (
-    <>
+    <object3D position={new Vector3(0, 0, 0)}>
       <ambientLight intensity={0.5} />
+      <Balls />
 
-      <object3D position={new Vector3(0, 0, 0)}>
-        <Balls />
-
-        <Room position={new Vector3(1, 1, -2)} name='top' />
-        <Room position={new Vector3(3, 0, 0)} name='middle' />
-        <Room position={new Vector3(1, -1, 2)} name='bot' />
-      </object3D>
-    </>
+      <Room position={new Vector3(1, 1, -2)} name='top' />
+      <Room position={new Vector3(3, 0, 0)} name='middle' />
+      <Room position={new Vector3(1, -1, 2)} name='bot' />
+    </object3D>
   )
 }
 
