@@ -1,17 +1,17 @@
-import { DoubleSide, Euler, Vector3 } from "three"
+import { MeshProps } from "@react-three/fiber"
+import { ColorRepresentation, DoubleSide } from "three"
 
-interface PanelProps {
-  position: Vector3,
-  rotation: Euler,
-  width: number,
+interface PanelProps extends MeshProps {
+  width: number
   height: number
+  color?: ColorRepresentation
 }
 
-function Panel({ position, rotation, width, height }: PanelProps): JSX.Element {
+function Panel({ width, height, color = "red", ...props }: PanelProps): JSX.Element {
   return (
-    <mesh position={position} rotation={rotation}>
+    <mesh {...props}>
       <planeGeometry args={[width, height]} />
-      <meshStandardMaterial side={DoubleSide} color={"red"} />
+      <meshStandardMaterial side={DoubleSide} color={color} />
     </mesh>
   )
 }

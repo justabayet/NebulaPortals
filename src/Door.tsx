@@ -1,85 +1,64 @@
-import { MeshPortalMaterial, PortalMaterialType, useCursor } from "@react-three/drei"
+import { MeshPortalMaterial, PortalMaterialType } from "@react-three/drei"
 import { Vector3, Mesh, DoubleSide, Object3D } from "three"
-import { useLayoutEffect, useRef, useState } from "react"
+import { PropsWithChildren, ReactNode, useLayoutEffect, useRef } from "react"
 
-import Room from "./Room"
-import { useLocation, useRoute } from "wouter"
+import { useLocation } from "wouter"
 import { useFrame } from "@react-three/fiber"
 import { easing } from "maath"
-import Balls from "./Balls"
 
-interface DoorProps {
+import MeshHoverable from "./MeshHoverable"
+import useIsActive from "./hooks/useIsActive"
+
+interface DoorProps extends PropsWithChildren {
   position: Vector3
   name: string
+  childrenAbsolute?: ReactNode
 }
 
-function useFaceTowardsParentCenter(object: Object3D | null) {
-  useLayoutEffect(() => {
-    if (object == null) return
+function faceTowardsParentCenter(object: Object3D) {
+  const parent = object.parent
+  const focus = new Vector3(0, object.position.y, 0)
 
-    const parent = object.parent
-    const focus = new Vector3(0, object.position.y, 0)
+  if (parent != null) {
+    const parentWorldPosition = parent.getWorldPosition(new Vector3())
+    focus.add(parentWorldPosition)
+  }
 
-    if (parent != null) {
-      const parentWorldPosition = parent.getWorldPosition(new Vector3())
-      focus.add(parentWorldPosition)
-    }
-
-    object.lookAt(focus)
-  }, [object, object?.position, object?.parent?.position])
+  object.lookAt(focus)
 }
 
-function Door({ position, name }: DoorProps): JSX.Element {
+function Door({ position, name, children, childrenAbsolute }: DoorProps): JSX.Element {
   const ref = useRef<Mesh>(null)
   const altCenter = useRef<Object3D>(null!)
   const portal = useRef<PortalMaterialType>(null!)
 
-  useFaceTowardsParentCenter(ref.current)
-  useFaceTowardsParentCenter(altCenter.current)
-
   useLayoutEffect(() => {
     if (ref.current == null) return
 
+    faceTowardsParentCenter(ref.current)
     const portalPos = ref.current?.getWorldPosition(new Vector3())
     altCenter.current.position.copy(portalPos)
+    faceTowardsParentCenter(altCenter.current)
   })
 
   const [, setLocation] = useLocation()
-  const [, params] = useRoute('/current/:name')
-  const [hovered, hover] = useState(false)
-  useCursor(hovered)
-  useFrame((_, dt) => easing.damp(portal.current, 'blend', params?.name === name ? 1 : 0, 0.2, dt))
-
-  const isActive = params?.name === name
+  const isActive = useIsActive(name)
+  useFrame((_, dt) => easing.damp(portal.current, 'blend', isActive ? 1 : 0, 0.2, dt))
 
   return (
-    <mesh position={position} ref={ref} name={name}
-      onClick={(e) => (e.stopPropagation(), setLocation('/current/' + name))}
-      onPointerOver={() => hover(true)}
-      onPointerOut={() => hover(false)}>
+    <MeshHoverable position={position} ref={ref} name={name}
+      onClick={(e) => (e.stopPropagation(), setLocation('/current/' + name))}>
       <planeGeometry args={[1, 2]} />
+
       <MeshPortalMaterial blend={0} ref={portal} side={DoubleSide} worldUnits={true}>
-        <ambientLight intensity={0.5} />
-        <pointLight intensity={10} />
+        {childrenAbsolute}
 
         <object3D ref={altCenter}>
-          <Room />
-
-          {isActive &&
-            <mesh position={new Vector3(0, 0, 2)}
-              onClick={(e) => (e.stopPropagation(), setLocation('/previous/' + name))}
-              onPointerOver={() => hover(true)}
-              onPointerOut={() => hover(false)}>
-              <planeGeometry args={[1, 1]} />
-              <MeshPortalMaterial side={DoubleSide} worldUnits={true}>
-                <color attach="background" args={["#131313"]} />
-                <Balls />
-              </MeshPortalMaterial>
-            </mesh>}
+          {children}
         </object3D>
 
       </MeshPortalMaterial>
-    </mesh>
+    </MeshHoverable>
   )
 }
 

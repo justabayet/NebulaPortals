@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from "react"
-import { InstancedMesh, Matrix4 } from "three"
+import { ColorRepresentation, InstancedMesh, Matrix4 } from "three"
 
 const NB_FLOORS = 40
 const NB_CIRCLES = 3
@@ -24,7 +24,11 @@ for (let floorId = 0; floorId < NB_FLOORS; floorId++) {
   }
 }
 
-function Balls(): JSX.Element {
+interface BallsProps {
+  color?: ColorRepresentation
+}
+
+function Balls({ color = "white" }: BallsProps): JSX.Element {
   const ref = useRef<InstancedMesh>(null!)
 
   useLayoutEffect(() => {
@@ -38,7 +42,7 @@ function Balls(): JSX.Element {
 
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, POSITIONS.length]}>
-      <meshStandardMaterial color={"white"} emissive={"white"} emissiveIntensity={4} toneMapped={false} />
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={4} toneMapped={false} />
       <sphereGeometry args={[0.1]} />
     </instancedMesh>
   )
