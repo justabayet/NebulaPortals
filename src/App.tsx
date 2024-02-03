@@ -12,9 +12,9 @@ function Body() {
       <ambientLight intensity={0.5} />
       <Balls />
 
-      <Room position={new Vector3(1, 1, -2)} name='top' />
+      <Room position={new Vector3(1, 1, -2)} name='top' color={"blue"} />
       <Room position={new Vector3(3, 0, 0)} name='middle' />
-      <Room position={new Vector3(1, -1, 2)} name='bot' />
+      <Room position={new Vector3(1, -1, 2)} name='bot' color={"green"} />
     </object3D>
   )
 }
