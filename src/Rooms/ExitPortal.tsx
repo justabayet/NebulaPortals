@@ -1,20 +1,21 @@
 import { MeshPortalMaterial } from "@react-three/drei"
 import { Vector3, DoubleSide } from "three"
-import Balls from "./Balls"
-import MeshHoverable from "./MeshHoverable"
+import Balls from "../Balls"
+import MeshHoverable from "../MeshHoverable"
 import { useLocation } from "wouter"
+import { useRoomData } from "../RoomDataProvider"
 
 interface ExitPortalProps {
-  roomName: string
   position: Vector3
 }
 
-function ExitPortal({ roomName, position }: ExitPortalProps): JSX.Element {
+function ExitPortal({ position }: ExitPortalProps): JSX.Element {
   const [, setLocation] = useLocation()
+  const { name } = useRoomData()
 
   return (
     <MeshHoverable position={position}
-      onClick={(e) => (e.stopPropagation(), setLocation('/previous/' + roomName))}>
+      onClick={(e) => (e.stopPropagation(), setLocation('/previous/' + name))}>
       <planeGeometry args={[1, 1]} />
       <MeshPortalMaterial side={DoubleSide} worldUnits={true}>
         <color attach="background" args={["#131313"]} />

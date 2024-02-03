@@ -1,7 +1,8 @@
 import { useRoute } from "wouter"
+import { useRoomData } from "../RoomDataProvider"
 
-
-function useIsActive(name: string) {
+function useIsActive() {
+  const { name } = useRoomData()
   const [, params] = useRoute('/current/:name')
   return params?.name === name
 }

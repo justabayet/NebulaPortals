@@ -6,12 +6,18 @@ import { useLocation } from "wouter"
 import { useFrame } from "@react-three/fiber"
 import { easing } from "maath"
 
-import MeshHoverable from "./MeshHoverable"
-import useIsActive from "./hooks/useIsActive"
+import MeshHoverable from "../MeshHoverable"
+import useIsActive from "../hooks/useIsActive"
+import { RoomDataProvider, useRoomData } from "../RoomDataProvider"
 
 interface DoorProps extends PropsWithChildren {
   position: Vector3
   name: string
+  childrenAbsolute?: ReactNode
+}
+
+interface Door_Props extends PropsWithChildren {
+  position: Vector3
   childrenAbsolute?: ReactNode
 }
 
@@ -27,10 +33,11 @@ function faceTowardsParentCenter(object: Object3D) {
   object.lookAt(focus)
 }
 
-function Door({ position, name, children, childrenAbsolute }: DoorProps): JSX.Element {
+function Door_({ position, children, childrenAbsolute }: Door_Props): JSX.Element {
   const ref = useRef<Mesh>(null)
   const altCenter = useRef<Object3D>(null!)
   const portal = useRef<PortalMaterialType>(null!)
+  const { name } = useRoomData()
 
   useLayoutEffect(() => {
     if (ref.current == null) return
@@ -42,7 +49,7 @@ function Door({ position, name, children, childrenAbsolute }: DoorProps): JSX.El
   })
 
   const [, setLocation] = useLocation()
-  const isActive = useIsActive(name)
+  const isActive = useIsActive()
   useFrame((_, dt) => easing.damp(portal.current, 'blend', isActive ? 1 : 0, 0.2, dt))
 
   return (
@@ -59,6 +66,16 @@ function Door({ position, name, children, childrenAbsolute }: DoorProps): JSX.El
 
       </MeshPortalMaterial>
     </MeshHoverable>
+  )
+}
+
+function Door({ position, name, children, childrenAbsolute }: DoorProps): JSX.Element {
+  return (
+    <RoomDataProvider name={name} >
+      <Door_ position={position} childrenAbsolute={childrenAbsolute}>
+        {children}
+      </Door_>
+    </RoomDataProvider>
   )
 }
 
