@@ -1,17 +1,38 @@
-import { Vector3 } from "three"
+import { Color, Vector3 } from "three"
 import BarkBudget from "./BarkBudget"
 import DefaultContent, { RoomProps } from "./DefaultContent"
 
+const base = new Color()
+const red = new Color("red")
+const blue = new Color("blue")
 
 const rooms = [
-  (props: RoomProps) => DefaultContent({ ...props, name: "red", color: "red" }),
   BarkBudget,
-  (props: RoomProps) => DefaultContent({ ...props, name: "blue", color: "blue" }),
-  (props: RoomProps) => DefaultContent({ ...props, name: "blue1", color: "blue" }),
-  (props: RoomProps) => DefaultContent({ ...props, name: "blue2", color: "blue" }),
-  (props: RoomProps) => DefaultContent({ ...props, name: "blue3", color: "blue" }),
-  (props: RoomProps) => DefaultContent({ ...props, name: "blue4", color: "blue" }),
-  (props: RoomProps) => DefaultContent({ ...props, name: "blue5", color: "blue" }),
+  (props: RoomProps) => DefaultContent({ ...props, name: "1", color: "red" }),
+  (props: RoomProps) => DefaultContent({
+    ...props, name: "2", 
+    color: base.lerpColors(red, blue, 0.1) 
+  }),
+  (props: RoomProps) => DefaultContent({
+    ...props, name: "3", 
+    color: base.lerpColors(red, blue, 0.2) 
+  }),
+  (props: RoomProps) => DefaultContent({
+    ...props, name: "4", 
+    color: base.lerpColors(red, blue, 0.4) 
+  }),
+  (props: RoomProps) => DefaultContent({
+    ...props, name: "5", 
+    color: base.lerpColors(red, blue, 0.6) 
+  }),
+  (props: RoomProps) => DefaultContent({
+    ...props, name: "6", 
+    color: base.lerpColors(red, blue, 0.8) 
+  }),
+  (props: RoomProps) => DefaultContent({
+    ...props, name: "7", 
+    color: base.lerpColors(red, blue, 1) 
+  }),
 ]
 
 const DEFAULT_POSITION = new Vector3(3, 0, 0)
