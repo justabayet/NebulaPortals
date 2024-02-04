@@ -4,8 +4,10 @@ import { forwardRef, useEffect, useState } from "react"
 import { MeshProps } from "@react-three/fiber"
 import { Mesh } from "three"
 
-
-const MeshHoverable = forwardRef<Mesh, MeshProps>(function MeshHoverable({ children, onPointerOver, onPointerOut, ...props }, ref): JSX.Element {
+interface MeshHoverableProps extends MeshProps {
+  enabled?: boolean
+}
+const MeshHoverable = forwardRef<Mesh, MeshHoverableProps>(function MeshHoverable({ enabled = true, children, onPointerOver, onPointerOut, ...props }, ref): JSX.Element {
   const [hovered, setHovered] = useState(false)
   useCursor(hovered)
 
@@ -15,14 +17,22 @@ const MeshHoverable = forwardRef<Mesh, MeshProps>(function MeshHoverable({ child
     }
   }, [])
 
+  useEffect(() => {
+    if (!enabled) setHovered(false)
+  }, [enabled])
+
   return (
     <mesh
       ref={ref}
       onPointerOver={(event) => {
+        if (!enabled) return
+
         setHovered(true)
         if (onPointerOver) onPointerOver(event)
       }}
       onPointerOut={(event) => {
+        if (!enabled) return
+
         setHovered(false)
         if (onPointerOut) onPointerOut(event)
       }}
