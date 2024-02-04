@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://np.justabayet.com",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
@@ -19,7 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.160.1",
-    "wouter": "^2.12.1"
+    "wouter": "^3.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
