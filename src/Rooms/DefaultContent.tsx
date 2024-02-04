@@ -6,10 +6,10 @@ import ExitPortal from "./ExitPortal"
 import Panel from "./Panel"
 import useIsActive from "../hooks/useIsActive"
 import Door from "./Door"
-import Balls from "../Balls"
 
 export interface RoomProps {
   position: Vector3
+  index: number
 }
 
 interface DefaultContentProps {
@@ -22,31 +22,29 @@ function DefaultContent_({ color = "red" }: DefaultContentProps): JSX.Element {
   return (
     <>
       <ambientLight intensity={0.5} />
-      <pointLight intensity={3} />
+      <pointLight intensity={15} />
 
       <Walls color={color} />
 
       <Panel
-        position={new Vector3(-0.5, 0, -0.5)}
+        position={new Vector3(-0.5, 0, -1.5)}
         width={1}
         height={1}
         color={color} />
       <Panel
-        position={new Vector3(0.5, -0.2, -0.5)}
+        position={new Vector3(0.5, -0.2, -1)}
         width={0.5}
         height={0.5}
         color={color} />
 
-      {isActive && <ExitPortal position={new Vector3(0, 0, 3)} />}
+      {isActive && <ExitPortal position={new Vector3(0, 0, 6)} />}
     </>
   )
 }
 
-function DefaultContent({ position, name, ...props }: DefaultContentProps & RoomProps & { name: string }): JSX.Element {
+function DefaultContent({ position, name, index, ...props }: DefaultContentProps & RoomProps & { name: string }): JSX.Element {
   return (
-    <Door position={position} name={name} childrenAbsolute={(
-      <Balls color={props.color} />
-    )}>
+    <Door position={position} name={name} index={index}>
       <DefaultContent_ {...props} />
     </Door>
   )

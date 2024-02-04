@@ -29,13 +29,13 @@ function Walls({ color = "red" }: WallsProps): JSX.Element {
         height={SIZE}
         color={color} />
       <Panel
-        position={new Vector3(0, 0, MIDDLE)}
-        rotation={new Euler(0, Math.PI, 0)}
+        position={new Vector3(0, -MIDDLE, 0)}
+        rotation={new Euler(Math.PI / 2, 0, 0)}
         width={SIZE}
         height={SIZE}
         color={color} />
       <Panel
-        position={new Vector3(0, -MIDDLE, 0)}
+        position={new Vector3(0, MIDDLE, 0)}
         rotation={new Euler(Math.PI / 2, 0, 0)}
         width={SIZE}
         height={SIZE}

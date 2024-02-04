@@ -13,11 +13,13 @@ import { RoomDataProvider, useRoomData } from "../RoomDataProvider"
 interface DoorProps extends PropsWithChildren {
   position: Vector3
   name: string
+  index: number
   childrenAbsolute?: ReactNode
 }
 
 interface Door_Props extends PropsWithChildren {
   position: Vector3
+  index: number
   childrenAbsolute?: ReactNode
 }
 
@@ -33,7 +35,7 @@ function faceTowardsParentCenter(object: Object3D) {
   object.lookAt(focus)
 }
 
-function Door_({ position, children, childrenAbsolute }: Door_Props): JSX.Element {
+function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX.Element {
   const ref = useRef<Mesh>(null)
   const altCenter = useRef<Object3D>(null!)
   const portal = useRef<PortalMaterialType>(null!)
@@ -50,11 +52,15 @@ function Door_({ position, children, childrenAbsolute }: Door_Props): JSX.Elemen
 
   const [, setLocation] = useLocation()
   const isActive = useIsActive()
-  useFrame((_, dt) => easing.damp(portal.current, 'blend', isActive ? 1 : 0, 0.2, dt))
+
+  useFrame((_, dt) => {
+    easing.damp(portal.current, 'blend', isActive ? 1 : 0, 0.1, dt)
+  })
 
   return (
     <MeshHoverable position={position} ref={ref} name={name}
-      onClick={(e) => (e.stopPropagation(), setLocation('/current/' + name))}>
+      onClick={(e) => (e.stopPropagation(), setLocation('/current/' + name))}
+      userData={{ index: index }}>
       <planeGeometry args={[1, 2]} />
 
       <MeshPortalMaterial blend={0} ref={portal} side={DoubleSide} worldUnits={true}>
@@ -69,10 +75,10 @@ function Door_({ position, children, childrenAbsolute }: Door_Props): JSX.Elemen
   )
 }
 
-function Door({ position, name, children, childrenAbsolute }: DoorProps): JSX.Element {
+function Door({ position, name, children, childrenAbsolute, index }: DoorProps): JSX.Element {
   return (
     <RoomDataProvider name={name} >
-      <Door_ position={position} childrenAbsolute={childrenAbsolute}>
+      <Door_ position={position} childrenAbsolute={childrenAbsolute} index={index}>
         {children}
       </Door_>
     </RoomDataProvider>
