@@ -1,6 +1,5 @@
 import { Canvas } from '@react-three/fiber'
 import './App.css'
-import { Stats } from '@react-three/drei'
 import Balls from './Balls'
 import Controls, { CAMERA_DEFAULT_POSITION } from './Controls'
 import { ROOM_ANGLE, ROOM_DEFAULT_POSITION, ROOM_Y_DIFFERENCE, rooms } from './Rooms'
@@ -25,7 +24,6 @@ function App() {
         })}
 
         <Controls />
-        <Stats />
       </Canvas>
     </div>
   )
