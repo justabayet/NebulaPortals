@@ -9,7 +9,7 @@ const focus = new Vector3(0, 0, 0)
 
 function useInProject() {
   const { controls, scene }: { scene: Scene, controls: CameraControls | null } = useThree()
-  const [isInsideProject, params] = useRoute('/current/:project')
+  const [isInsideProject, params] = useRoute('current/:project')
 
   useEffect(() => {
     if(!isInsideProject || controls == null) return 

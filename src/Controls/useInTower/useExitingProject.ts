@@ -10,7 +10,7 @@ import { rooms } from "../../Rooms/const"
 
 function useExitingProject() {
   const { controls, scene }: { scene: Scene, controls: CameraControls | null } = useThree()
-  const [isExitingProject, params] = useRoute('/previous/:project')
+  const [isExitingProject, params] = useRoute('previous/:project')
 
   const scrollState = useScroll()
 

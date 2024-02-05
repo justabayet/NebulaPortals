@@ -10,8 +10,8 @@ const DEFAULT_ANGLE = Math.PI * 1.5
 
 function useDefault() {
   const { controls }: { controls: CameraControls | null } = useThree()
-  const [hasPreviousProject,] = useRoute('/previous/:project')
-  const [isInsideProject,] = useRoute('/current/:project')
+  const [hasPreviousProject,] = useRoute('previous/:project')
+  const [isInsideProject,] = useRoute('current/:project')
 
   const isDefault = !hasPreviousProject && !isInsideProject
 

@@ -15,7 +15,7 @@ function ExitPortal({ position }: ExitPortalProps): JSX.Element {
 
   return (
     <MeshHoverable position={position}
-      onClick={(e) => (e.stopPropagation(), setLocation('/previous/' + name))}>
+      onClick={(e) => (e.stopPropagation(), setLocation('previous/' + name))}>
       <planeGeometry args={[3, 12]} />
       <MeshPortalMaterial side={DoubleSide} worldUnits={true}>
         <color attach="background" args={["#131313"]} />

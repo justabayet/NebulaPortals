@@ -3,7 +3,7 @@ import { useRoomData } from "../RoomDataProvider"
 
 function useIsActive() {
   const { name } = useRoomData()
-  const [, params] = useRoute('/current/:name')
+  const [, params] = useRoute('current/:name')
   return params?.name === name
 }
 
