@@ -1,4 +1,3 @@
-import { Vector3 } from "three"
 import Walls from "./Walls"
 import Door from "./Door"
 import ExitPortal from "./ExitPortal"
@@ -18,17 +17,17 @@ function BarkBudget_(): JSX.Element {
       <Walls color={'white'} />
 
       <Panel
-        position={new Vector3(-0.5, 0, -0.5)}
+        position={[-0.5, 0, -0.5]}
         width={1}
         height={1}
         color={'black'} />
       <Panel
-        position={new Vector3(0.5, -0.2, -0.5)}
+        position={[0.5, -0.2, -0.5]}
         width={0.5}
         height={0.5}
         color={'grey'} />
 
-      {isActive && <ExitPortal position={new Vector3(0, 0, 6)} />}
+      {isActive && <ExitPortal position={[0, 0, 5.9]} />}
     </>
   )
 }

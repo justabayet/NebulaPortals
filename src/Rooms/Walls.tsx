@@ -1,4 +1,4 @@
-import { ColorRepresentation, Euler, Vector3 } from "three"
+import { ColorRepresentation, Euler } from "three"
 import Panel from "./Panel"
 
 interface WallsProps {
@@ -10,32 +10,38 @@ function Walls({ color = "red" }: WallsProps): JSX.Element {
   const MIDDLE = SIZE / 2
   return (
     <>
-      <Panel
-        position={new Vector3(0, 0, -MIDDLE)}
+      <Panel // Back
+        position={[0, 0, -MIDDLE]}
         rotation={new Euler(0, 0, 0)}
         width={SIZE}
         height={SIZE}
         color={color} />
-      <Panel
-        position={new Vector3(-MIDDLE, 0, 0)}
+      <Panel // Front
+        position={[0, 0, MIDDLE]}
+        rotation={new Euler(0, 0, 0)}
+        width={SIZE}
+        height={SIZE}
+        color={color} />
+      <Panel // Left
+        position={[-MIDDLE, 0, 0]}
         rotation={new Euler(0, -Math.PI / 2, 0)}
         width={SIZE}
         height={SIZE}
         color={color} />
-      <Panel
-        position={new Vector3(MIDDLE, 0, 0)}
+      <Panel // Right
+        position={[MIDDLE, 0, 0]}
         rotation={new Euler(0, Math.PI / 2, 0)}
         width={SIZE}
         height={SIZE}
         color={color} />
-      <Panel
-        position={new Vector3(0, -MIDDLE, 0)}
+      <Panel // Floor
+        position={[0, -MIDDLE, 0]}
         rotation={new Euler(Math.PI / 2, 0, 0)}
         width={SIZE}
         height={SIZE}
         color={color} />
-      <Panel
-        position={new Vector3(0, MIDDLE, 0)}
+      <Panel // Ceiling
+        position={[0, MIDDLE, 0]}
         rotation={new Euler(Math.PI / 2, 0, 0)}
         width={SIZE}
         height={SIZE}

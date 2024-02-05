@@ -11,14 +11,14 @@ import useIsActive from "../hooks/useIsActive"
 import { RoomDataProvider, useRoomData } from "../RoomDataProvider"
 
 interface DoorProps extends PropsWithChildren {
-  position: Vector3
+  position: [number, number, number]
   name: string
   index: number
   childrenAbsolute?: ReactNode
 }
 
 interface Door_Props extends PropsWithChildren {
-  position: Vector3
+  position: [number, number, number]
   index: number
   childrenAbsolute?: ReactNode
 }
