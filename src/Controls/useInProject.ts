@@ -27,6 +27,8 @@ function useInProject() {
     controls.setLookAt(...position.toArray(), ...focus.toArray(), true)
       
   }, [isInsideProject, scene, controls, params?.project])
+
+  return { isInsideProject }
 }
 
 export default useInProject
