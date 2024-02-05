@@ -17,7 +17,6 @@ function useExitingProject() {
   useEffect(() => {
     if(!isExitingProject || controls == null) return
 
-    console.log("isExitingProject")
     const project = scene.getObjectByName(params.project)
 
     if(project == null) {

@@ -14,7 +14,6 @@ function useInProject() {
   useEffect(() => {
     if(!isInsideProject || controls == null) return 
 
-    console.log("isInsideProject")
     const project = scene.getObjectByName(params.project)
 
     if(project == null) {
