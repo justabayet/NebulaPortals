@@ -20,7 +20,7 @@ function App() {
             .applyAxisAngle(Y_AXIS, angle)
             .setY(-index * ROOM_Y_DIFFERENCE)
 
-          return <Room key={index} position={position} index={index} />
+          return <Room key={index} position={position.toArray()} index={index} />
         })}
 
         <Controls />
