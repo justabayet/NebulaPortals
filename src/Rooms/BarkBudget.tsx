@@ -11,7 +11,6 @@ function BarkBudget_(): JSX.Element {
 
   return (
     <>
-      <ambientLight intensity={0.5} />
       <pointLight intensity={3} />
 
       <Walls color={'white'} />

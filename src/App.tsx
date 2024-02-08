@@ -9,8 +9,6 @@ function App() {
   return (
     <div id="canvas-container">
       <Canvas camera={{ position: CAMERA_DEFAULT_POSITION }}>
-
-        <ambientLight intensity={0.5} />
         <Balls />
 
         {rooms.map((Room, index) => {

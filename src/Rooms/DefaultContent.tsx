@@ -21,7 +21,6 @@ function DefaultContent_({ color = "red" }: DefaultContentProps): JSX.Element {
 
   return (
     <>
-      <ambientLight intensity={0.5} />
       <pointLight intensity={15} />
 
       <Walls color={color} />
