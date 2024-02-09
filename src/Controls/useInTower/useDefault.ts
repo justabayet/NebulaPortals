@@ -2,7 +2,8 @@ import { useThree } from "@react-three/fiber"
 import CameraControls from "camera-controls"
 import { useEffect } from "react"
 import { Vector3 } from "three"
-import { useRoute } from "wouter"
+import useCurrentProject from "../../hooks/useCurrentProject"
+import usePreviousProject from "../../hooks/usePreviousProject"
 
 const DEFAULT_POSITION = new Vector3(-2, 0, 0)
 const DEFAULT_FOCUS = new Vector3(0, 0, 0)
@@ -10,8 +11,8 @@ const DEFAULT_ANGLE = Math.PI * 1.5
 
 function useDefault() {
   const { controls }: { controls: CameraControls | null } = useThree()
-  const [hasPreviousProject,] = useRoute('previous/:project')
-  const [isInsideProject,] = useRoute('current/:project')
+  const { hasPrevious: hasPreviousProject } = usePreviousProject()
+  const { hasCurrent: isInsideProject } = useCurrentProject()
 
   const isDefault = !hasPreviousProject && !isInsideProject
 

@@ -2,25 +2,25 @@ import { useThree } from "@react-three/fiber"
 import CameraControls from "camera-controls"
 import { useEffect } from "react"
 import { Scene } from "three"
-import { useRoute } from "wouter"
 import { DEFAULT_POSITION } from "./useDefault"
 import { useScroll } from "@react-three/drei"
 import { rooms } from "../../Rooms/const"
+import usePreviousProject from "../../hooks/usePreviousProject"
 
 
 function useExitingProject() {
   const { controls, scene }: { scene: Scene, controls: CameraControls | null } = useThree()
-  const [isExitingProject, params] = useRoute('previous/:project')
+  const { hasPrevious: isExitingProject, project: projectName } = usePreviousProject()
 
   const scrollState = useScroll()
 
   useEffect(() => {
     if(!isExitingProject || controls == null) return
 
-    const project = scene.getObjectByName(params.project)
+    const project = scene.getObjectByName(projectName)
 
     if(project == null) {
-      console.warn("isExitingProject: no project detected", { params: params.project })
+      console.warn("isExitingProject: no project detected", { params: projectName })
       return
     }
 
@@ -39,7 +39,7 @@ function useExitingProject() {
     const focus: [number, number, number] = [0, y, 0]
     controls.setLookAt(...newPosition.toArray(), ...focus, true)
 
-  }, [isExitingProject, controls, scene, params?.project, scrollState])
+  }, [isExitingProject, controls, scene, projectName, scrollState])
 
   return {
     isExitingProject
