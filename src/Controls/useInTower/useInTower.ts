@@ -3,10 +3,10 @@ import useDefault, { DEFAULT_FOCUS, DEFAULT_POSITION } from "./useDefault"
 import useExitingProject from "./useExitingProject"
 import { FULL_ANGLE, FULL_HEIGHT } from "../../Rooms/const"
 import { useThree, useFrame } from "@react-three/fiber"
-import { Scene, PerspectiveCamera, Vector3 } from "three"
+import { Vector3 } from "three"
 
 function useScrollControl(enabled = true) {
-  const { controls }: { scene: Scene, controls: CameraControls | null, camera: PerspectiveCamera } = useThree()
+  const { controls }: { controls: CameraControls | null } = useThree()
 
   const scrollState = useScroll()
   useFrame(() => {
