@@ -8,32 +8,16 @@ const blue = new Color("blue")
 
 const rooms = [
   BarkBudget,
-  (props: RoomProps) => DefaultContent({ ...props, name: "1", color: "red" }),
-  (props: RoomProps) => DefaultContent({
-    ...props, name: "2", 
-    color: base.lerpColors(red, blue, 0.1) 
-  }),
-  (props: RoomProps) => DefaultContent({
-    ...props, name: "3", 
-    color: base.lerpColors(red, blue, 0.2) 
-  }),
-  (props: RoomProps) => DefaultContent({
-    ...props, name: "4", 
-    color: base.lerpColors(red, blue, 0.4) 
-  }),
-  (props: RoomProps) => DefaultContent({
-    ...props, name: "5", 
-    color: base.lerpColors(red, blue, 0.6) 
-  }),
-  (props: RoomProps) => DefaultContent({
-    ...props, name: "6", 
-    color: base.lerpColors(red, blue, 0.8) 
-  }),
-  (props: RoomProps) => DefaultContent({
-    ...props, name: "7", 
-    color: base.lerpColors(red, blue, 1) 
-  }),
 ]
+
+const NB_EXTRA_ROOMS = 10
+
+for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
+  rooms.push((props: RoomProps) => DefaultContent({
+    ...props, name: `${i}`, 
+    color: base.lerpColors(red, blue, i / NB_EXTRA_ROOMS) 
+  }))
+}
 
 const DEFAULT_POSITION = new Vector3(3, 0, 0)
 const ANGLE = Math.PI / 3.5
