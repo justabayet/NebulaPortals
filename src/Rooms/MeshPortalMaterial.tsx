@@ -6,12 +6,9 @@
 import * as THREE from 'three'
 import * as React from 'react'
 import { ReactThreeFiber, extend, useFrame, useThree } from '@react-three/fiber'
-import { useIntersect } from './useIntersect'
-import { useFBO } from './useFBO'
-import { RenderTexture } from './RenderTexture'
-import { shaderMaterial } from './shaderMaterial'
 import { FullScreenQuad } from 'three-stdlib'
-import { version } from '../helpers/constants'
+import { version } from '@react-three/drei/helpers/constants'
+import { useIntersect, useFBO, RenderTexture, shaderMaterial } from '@react-three/drei'
 
 const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
   {
@@ -113,7 +110,7 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
       if (events !== undefined) setEvents({ enabled: !events })
     }, [events])
 
-    const [visible, setVisible] = React.useState(true)
+    const [visible, setVisible] = React.useState(false)
     // See if the parent mesh is in the camera frustum
     const parent = useIntersect(setVisible) as React.MutableRefObject<THREE.Mesh<THREE.BufferGeometry>>
     React.useLayoutEffect(() => {
