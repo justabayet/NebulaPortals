@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Authors:
 //   N8, https://twitter.com/N8Programs
 //   drcmda, https://twitter.com/0xca0a
@@ -54,6 +55,7 @@ export type PortalMaterialType = {
 } & JSX.IntrinsicElements['shaderMaterial']
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
       portalMaterialImpl: PortalMaterialType
@@ -108,6 +110,7 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
 
     React.useEffect(() => {
       if (events !== undefined) setEvents({ enabled: !events })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [events])
 
     const [visible, setVisible] = React.useState(false)
@@ -117,6 +120,7 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
       // Since the ref above is not tied to a mesh directly (we're inside a material),
       // it has to be tied to the parent mesh here
       parent.current = (ref.current as any)?.__r3f.parent
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     React.useLayoutEffect(() => {
@@ -156,11 +160,12 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
 
         gl.setRenderTarget(null)
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resolution, blur])
 
     React.useImperativeHandle(fref, () => ref.current)
 
-    const compute = React.useCallback((event, state, previous) => {
+    const compute = React.useCallback((event: any, state: any) => {
       if (!parent.current) return false
       state.pointer.set((event.offsetX / state.size.width) * 2 - 1, -(event.offsetY / state.size.height) * 2 + 1)
       state.raycaster.setFromCamera(state.pointer, state.camera)
@@ -174,6 +179,7 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
           return false
         }
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -226,10 +232,12 @@ function ManagePortalScene({
 
   React.useLayoutEffect(() => {
     scene.matrixAutoUpdate = false
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   React.useEffect(() => {
     if (events !== undefined) setEvents({ enabled: events })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [events])
 
   const [quad, blend] = React.useMemo(() => {
@@ -264,6 +272,7 @@ function ManagePortalScene({
       })
     )
     return [quad, blend]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useFrame((state) => {
@@ -299,7 +308,7 @@ function ManagePortalScene({
   return <></>
 }
 
-const makeSDFGenerator = (clientWidth, clientHeight, renderer) => {
+const makeSDFGenerator = (clientWidth: any, clientHeight: any, renderer: any) => {
   const finalTarget = new THREE.WebGLRenderTarget(clientWidth, clientHeight, {
     minFilter: THREE.LinearMipmapLinearFilter,
     magFilter: THREE.LinearFilter,
