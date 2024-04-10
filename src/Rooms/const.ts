@@ -20,8 +20,8 @@ for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
 }
 
 const DEFAULT_POSITION = new Vector3(3, 0, 0)
-const ANGLE = Math.PI / 3.5
-const Y_DIFFERENCE = 1
+const ANGLE = Math.PI / 2.5
+const Y_DIFFERENCE = 1.5
 const NB_ROOMS = rooms.length
 const FULL_ANGLE = (NB_ROOMS - 1) * ANGLE
 const NB_FULL_ROTATION = FULL_ANGLE / (Math.PI * 2)
