@@ -3,8 +3,6 @@ import { Vector3, Mesh, DoubleSide, Object3D } from "three"
 import { PropsWithChildren, ReactNode, useLayoutEffect, useRef } from "react"
 
 import { useLocation } from "wouter"
-import { useFrame } from "@react-three/fiber"
-import { easing } from "maath"
 
 import MeshHoverable from "../MeshHoverable"
 import useIsActive from "../hooks/useIsActive"
@@ -49,18 +47,13 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
   const [, setLocation] = useLocation()
   const isActive = useIsActive()
 
-  useFrame((_, dt) => {
-    if (portal.current == null) return
-    easing.damp(portal.current, 'blend', isActive ? 1 : 0, 0.1, dt)
-  })
-
   return (
     <MeshHoverable position={position} ref={ref} name={name} enabled={!isActive}
       onClick={(e) => (e.stopPropagation(), setLocation('current/' + name))}
       userData={{ index: index }}>
       <planeGeometry args={[1, 2]} />
 
-      <MeshPortalMaterial blend={0} ref={portal} side={DoubleSide} worldUnits={true}>
+      <MeshPortalMaterial blend={isActive ? 1 : 0} ref={portal} side={DoubleSide} worldUnits={true} resolution={2}>
         {childrenAbsolute}
 
         <object3D ref={altCenter}>
