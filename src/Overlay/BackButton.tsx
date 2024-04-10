@@ -10,8 +10,9 @@ function BackButton(): JSX.Element | undefined {
   return (
     <div style={{
       position: 'absolute',
-      top: '2vh',
-      left: '2vh',
+      top: '0',
+      left: '0',
+      padding: '2vh',
       color: 'white',
       opacity: 0.8,
       zIndex: 1,
