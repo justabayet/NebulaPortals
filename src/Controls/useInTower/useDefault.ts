@@ -6,7 +6,7 @@ import useCurrentProject from "../../hooks/useCurrentProject"
 import usePreviousProject from "../../hooks/usePreviousProject"
 
 const DEFAULT_POSITION = new Vector3(-2, 0, 0)
-const DEFAULT_FOCUS = new Vector3(0, 0, 0)
+const DEFAULT_FOCUS: [number, number, number] = [0, 0, 0]
 const DEFAULT_ANGLE = Math.PI * 1.5
 
 function useDefault() {
@@ -20,7 +20,7 @@ function useDefault() {
     if(!isDefault || controls == null) return
       
     console.log("useDefault")
-    controls.setLookAt(...DEFAULT_POSITION.toArray(), ...DEFAULT_FOCUS.toArray(), true)
+    controls.setLookAt(...DEFAULT_POSITION.toArray(), ...DEFAULT_FOCUS, true)
 
   }, [isDefault, controls])
 

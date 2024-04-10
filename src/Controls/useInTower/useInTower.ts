@@ -4,27 +4,37 @@ import useExitingProject from "./useExitingProject"
 import { FULL_ANGLE, FULL_HEIGHT } from "../../Rooms/const"
 import { useThree, useFrame } from "@react-three/fiber"
 import { Vector3 } from "three"
+import { useRef } from "react"
+
+const AXIS = new Vector3(0, 1, 0)
 
 function useScrollControl(enabled = true) {
   const { controls }: { controls: CameraControls | null } = useThree()
+
+  const scrollProgress = useRef(0)
 
   const scrollState = useScroll()
   useFrame(() => {
     if(!controls || !enabled) return
 
-    if(scrollState.delta !== 0) {
+    const prevProgress = scrollProgress.current
+    const newProgress = scrollState.el.scrollTop
+
+    if(prevProgress != newProgress) {
+      scrollProgress.current = scrollState.el.scrollTop
+
       const ratio = scrollState.el.scrollTop / scrollState.el.children[1].scrollHeight
       const newY = -FULL_HEIGHT * ratio
       const newAngle = -FULL_ANGLE * ratio
 
-      const newFocus = DEFAULT_FOCUS.clone()
-        .setY(newY)
+      const newFocus: [number, number, number] = [...DEFAULT_FOCUS]
+      newFocus[1] = newY
 
       const newPosition = DEFAULT_POSITION.clone()
-        .applyAxisAngle(new Vector3(0, 1, 0), newAngle)
+        .applyAxisAngle(AXIS, newAngle)
         .setY(newY)
 
-      controls.setLookAt(...newPosition.toArray(), ...newFocus.toArray(), true)
+      controls.setLookAt(...newPosition.toArray(), ...newFocus, true)
     }
     
   })
