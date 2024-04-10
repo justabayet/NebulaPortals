@@ -49,7 +49,11 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
 
   return (
     <MeshHoverable position={position} ref={ref} name={name} enabled={!isActive}
-      onClick={(e) => (e.stopPropagation(), setLocation('current/' + name))}
+      onClick={(e) => {
+        e.stopPropagation()
+        setLocation('previous/' + name)
+        setLocation('current/' + name)
+      }}
       userData={{ index: index }}>
       <planeGeometry args={[1, 2]} />
 
