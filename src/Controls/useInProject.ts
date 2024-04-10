@@ -14,15 +14,15 @@ function useInProject() {
   useEffect(() => {
     if(!isInsideProject || controls == null) return 
 
-    const project = scene.getObjectByName(projectName)
+    const room = scene.getObjectByName(projectName)
 
-    if(project == null) {
-      console.warn("isInsideProject: no project detected", { params: projectName })
+    if(room == null) {
+      console.warn("useInProject: no room detected for current project", { params: projectName })
       return
     }
     
-    project.localToWorld(position.set(0, 0, 2))
-    project.localToWorld(focus.set(0, 0, 1))
+    room.localToWorld(position.set(0, 0, 2))
+    room.localToWorld(focus.set(0, 0, 1))
     controls.setLookAt(...position.toArray(), ...focus.toArray(), true)
       
   }, [isInsideProject, scene, controls, projectName])
