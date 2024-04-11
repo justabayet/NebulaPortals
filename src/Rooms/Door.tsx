@@ -50,6 +50,7 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
   return (
     <MeshHoverable position={position} ref={ref} name={name} enabled={!isActive}
       onClick={(e) => {
+        if (isActive) return
         e.stopPropagation()
         setLocation('previous/' + name)
         setLocation('current/' + name)
