@@ -92,7 +92,7 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
       easing.damp(backgroundRef.current.position, 'y', isActive ? -2 : 0, 0.3, dt)
     }
     if (graphRef.current != null) {
-      easing.damp(graphRef.current.position, 'y', isActive ? 1 : 0.9, 0.3, dt)
+      easing.damp(graphRef.current.position, 'y', isActive ? 1.5 : 0.9, 0.3, dt)
     }
   })
 
