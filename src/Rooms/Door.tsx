@@ -1,5 +1,5 @@
 import { PortalMaterialType } from '@react-three/drei'
-import { Vector3, Mesh, DoubleSide, Object3D } from 'three'
+import { Vector3, Mesh, Object3D, FrontSide } from 'three'
 import { PropsWithChildren, ReactNode, useLayoutEffect, useRef } from 'react'
 
 import { useLocation } from 'wouter'
@@ -58,7 +58,7 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
       userData={{ index: index }}>
       <planeGeometry args={[1, 2]} />
 
-      <MeshPortalMaterial blend={isActive ? 1 : 0} ref={portal} side={DoubleSide} worldUnits={true} resolution={2}>
+      <MeshPortalMaterial blend={isActive ? 1 : 0} ref={portal} side={FrontSide} worldUnits={true} resolution={2}>
         {childrenAbsolute}
 
         <object3D ref={altCenter}>
