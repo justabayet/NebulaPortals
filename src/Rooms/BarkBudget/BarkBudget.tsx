@@ -1,6 +1,5 @@
 import { DoubleSide, Euler, Mesh, Object3D, TextureLoader } from 'three'
 import { MeshProps, Object3DProps, useLoader, extend, useFrame } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
 import { useRef } from 'react'
 import { easing, geometry } from 'maath'
 
@@ -79,15 +78,6 @@ function HomePage(props: Object3DProps): JSX.Element {
   )
 }
 
-function Phone(props: Object3DProps): JSX.Element {
-  const obj = useGLTF('./phone.glb')
-  return (
-    <object3D {...props}>
-      <primitive object={obj.scene} />
-    </object3D>
-  )
-}
-
 interface IntroProps extends Object3DProps {
   color: string
 }
@@ -108,7 +98,6 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
 
   return (
     <object3D {...props}>
-      <Phone position={[-0.5, 0.3, 2]} scale={5} rotation={new Euler(Math.PI / 5, Math.PI, Math.PI / 10)} />
       <Image src={logo_light} position={[0, 0, 0]} size={1.5} />
 
       <object3D ref={graphRef} position={[0.1, 0.8, -0.5]} rotation={new Euler(Math.PI / 5, 0, -Math.PI / 10)}>
