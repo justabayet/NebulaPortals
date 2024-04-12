@@ -1,11 +1,11 @@
 
 
-import { ColorRepresentation } from "three"
-import Walls from "./Walls"
-import ExitPortal from "./ExitPortal"
-import Panel from "./Panel"
-import useIsActive from "../hooks/useIsActive"
-import Door from "./Door"
+import { ColorRepresentation } from 'three'
+import Walls from './Walls'
+import ExitPortal from './ExitPortal'
+import Panel from './Panel'
+import useIsActive from '../hooks/useIsActive'
+import Door from './Door'
 
 export interface RoomProps {
   position: [number, number, number]
@@ -16,7 +16,7 @@ interface DefaultContentProps {
   color?: ColorRepresentation
 }
 
-function DefaultContent_({ color = "red" }: DefaultContentProps): JSX.Element {
+function DefaultContent_({ color = 'red' }: DefaultContentProps): JSX.Element {
   const isActive = useIsActive()
 
   return (

@@ -1,5 +1,5 @@
 
-import { useRoute } from "wouter"
+import { useRoute } from 'wouter'
 
 function useCurrentProject (): { hasCurrent: true, project: string } | { hasCurrent: false, project: undefined } {
   const [hasCurrent, params] = useRoute('current/:project')

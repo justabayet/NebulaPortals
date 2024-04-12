@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 
 function useIsTouch(htmlElement: HTMLElement | null) {
   const [isTouch, setIsTouch] = useState(false)
@@ -6,7 +6,7 @@ function useIsTouch(htmlElement: HTMLElement | null) {
   useEffect(() => {
     if(htmlElement == null) return
 
-    setIsTouch(window.matchMedia("(any-hover: none)").matches)
+    setIsTouch(window.matchMedia('(any-hover: none)').matches)
     
     const disconnect = (event: PointerEvent) => {
       setIsTouch(event.pointerType === 'touch')

@@ -1,14 +1,14 @@
-import Walls from "./../Walls"
-import Door from "./../Door"
-import ExitPortal from "./../ExitPortal"
-import useIsActive from "../../hooks/useIsActive"
-import { RoomProps } from "./../DefaultContent"
+import Walls from './../Walls'
+import Door from './../Door'
+import ExitPortal from './../ExitPortal'
+import useIsActive from '../../hooks/useIsActive'
+import { RoomProps } from './../DefaultContent'
 import { button, google_button, graph, home, login, record, tabs } from './assets'
-import { MeshProps, useLoader } from "@react-three/fiber"
-import { DoubleSide, Euler, TextureLoader } from "three"
+import { MeshProps, useLoader } from '@react-three/fiber'
+import { DoubleSide, Euler, TextureLoader } from 'three'
 import { geometry } from 'maath'
 import { extend } from '@react-three/fiber'
-import MeshHoverable from "../../MeshHoverable"
+import MeshHoverable from '../../MeshHoverable'
 
 extend({ RoundedPlaneGeometry: geometry.RoundedPlaneGeometry })
 declare global {
@@ -38,11 +38,11 @@ export function Image({ src, size = 1, radius = 0.1, hoverable = false, ...props
     <MeshHoverable {...props} geometry={geo} enabled={hoverable}
       onClick={(e) => {
         e.stopPropagation()
-        console.log("Home clicked")
+        console.log('Home clicked')
       }}
       onPointerMove={(e) => {
         if (!hoverable) return
-        console.log("move", e)
+        console.log('move', e)
       }}>
       <meshStandardMaterial map={texture} side={DoubleSide} />
     </MeshHoverable>

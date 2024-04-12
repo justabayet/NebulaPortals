@@ -1,13 +1,13 @@
-import { PortalMaterialType } from "@react-three/drei"
-import { Vector3, Mesh, DoubleSide, Object3D } from "three"
-import { PropsWithChildren, ReactNode, useLayoutEffect, useRef } from "react"
+import { PortalMaterialType } from '@react-three/drei'
+import { Vector3, Mesh, DoubleSide, Object3D } from 'three'
+import { PropsWithChildren, ReactNode, useLayoutEffect, useRef } from 'react'
 
-import { useLocation } from "wouter"
+import { useLocation } from 'wouter'
 
-import MeshHoverable from "../MeshHoverable"
-import useIsActive from "../hooks/useIsActive"
-import { RoomDataProvider, useRoomData } from "../RoomDataProvider"
-import { MeshPortalMaterial } from "./MeshPortalMaterial"
+import MeshHoverable from '../MeshHoverable'
+import useIsActive from '../hooks/useIsActive'
+import { RoomDataProvider, useRoomData } from '../RoomDataProvider'
+import { MeshPortalMaterial } from './MeshPortalMaterial'
 
 function faceTowardsParentCenter(object: Object3D) {
   const parent = object.parent

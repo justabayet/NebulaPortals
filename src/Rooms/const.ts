@@ -1,10 +1,10 @@
-import { Color, Vector3 } from "three"
-import BarkBudget from "./BarkBudget"
-import DefaultContent, { RoomProps } from "./DefaultContent"
+import { Color, Vector3 } from 'three'
+import BarkBudget from './BarkBudget'
+import DefaultContent, { RoomProps } from './DefaultContent'
 
 const base = new Color()
-const red = new Color("red")
-const blue = new Color("blue")
+const red = new Color('red')
+const blue = new Color('blue')
 
 const rooms = [
   BarkBudget,

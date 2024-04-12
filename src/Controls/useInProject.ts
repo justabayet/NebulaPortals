@@ -1,8 +1,8 @@
-import { useThree } from "@react-three/fiber"
-import CameraControls from "camera-controls"
-import { useEffect } from "react"
-import { Scene, Vector3 } from "three"
-import useCurrentProject from "../hooks/useCurrentProject"
+import { useThree } from '@react-three/fiber'
+import CameraControls from 'camera-controls'
+import { useEffect } from 'react'
+import { Scene, Vector3 } from 'three'
+import useCurrentProject from '../hooks/useCurrentProject'
 
 const position = new Vector3(0, 0, 0)
 const focus = new Vector3(0, 0, 0)
@@ -17,7 +17,7 @@ function useInProject() {
     const room = scene.getObjectByName(projectName)
 
     if(room == null) {
-      console.warn("useInProject: no room detected for current project", { params: projectName })
+      console.warn('useInProject: no room detected for current project', { params: projectName })
       return
     }
     

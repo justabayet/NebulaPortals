@@ -1,11 +1,11 @@
-import { useThree } from "@react-three/fiber"
-import CameraControls from "camera-controls"
-import { useEffect } from "react"
-import { Scene } from "three"
-import { DEFAULT_POSITION } from "./useDefault"
-import { useScroll } from "@react-three/drei"
-import { rooms } from "../../Rooms/const"
-import usePreviousProject from "../../hooks/usePreviousProject"
+import { useThree } from '@react-three/fiber'
+import CameraControls from 'camera-controls'
+import { useEffect } from 'react'
+import { Scene } from 'three'
+import { DEFAULT_POSITION } from './useDefault'
+import { useScroll } from '@react-three/drei'
+import { rooms } from '../../Rooms/const'
+import usePreviousProject from '../../hooks/usePreviousProject'
 
 
 function useExitingProject() {
@@ -20,7 +20,7 @@ function useExitingProject() {
     const project = scene.getObjectByName(projectName)
 
     if(project == null) {
-      console.warn("isExitingProject: no project detected", { params: projectName })
+      console.warn('isExitingProject: no project detected', { params: projectName })
       return
     }
 

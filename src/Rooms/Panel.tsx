@@ -1,5 +1,5 @@
-import { MeshProps } from "@react-three/fiber"
-import { ColorRepresentation, FrontSide } from "three"
+import { MeshProps } from '@react-three/fiber'
+import { ColorRepresentation, FrontSide } from 'three'
 
 interface PanelProps extends MeshProps {
   width: number
@@ -7,7 +7,7 @@ interface PanelProps extends MeshProps {
   color?: ColorRepresentation
 }
 
-function Panel({ width, height, color = "red", ...props }: PanelProps): JSX.Element {
+function Panel({ width, height, color = 'red', ...props }: PanelProps): JSX.Element {
   return (
     <mesh {...props}>
       <planeGeometry args={[width, height]} />

@@ -1,8 +1,8 @@
-import { useCursor } from "@react-three/drei"
-import { forwardRef, useEffect, useState } from "react"
+import { useCursor } from '@react-three/drei'
+import { forwardRef, useEffect, useState } from 'react'
 
-import { MeshProps } from "@react-three/fiber"
-import { Mesh } from "three"
+import { MeshProps } from '@react-three/fiber'
+import { Mesh } from 'three'
 
 interface MeshHoverableProps extends MeshProps {
   enabled?: boolean

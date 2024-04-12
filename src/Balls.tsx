@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef } from "react"
-import { ColorRepresentation, InstancedMesh, Matrix4 } from "three"
+import { useLayoutEffect, useRef } from 'react'
+import { ColorRepresentation, InstancedMesh, Matrix4 } from 'three'
 
 const NB_FLOORS = 40
 const NB_CIRCLES = 3
@@ -28,7 +28,7 @@ interface BallsProps {
   color?: ColorRepresentation
 }
 
-function Balls({ color = "white" }: BallsProps): JSX.Element {
+function Balls({ color = 'white' }: BallsProps): JSX.Element {
   const ref = useRef<InstancedMesh>(null!)
 
   useLayoutEffect(() => {

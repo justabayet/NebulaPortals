@@ -1,7 +1,7 @@
-import { useEffect } from "react"
-import useIsTouch from "./useIsTouch"
-import CameraControls from "camera-controls"
-import { useThree } from "@react-three/fiber"
+import { useEffect } from 'react'
+import useIsTouch from './useIsTouch'
+import CameraControls from 'camera-controls'
+import { useThree } from '@react-three/fiber'
 
 
 function useToggleTouch(shouldBeInteractive: boolean) {

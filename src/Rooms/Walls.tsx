@@ -1,5 +1,5 @@
-import { ColorRepresentation, Euler } from "three"
-import Panel from "./Panel"
+import { ColorRepresentation, Euler } from 'three'
+import Panel from './Panel'
 
 interface WallsProps {
   color?: ColorRepresentation
@@ -14,7 +14,7 @@ const ROTATION = {
   BOT: new Euler(-Math.PI / 2, 0, 0)
 }
 
-function Walls({ color = "red" }: WallsProps): JSX.Element {
+function Walls({ color = 'red' }: WallsProps): JSX.Element {
   const SIZE = 12
   const MIDDLE = SIZE / 2
   return (
