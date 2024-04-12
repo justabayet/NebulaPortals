@@ -92,7 +92,7 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
       easing.damp(backgroundRef.current.position, 'y', isActive ? -2 : 0, 0.3, dt)
     }
     if (graphRef.current != null) {
-      easing.damp(graphRef.current.position, 'y', isActive ? 1 : 0.8, 0.3, dt)
+      easing.damp(graphRef.current.position, 'y', isActive ? 1 : 0.9, 0.3, dt)
     }
   })
 
@@ -100,7 +100,7 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
     <object3D {...props}>
       <Image src={logo_light} position={[0, 0, 0]} size={1.5} />
 
-      <object3D ref={graphRef} position={[0.1, 0.8, -0.5]} rotation={new Euler(Math.PI / 5, 0, -Math.PI / 10)}>
+      <object3D ref={graphRef} position={[0.2, 0.9, -0.3]} rotation={new Euler(Math.PI / 5, 0, -Math.PI / 10)}>
         <Image src={graph} size={1} />
       </object3D>
 
