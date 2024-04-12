@@ -26,7 +26,7 @@ function Walls({ color = 'red' }: WallsProps): JSX.Element {
         height={SIZE}
         color={color} />
       <Panel // Front
-        position={[0, 0, MIDDLE]}
+        position={[0, 0, MIDDLE + 3]}
         rotation={ROTATION.FRONT}
         width={SIZE}
         height={SIZE}
@@ -34,26 +34,26 @@ function Walls({ color = 'red' }: WallsProps): JSX.Element {
       <Panel // Left
         position={[-MIDDLE, 0, 0]}
         rotation={ROTATION.LEFT}
-        width={SIZE}
+        width={SIZE + 6}
         height={SIZE}
         color={color} />
       <Panel // Right
         position={[MIDDLE, 0, 0]}
         rotation={ROTATION.RIGHT}
-        width={SIZE}
+        width={SIZE + 6}
         height={SIZE}
         color={color} />
       <Panel // Floor
         position={[0, -MIDDLE, 0]}
         rotation={ROTATION.BOT}
         width={SIZE}
-        height={SIZE}
+        height={SIZE + 6}
         color={color} />
       <Panel // Ceiling
         position={[0, MIDDLE, 0]}
         rotation={ROTATION.TOP}
         width={SIZE}
-        height={SIZE}
+        height={SIZE + 6}
         color={color} />
     </>
   )

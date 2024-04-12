@@ -1,6 +1,6 @@
 import { PortalMaterialType } from '@react-three/drei'
 import { Vector3, Mesh, Object3D, FrontSide } from 'three'
-import { PropsWithChildren, ReactNode, useLayoutEffect, useRef } from 'react'
+import { PropsWithChildren, ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { useLocation } from 'wouter'
 
@@ -8,6 +8,11 @@ import MeshHoverable from '../MeshHoverable'
 import useIsActive from '../hooks/useIsActive'
 import { RoomDataProvider, useRoomData } from '../RoomDataProvider'
 import { MeshPortalMaterial } from './MeshPortalMaterial'
+import { useFrame } from '@react-three/fiber'
+import { easing } from 'maath'
+
+const DELAY_ENTERING = 100
+const DELAY_EXITING = 100
 
 function faceTowardsParentCenter(object: Object3D) {
   const parent = object.parent
@@ -46,6 +51,24 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
 
   const [, setLocation] = useLocation()
   const isActive = useIsActive()
+  const [isBlend, setIsBlend] = useState(isActive)
+
+  useFrame((_, dt) => {
+    if (portal.current == null) return
+    easing.damp(portal.current, 'blend', isBlend ? 1 : 0, 0.1, dt)
+  })
+
+  useEffect(() => {
+    if (isActive) {
+      setTimeout(() => {
+        setIsBlend(true)
+      }, DELAY_ENTERING)
+    } else {
+      setTimeout(() => {
+        setIsBlend(false)
+      }, DELAY_EXITING)
+    }
+  }, [isActive])
 
   return (
     <MeshHoverable position={position} ref={ref} name={name} enabled={!isActive}
@@ -58,7 +81,7 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
       userData={{ index: index }}>
       <planeGeometry args={[1, 2]} />
 
-      <MeshPortalMaterial blend={isActive ? 1 : 0} ref={portal} side={FrontSide} worldUnits={true} resolution={2}>
+      <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true} resolution={2}>
         {childrenAbsolute}
 
         <object3D ref={altCenter}>

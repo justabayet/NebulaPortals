@@ -21,8 +21,8 @@ function useInProject() {
       return
     }
     
-    room.localToWorld(position.set(0, 0, 2))
-    room.localToWorld(focus.set(0, 0, 1))
+    room.localToWorld(position.set(0, 0, -2))
+    room.localToWorld(focus.set(0, 0, -3))
     controls.setLookAt(...position.toArray(), ...focus.toArray(), true)
       
   }, [isInsideProject, scene, controls, projectName])

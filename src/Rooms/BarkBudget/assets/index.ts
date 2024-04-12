@@ -6,5 +6,6 @@ import record from './record.png'
 import tabs from './tabs.png'
 import button from './button.png'
 import google_button from './google_button.png'
+import logo_light from './logo_light.png'
 
-export { graph, home, login, logo, record, tabs, button, google_button }
+export { graph, home, login, logo, record, tabs, button, google_button, logo_light }
