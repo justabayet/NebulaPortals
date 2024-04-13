@@ -1,6 +1,6 @@
-import { Euler, FrontSide, Mesh, Object3D } from 'three'
+import { Euler, FrontSide, Mesh, Object3D, Vector3 } from 'three'
 import { Object3DProps, useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { RefObject, useMemo, useRef } from 'react'
 import { easing } from 'maath'
 
 import useIsActive from '../../hooks/useIsActive'
@@ -14,11 +14,41 @@ import GithubButton from '../GithubButton'
 
 import { button, description, google_button, graph, home, login, logo_light, record, tabs, white_background } from './assets'
 
+function useAnimatedRotation(ref: RefObject<Object3D>) {
+  const targetRotation = useMemo(() => new Vector3(), [])
+
+  useFrame((_, dt) => {
+    if (ref.current != null) {
+      easing.damp(ref.current.rotation, 'x', targetRotation.x, 0.1, dt)
+      easing.damp(ref.current.rotation, 'y', targetRotation.y, 0.1, dt)
+      easing.damp(ref.current.rotation, 'z', targetRotation.z, 0.1, dt)
+    }
+  })
+
+  return targetRotation
+}
+
 function Login(props: Object3DProps): JSX.Element {
+  const ref = useRef<Object3D>(null)
+
+  const targetRotation = useAnimatedRotation(ref)
+
   return (
     <object3D {...props}>
-      <Image src={login} size={1.1} />
-      <Image src={google_button} position={[0, -0.3, 0.2]} size={0.2} radius={0.4} />
+      <object3D ref={ref} >
+
+        <Image src={login} size={1.1} hoverable={true}
+          onPointerMove={(e) => {
+            if (e.uv == null) return
+            targetRotation.y = (e.uv.x - 0.5) * 0.3
+            targetRotation.x = -(e.uv.y - 0.5) * 0.2
+          }}
+          onPointerOut={() => {
+            targetRotation.y = 0
+            targetRotation.x = 0
+          }} />
+        <Image src={google_button} position={[0, -0.3, 0.2]} size={0.2} radius={0.4} />
+      </object3D>
     </object3D>
   )
 }
@@ -33,9 +63,22 @@ function DescriptionPanel(props: Object3DProps): JSX.Element {
 }
 
 function HomePage(props: Object3DProps): JSX.Element {
+  const ref = useRef<Object3D>(null)
+
+  const targetRotation = useAnimatedRotation(ref)
+
   return (
-    <object3D {...props}>
-      <Image src={home} position={[0, 0, 0]} hoverable={true} />
+    <object3D ref={ref} {...props}>
+      <Image src={home} position={[0, 0, 0]} hoverable={true}
+        onPointerMove={(e) => {
+          if (e.uv == null) return
+          targetRotation.y = (e.uv.x - 0.5) * 0.3
+          targetRotation.x = -(e.uv.y - 0.5) * 0.2
+        }}
+        onPointerOut={() => {
+          targetRotation.y = 0
+          targetRotation.x = 0
+        }} />
       <Image src={graph} position={[0, 0.57, 0.2]} size={0.85} />
 
       <Image src={record} position={[0, 0.2, 0.1]} size={0.9} radius={0.06} />

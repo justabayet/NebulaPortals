@@ -19,17 +19,7 @@ function Image({ src, size = 1, radius = 0.1, hoverable = false, side = DoubleSi
   geo.computeVertexNormals()
 
   return (
-    <MeshHoverable geometry={geo} enabled={hoverable}
-      onClick={() => {
-        if (!hoverable) return
-        // e.stopPropagation()
-        console.log('clicked')
-      }}
-      onPointerMove={() => {
-        if (!hoverable) return
-        // console.log('move', e)
-      }}
-      {...props}>
+    <MeshHoverable geometry={geo} enabled={hoverable} {...props}>
       <meshStandardMaterial map={texture} side={side} transparent />
     </MeshHoverable>
   )
