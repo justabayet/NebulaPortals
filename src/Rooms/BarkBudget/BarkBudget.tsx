@@ -10,15 +10,24 @@ import ExitPortal from '../ExitPortal'
 import { RoomProps } from '../DefaultContent'
 import Panel from '../Panel'
 import Image from '../Image'
-
-import { button, google_button, graph, home, login, logo_light, record, tabs } from './assets'
 import GithubButton from '../GithubButton'
+
+import { button, description, google_button, graph, home, login, logo_light, record, tabs, white_background } from './assets'
 
 function Login(props: Object3DProps): JSX.Element {
   return (
     <object3D {...props}>
-      <Image src={login} />
+      <Image src={login} size={1.1} />
       <Image src={google_button} position={[0, -0.3, 0.2]} size={0.2} radius={0.4} />
+    </object3D>
+  )
+}
+
+function DescriptionPanel(props: Object3DProps): JSX.Element {
+  return (
+    <object3D {...props}>
+      <Image src={description} position={[0, 0, 0.1]} radius={0.05} />
+      <Image src={white_background} position={[0, 0, -0.1]} size={1.1} />
     </object3D>
   )
 }
@@ -102,8 +111,11 @@ function BarkBudget_(): JSX.Element {
 
       <object3D ref={panelRef} position={[0, 0, 0]}>
         <Login position={[-1, 0, -0.4]} rotation={new Euler(0, Math.PI / 3, 0)} />
+
         <HomePage position={[0, 0, -1.1]} />
         <GithubButton url={GITHUB} position={[0, -1.2, -0.9]} scale={1.6} rotation={new Euler(-Math.PI / 3, 0, 0)} />
+
+        <DescriptionPanel position={[1, 0, -0.4]} rotation={new Euler(0, -Math.PI / 3, 0)} />
       </object3D>
 
       <Walls color={COLOR} />
