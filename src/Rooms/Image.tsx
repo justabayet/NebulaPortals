@@ -9,9 +9,10 @@ interface ImageProps extends MeshProps {
   radius?: number
   hoverable?: boolean
   side?: Side
+  isBasicMaterial?: boolean
 }
 
-function Image({ src, size = 1, radius = 0.1, hoverable = false, side = DoubleSide, ...props }: ImageProps): JSX.Element {
+function Image({ src, size = 1, radius = 0.1, hoverable = false, side = DoubleSide, isBasicMaterial = false, ...props }: ImageProps): JSX.Element {
   const texture = useLoader(TextureLoader, src)
   const ratio = texture.source.data.height / texture.source.data.width
 
@@ -20,7 +21,11 @@ function Image({ src, size = 1, radius = 0.1, hoverable = false, side = DoubleSi
 
   return (
     <MeshHoverable geometry={geo} enabled={hoverable} {...props}>
-      <meshStandardMaterial map={texture} side={side} transparent />
+      {isBasicMaterial ?
+        <meshBasicMaterial map={texture} side={side} transparent />
+        :
+        <meshStandardMaterial map={texture} side={side} transparent />
+      }
     </MeshHoverable>
   )
 }
