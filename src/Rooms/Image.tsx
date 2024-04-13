@@ -3,7 +3,7 @@ import { geometry } from 'maath'
 import { TextureLoader, DoubleSide, Side } from 'three'
 import MeshHoverable from '../MeshHoverable'
 
-interface ImageProps extends MeshProps {
+export interface ImageProps extends MeshProps {
   src: string
   size?: number
   radius?: number

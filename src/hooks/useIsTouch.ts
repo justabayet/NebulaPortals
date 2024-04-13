@@ -1,7 +1,11 @@
+import { useThree } from '@react-three/fiber'
 import { useState, useEffect } from 'react'
 
-function useIsTouch(htmlElement: HTMLElement | null) {
+function useIsTouch() {
   const [isTouch, setIsTouch] = useState(false)
+
+  const { events } = useThree()
+  const htmlElement: HTMLElement | null = events.connected
 
   useEffect(() => {
     if(htmlElement == null) return

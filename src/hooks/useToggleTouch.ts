@@ -10,7 +10,7 @@ function useToggleTouch(shouldBeInteractive: boolean) {
   const { events } = useThree()
   const interactiveArea: HTMLElement | null = events.connected
   
-  const isTouchDevice = useIsTouch(interactiveArea)
+  const isTouchDevice = useIsTouch()
 
   useEffect(() => {
     if (controls == null || interactiveArea == null) return

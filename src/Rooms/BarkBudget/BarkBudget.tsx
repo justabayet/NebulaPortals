@@ -1,6 +1,6 @@
-import { Euler, FrontSide, Mesh, Object3D, Vector3 } from 'three'
+import { Euler, FrontSide, Mesh, Object3D, Vector2, Vector3 } from 'three'
 import { Object3DProps, useFrame } from '@react-three/fiber'
-import { RefObject, useMemo, useRef } from 'react'
+import { RefObject, useCallback, useMemo, useRef } from 'react'
 import { easing } from 'maath'
 
 import useIsActive from '../../hooks/useIsActive'
@@ -8,10 +8,11 @@ import Walls from '../Walls'
 import Door from '../Door'
 import ExitPortal from '../ExitPortal'
 import { RoomProps } from '../DefaultContent'
-import Image from '../Image'
+import Image, { ImageProps } from '../Image'
 import GithubButton from '../GithubButton'
 
 import { button, description, google_button, graph, home, login, logo_dark, logo_light, record, tabs, white_background } from './assets'
+import useIsTouch from '../../hooks/useIsTouch'
 
 function useAnimatedRotation(ref: RefObject<Object3D>) {
   const targetRotation = useMemo(() => new Vector3(), [])
@@ -27,25 +28,47 @@ function useAnimatedRotation(ref: RefObject<Object3D>) {
   return targetRotation
 }
 
+interface TiltableImageProps extends ImageProps {
+  refToTilt: RefObject<Object3D>
+}
+
+function TiltableImage({ refToTilt, ...props }: TiltableImageProps): JSX.Element {
+  const targetRotation = useAnimatedRotation(refToTilt)
+
+  const rotateTowards = useCallback((uv: Vector2) => {
+    targetRotation.y = (uv.x - 0.5) * 0.3
+    targetRotation.x = -(uv.y - 0.5) * 0.2
+  }, [targetRotation])
+
+  const resetRotation = useCallback(() => {
+    targetRotation.y = 0
+    targetRotation.x = 0
+  }, [targetRotation])
+
+  const isTouch = useIsTouch()
+  if (isTouch) resetRotation()
+
+  return (
+    <Image hoverable={true}
+      onPointerMove={(e) => {
+        if (e.uv == null || isTouch) return
+        rotateTowards(e.uv)
+      }}
+      onPointerOut={() => {
+        resetRotation()
+      }}
+      {...props} />
+  )
+}
+
 function Login(props: Object3DProps): JSX.Element {
   const ref = useRef<Object3D>(null)
-
-  const targetRotation = useAnimatedRotation(ref)
 
   return (
     <object3D {...props}>
       <object3D ref={ref} >
+        <TiltableImage src={login} size={1.1} refToTilt={ref} />
 
-        <Image src={login} size={1.1} hoverable={true}
-          onPointerMove={(e) => {
-            if (e.uv == null) return
-            targetRotation.y = (e.uv.x - 0.5) * 0.3
-            targetRotation.x = -(e.uv.y - 0.5) * 0.2
-          }}
-          onPointerOut={() => {
-            targetRotation.y = 0
-            targetRotation.x = 0
-          }} />
         <Image src={google_button} position={[0, -0.3, 0.2]} size={0.2} radius={0.4} />
       </object3D>
     </object3D>
@@ -64,20 +87,10 @@ function DescriptionPanel(props: Object3DProps): JSX.Element {
 function HomePage(props: Object3DProps): JSX.Element {
   const ref = useRef<Object3D>(null)
 
-  const targetRotation = useAnimatedRotation(ref)
-
   return (
     <object3D ref={ref} {...props}>
-      <Image src={home} position={[0, 0, 0]} hoverable={true}
-        onPointerMove={(e) => {
-          if (e.uv == null) return
-          targetRotation.y = (e.uv.x - 0.5) * 0.3
-          targetRotation.x = -(e.uv.y - 0.5) * 0.2
-        }}
-        onPointerOut={() => {
-          targetRotation.y = 0
-          targetRotation.x = 0
-        }} />
+      <TiltableImage src={home} position={[0, 0, 0]} refToTilt={ref} />
+
       <Image src={graph} position={[0, 0.57, 0.2]} size={0.85} />
 
       <Image src={record} position={[0, 0.2, 0.1]} size={0.9} radius={0.06} />
