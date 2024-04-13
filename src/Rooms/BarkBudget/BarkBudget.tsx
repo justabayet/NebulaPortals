@@ -59,7 +59,7 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
   const graphRef = useRef<Object3D>(null)
   useFrame((_, dt) => {
     if (backgroundRef.current != null) {
-      easing.damp(backgroundRef.current.position, 'y', isActive ? -8 : 0, 0.5, dt)
+      easing.damp(backgroundRef.current.position, 'y', isActive ? -8 : 0, 0.4, dt)
     }
     if (graphRef.current != null) {
       easing.damp(graphRef.current.position, 'y', isActive ? 2.5 : 0.9, 0.3, dt)
@@ -82,7 +82,7 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
         ref={backgroundRef}
         position={[0, 0, -1]}
         width={10}
-        height={10}
+        height={8}
         color={color} />
     </object3D>
   )
