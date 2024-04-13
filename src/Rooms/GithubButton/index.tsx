@@ -10,7 +10,8 @@ function GithubButton({ url, ...props }: GithubButtonProps): JSX.Element {
   return (
     <object3D {...props}>
       <Image src={githubImage} radius={0.49} size={0.2} hoverable onClick={() => {
-        window.open(url, '_blank')
+        if (window.confirm('Open the Github repo in a new tab?'))
+          window.open(url, '_blank')
       }} />
     </object3D>
   )
