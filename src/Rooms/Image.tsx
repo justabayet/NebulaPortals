@@ -1,6 +1,6 @@
 import { MeshProps, useLoader } from '@react-three/fiber'
 import { geometry } from 'maath'
-import { TextureLoader, DoubleSide } from 'three'
+import { TextureLoader, DoubleSide, Side } from 'three'
 import MeshHoverable from '../MeshHoverable'
 
 interface ImageProps extends MeshProps {
@@ -8,9 +8,10 @@ interface ImageProps extends MeshProps {
   size?: number
   radius?: number
   hoverable?: boolean
+  side?: Side
 }
 
-function Image({ src, size = 1, radius = 0.1, hoverable = false, ...props }: ImageProps): JSX.Element {
+function Image({ src, size = 1, radius = 0.1, hoverable = false, side = DoubleSide, ...props }: ImageProps): JSX.Element {
   const texture = useLoader(TextureLoader, src)
   const ratio = texture.source.data.height / texture.source.data.width
 
@@ -29,7 +30,7 @@ function Image({ src, size = 1, radius = 0.1, hoverable = false, ...props }: Ima
         // console.log('move', e)
       }}
       {...props}>
-      <meshStandardMaterial map={texture} side={DoubleSide} transparent />
+      <meshStandardMaterial map={texture} side={side} transparent />
     </MeshHoverable>
   )
 }

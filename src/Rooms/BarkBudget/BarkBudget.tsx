@@ -1,4 +1,4 @@
-import { Euler, Mesh, Object3D } from 'three'
+import { Euler, FrontSide, Mesh, Object3D } from 'three'
 import { Object3DProps, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { easing } from 'maath'
@@ -71,7 +71,7 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
       <Image src={logo_light} position={[0, 0, 0]} size={1.5} />
 
       <object3D ref={graphRef} position={[0.2, 0.9, -0.3]} rotation={new Euler(Math.PI / 5, 0, -Math.PI / 10)}>
-        <Image src={graph} size={1} />
+        <Image src={graph} size={1} side={FrontSide} />
       </object3D>
 
       <pointLight
