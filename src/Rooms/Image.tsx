@@ -20,12 +20,12 @@ function Image({ src, size = 1, radius = 0.1, hoverable = false, side = DoubleSi
 
   return (
     <MeshHoverable geometry={geo} enabled={hoverable}
-      onClick={(e) => {
+      onClick={() => {
         if (!hoverable) return
         // e.stopPropagation()
         console.log('clicked')
       }}
-      onPointerMove={(e) => {
+      onPointerMove={() => {
         if (!hoverable) return
         // console.log('move', e)
       }}
