@@ -1,57 +1,18 @@
-import { DoubleSide, Euler, Mesh, Object3D, TextureLoader } from 'three'
-import { MeshProps, Object3DProps, useLoader, extend, useFrame } from '@react-three/fiber'
+import { Euler, Mesh, Object3D } from 'three'
+import { Object3DProps, useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
-import { easing, geometry } from 'maath'
+import { easing } from 'maath'
 
-import MeshHoverable from '../../MeshHoverable'
 import useIsActive from '../../hooks/useIsActive'
 import Walls from '../Walls'
 import Door from '../Door'
 import ExitPortal from '../ExitPortal'
 import { RoomProps } from '../DefaultContent'
 import Panel from '../Panel'
+import Image from '../Image'
 
 import { button, google_button, graph, home, login, logo_light, record, tabs } from './assets'
-
-extend({ RoundedPlaneGeometry: geometry.RoundedPlaneGeometry })
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      roundedPlaneGeometry: geometry.RoundedPlaneGeometry
-    }
-  }
-}
-
-interface ImageProps extends MeshProps {
-  src: string
-  size?: number
-  radius?: number
-  hoverable?: boolean
-}
-
-export function Image({ src, size = 1, radius = 0.1, hoverable = false, ...props }: ImageProps): JSX.Element {
-  const texture = useLoader(TextureLoader, src)
-  const ratio = texture.source.data.height / texture.source.data.width
-
-  const geo = new geometry.RoundedPlaneGeometry(size, size * ratio, size * radius)
-  geo.computeVertexNormals()
-
-  return (
-    <MeshHoverable {...props} geometry={geo} enabled={hoverable}
-      onClick={(e) => {
-        if (!hoverable) return
-        e.stopPropagation()
-        // console.log('Home clicked')
-      }}
-      onPointerMove={(e) => {
-        if (!hoverable) return
-        // console.log('move', e)
-      }}>
-      <meshStandardMaterial map={texture} side={DoubleSide} transparent />
-    </MeshHoverable>
-  )
-}
+import GithubButton from '../GithubButton'
 
 function Login(props: Object3DProps): JSX.Element {
   return (
@@ -89,10 +50,10 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
   const graphRef = useRef<Object3D>(null)
   useFrame((_, dt) => {
     if (backgroundRef.current != null) {
-      easing.damp(backgroundRef.current.position, 'y', isActive ? -2 : 0, 0.3, dt)
+      easing.damp(backgroundRef.current.position, 'y', isActive ? -3 : 0, 0.3, dt)
     }
     if (graphRef.current != null) {
-      easing.damp(graphRef.current.position, 'y', isActive ? 1.5 : 0.9, 0.3, dt)
+      easing.damp(graphRef.current.position, 'y', isActive ? 2.5 : 0.9, 0.3, dt)
     }
   })
 
@@ -111,16 +72,16 @@ function Intro({ color, ...props }: IntroProps): JSX.Element {
       <Panel
         ref={backgroundRef}
         position={[0, 0, -1]}
-        width={1.5}
+        width={10}
         height={1.5}
-        color={color}
-        side={DoubleSide} />
+        color={color} />
     </object3D>
   )
 }
 
 function BarkBudget_(): JSX.Element {
   const COLOR = 'white'
+  const GITHUB = 'https://github.com/justabayet/BarkBudget'
 
   const isActive = useIsActive()
 
@@ -142,6 +103,7 @@ function BarkBudget_(): JSX.Element {
       <object3D ref={panelRef} position={[0, 0, 0]}>
         <Login position={[-1, 0, -0.4]} rotation={new Euler(0, Math.PI / 3, 0)} />
         <HomePage position={[0, 0, -1.1]} />
+        <GithubButton url={GITHUB} position={[0, -1.2, -0.9]} scale={1.6} rotation={new Euler(-Math.PI / 3, 0, 0)} />
       </object3D>
 
       <Walls color={COLOR} />
