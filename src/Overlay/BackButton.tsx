@@ -1,5 +1,6 @@
 import { useLocation } from 'wouter'
 import useCurrentProject from '../hooks/useCurrentProject'
+import './BackButton.css'
 
 function BackButton(): JSX.Element | undefined {
   const { hasCurrent, project } = useCurrentProject()
@@ -8,16 +9,7 @@ function BackButton(): JSX.Element | undefined {
   if (!hasCurrent) return
 
   return (
-    <div style={{
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      padding: '2vh',
-      color: 'white',
-      opacity: 0.8,
-      zIndex: 1,
-      cursor: 'pointer'
-    }} onClick={(e) => (e.stopPropagation(), setLocation('previous/' + project))}>
+    <div className='button' onClick={(e) => (e.stopPropagation(), setLocation('previous/' + project))}>
       {'<- Back'}
     </div>
   )
