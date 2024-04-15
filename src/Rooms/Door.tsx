@@ -83,7 +83,7 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
       userData={{ index: index }}>
       <planeGeometry args={[1, 2]} />
 
-      <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true} resolution={2}>
+      <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true}>
         {childrenAbsolute}
 
         <object3D ref={altCenter}>
