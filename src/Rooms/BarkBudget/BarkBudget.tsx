@@ -13,6 +13,7 @@ import GithubButton from '../GithubButton'
 
 import { button, description, google_button, graph, home, login, logo_dark, logo_light, record, tabs, white_background } from './assets'
 import useIsTouch from '../../hooks/useIsTouch'
+import { useRoomData } from '../../RoomDataProvider'
 
 function useAnimatedRotation(ref: RefObject<Object3D>) {
   const targetRotation = useMemo(() => new Vector3(), [])
@@ -150,6 +151,8 @@ function BarkBudget_(): JSX.Element {
 
   const isActive = useIsActive()
 
+  const { isDisplayed } = useRoomData()
+
   const panelRef = useRef<Object3D>(null)
   useFrame((_, dt) => {
     if (panelRef.current == null) return
@@ -176,7 +179,7 @@ function BarkBudget_(): JSX.Element {
 
       <Walls color={COLOR} />
 
-      {isActive && <ExitPortal position={[0, 0, 8.9]} />}
+      {isDisplayed && <ExitPortal position={[0, 0, 8.9]} />}
     </object3D>
   )
 }

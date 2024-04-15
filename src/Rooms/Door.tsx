@@ -36,7 +36,7 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
   const ref = useRef<Mesh>(null)
   const altCenter = useRef<Object3D>(null)
   const portal = useRef<PortalMaterialType>(null)
-  const { name } = useRoomData()
+  const { name, setIsDisplayed } = useRoomData()
 
 
   useLayoutEffect(() => {
@@ -56,6 +56,8 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
   useFrame((_, dt) => {
     if (portal.current == null) return
     easing.damp(portal.current, 'blend', isBlend ? 1 : 0, 0.1, dt)
+
+    setIsDisplayed(portal.current.blend > 0)
   })
 
   useEffect(() => {

@@ -4,8 +4,8 @@ import { ColorRepresentation } from 'three'
 import Walls from './Walls'
 import ExitPortal from './ExitPortal'
 import Panel from './Panel'
-import useIsActive from '../hooks/useIsActive'
 import Door from './Door'
+import { useRoomData } from '../RoomDataProvider'
 
 export interface RoomProps {
   position: [number, number, number]
@@ -17,7 +17,7 @@ interface DefaultContentProps {
 }
 
 function DefaultContent_({ color = 'red' }: DefaultContentProps): JSX.Element {
-  const isActive = useIsActive()
+  const { isDisplayed } = useRoomData()
 
   return (
     <>
@@ -36,7 +36,7 @@ function DefaultContent_({ color = 'red' }: DefaultContentProps): JSX.Element {
         height={0.5}
         color={color} />
 
-      {isActive && <ExitPortal position={[0, 0, 5.9]} />}
+      {isDisplayed && <ExitPortal position={[0, 0, 5.9]} />}
     </>
   )
 }
