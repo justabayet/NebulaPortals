@@ -8,7 +8,7 @@ import { Y_AXIS } from './const'
 function App() {
   return (
     <div id="canvas-container">
-      <Canvas camera={{ position: CAMERA_DEFAULT_POSITION }} shadows >
+      <Canvas camera={{ position: CAMERA_DEFAULT_POSITION }} >
         <Balls />
 
         {rooms.map((Room, index) => {
