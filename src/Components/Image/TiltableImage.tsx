@@ -2,16 +2,14 @@ import { RefObject, useCallback } from 'react'
 import { Object3D, Vector2 } from 'three'
 import { useAnimatedRotation, useIsTouch } from '../../hooks'
 import MeshHoverable from '../MeshHoverable'
-import BaseImage, { BaseImageProps } from './BaseImage'
+import BaseImage, { BaseImageProps, getBaseImageProps } from './BaseImage'
 import { MeshProps } from '@react-three/fiber'
 
-interface TiltableImageProps extends BaseImageProps, MeshProps {
+interface TiltableImageProps extends MeshProps {
   refToTilt: RefObject<Object3D>
 }
 
-function TiltableImage({ refToTilt, src, size, radius, side, isBasicMaterial, ...props }: TiltableImageProps): JSX.Element {
-  const baseImageProps: BaseImageProps = { src, size, radius, side, isBasicMaterial }
-
+function TiltableImage({ refToTilt, baseImageProps, ...props }: TiltableImageProps & { baseImageProps: BaseImageProps }): JSX.Element {
   const targetRotation = useAnimatedRotation(refToTilt)
 
   const rotateTowards = useCallback((uv: Vector2) => {
@@ -42,4 +40,14 @@ function TiltableImage({ refToTilt, src, size, radius, side, isBasicMaterial, ..
   )
 }
 
-export default TiltableImage
+type WrappedTiltableImageProps = BaseImageProps & TiltableImageProps
+
+const WrappedTiltableImage = (props: WrappedTiltableImageProps) => {
+  const { remainingProps, ...baseImageProps } = getBaseImageProps<TiltableImageProps>(props)
+
+  return (
+    <TiltableImage baseImageProps={baseImageProps} {...remainingProps} />
+  )
+}
+
+export default WrappedTiltableImage

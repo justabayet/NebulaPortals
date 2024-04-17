@@ -19,6 +19,10 @@ declare module '@react-three/fiber' {
   }
 }
 
+export function getBaseImageProps<T>({ src, size, radius, side, isBasicMaterial, ...remainingProps }: BaseImageProps & T) {
+  return { src, size, radius, side, isBasicMaterial, remainingProps }
+}
+
 function BaseImage({ src, size = 1, radius = 0.1, side = DoubleSide, isBasicMaterial = false }: BaseImageProps): JSX.Element {
   const texture = useLoader(TextureLoader, src)
   const ratio = texture.source.data.height / texture.source.data.width

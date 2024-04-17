@@ -1,14 +1,12 @@
 import { MeshProps } from '@react-three/fiber'
 import MeshHoverable from '../MeshHoverable'
-import BaseImage, { BaseImageProps } from './BaseImage'
+import BaseImage, { BaseImageProps, getBaseImageProps } from './BaseImage'
 
-export interface ImageProps extends BaseImageProps, MeshProps {
+export interface HoverableImageProps extends MeshProps {
   hoverable?: boolean
 }
 
-function HoverableImage({ hoverable = false, src, size, radius, side, isBasicMaterial, ...props }: ImageProps): JSX.Element {
-  const baseImageProps: BaseImageProps = { src, size, radius, side, isBasicMaterial }
-
+function HoverableImage({ hoverable = false, baseImageProps, ...props }: HoverableImageProps & { baseImageProps: BaseImageProps }): JSX.Element {
   return (
     <MeshHoverable enabledCursor={hoverable} {...props}>
       <BaseImage {...baseImageProps} />
@@ -16,4 +14,14 @@ function HoverableImage({ hoverable = false, src, size, radius, side, isBasicMat
   )
 }
 
-export default HoverableImage
+type WrappedHoverableImageProps = BaseImageProps & HoverableImageProps
+
+const WrappedHoverableImage = (props: WrappedHoverableImageProps) => {
+  const { remainingProps, ...baseImageProps } = getBaseImageProps<HoverableImageProps>(props)
+
+  return (
+    <HoverableImage baseImageProps={baseImageProps} {...remainingProps} />
+  )
+}
+
+export default WrappedHoverableImage
