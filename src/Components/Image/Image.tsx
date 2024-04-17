@@ -1,24 +1,15 @@
 import { MeshProps } from '@react-three/fiber'
-import BaseImage, { BaseImageProps, getBaseImageProps } from './BaseImage'
+import { WithBaseImage, withBaseImage } from './BaseImage'
 
-interface ImageProps extends MeshProps { }
+interface ImageProps extends MeshProps, WithBaseImage { }
 
-function Image({ baseImageProps, ...props }: ImageProps & { baseImageProps: BaseImageProps }): JSX.Element {
+function Image({ baseImage, ...props }: ImageProps): JSX.Element {
   return (
     <mesh {...props}>
-      <BaseImage {...baseImageProps} />
+      {baseImage}
     </mesh>
   )
 }
 
-type WrappedImageProps = BaseImageProps & ImageProps
-
-const WrappedImage = (props: WrappedImageProps) => {
-  const { remainingProps, ...baseImageProps } = getBaseImageProps<ImageProps>(props)
-
-  return (
-    <Image baseImageProps={baseImageProps} {...remainingProps} />
-  )
-}
-
+const WrappedImage = withBaseImage<ImageProps>(Image)
 export default WrappedImage

@@ -1,9 +1,10 @@
 import { extend, useLoader, BufferGeometryNode } from '@react-three/fiber'
 import { geometry } from 'maath'
+import { ComponentType, ReactElement } from 'react'
 import { TextureLoader, DoubleSide, Side } from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/Addons.js'
 
-export interface BaseImageProps {
+interface BaseImageProps {
   src: string
   size?: number
   radius?: number
@@ -17,10 +18,6 @@ declare module '@react-three/fiber' {
   interface ThreeElements {
     roundedPlaneGeometry: BufferGeometryNode<RoundedBoxGeometry, typeof RoundedBoxGeometry>
   }
-}
-
-export function getBaseImageProps<T>({ src, size, radius, side, isBasicMaterial, ...remainingProps }: BaseImageProps & T) {
-  return { src, size, radius, side, isBasicMaterial, remainingProps }
 }
 
 function BaseImage({ src, size = 1, radius = 0.1, side = DoubleSide, isBasicMaterial = false }: BaseImageProps): JSX.Element {
@@ -40,3 +37,23 @@ function BaseImage({ src, size = 1, radius = 0.1, side = DoubleSide, isBasicMate
 }
 
 export default BaseImage
+
+export interface WithBaseImage {
+  baseImage: ReactElement<BaseImageProps>
+}
+
+export function withBaseImage<T extends WithBaseImage, ImplImageType = Omit<T, keyof BaseImageProps>>(
+  ImageImpl: ComponentType<ImplImageType>
+) {
+  type PropsType = Omit<BaseImageProps & ImplImageType, keyof WithBaseImage>
+
+  return ({ src, size, radius, side, isBasicMaterial, ...props }: PropsType) => {
+    const baseImageProps = { src, size, radius, side, isBasicMaterial }
+
+    return (
+      <ImageImpl
+        {...(props as ImplImageType)}
+        baseImage={<BaseImage {...baseImageProps} />} />
+    )
+  }
+}
