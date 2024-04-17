@@ -1,5 +1,5 @@
 import { Object3DProps } from '@react-three/fiber'
-import Image from '../Image'
+import { HoverableImage } from '../Image'
 import githubImage from './github.png'
 
 interface GithubButtonProps extends Object3DProps {
@@ -9,7 +9,7 @@ interface GithubButtonProps extends Object3DProps {
 function GithubButton({ url, ...props }: GithubButtonProps): JSX.Element {
   return (
     <object3D {...props}>
-      <Image src={githubImage} radius={0.49} size={0.2} hoverable onClick={() => {
+      <HoverableImage src={githubImage} radius={0.49} size={0.2} onClick={() => {
         if (window.confirm('Open the Github repo in a new tab?'))
           window.open(url, '_blank')
       }} />

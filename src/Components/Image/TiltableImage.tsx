@@ -1,13 +1,17 @@
 import { RefObject, useCallback } from 'react'
 import { Object3D, Vector2 } from 'three'
 import { useAnimatedRotation, useIsTouch } from '../../hooks'
-import Image, { ImageProps } from './Image'
+import MeshHoverable from '../MeshHoverable'
+import BaseImage, { BaseImageProps } from './BaseImage'
+import { MeshProps } from '@react-three/fiber'
 
-interface TiltableImageProps extends ImageProps {
+interface TiltableImageProps extends BaseImageProps, MeshProps {
   refToTilt: RefObject<Object3D>
 }
 
-function TiltableImage({ refToTilt, ...props }: TiltableImageProps): JSX.Element {
+function TiltableImage({ refToTilt, src, size, radius, side, isBasicMaterial, ...props }: TiltableImageProps): JSX.Element {
+  const baseImageProps: BaseImageProps = { src, size, radius, side, isBasicMaterial }
+
   const targetRotation = useAnimatedRotation(refToTilt)
 
   const rotateTowards = useCallback((uv: Vector2) => {
@@ -24,15 +28,17 @@ function TiltableImage({ refToTilt, ...props }: TiltableImageProps): JSX.Element
   if (isTouch) resetRotation()
 
   return (
-    <Image hoverable={true}
+    <MeshHoverable {...props}
       onPointerMove={(e) => {
         if (e.uv == null || isTouch) return
         rotateTowards(e.uv)
       }}
+
       onPointerOut={() => {
         resetRotation()
-      }}
-      {...props} />
+      }}>
+      <BaseImage {...baseImageProps} />
+    </MeshHoverable>
   )
 }
 
