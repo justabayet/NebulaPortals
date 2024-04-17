@@ -1,7 +1,8 @@
-import { MeshProps, useLoader } from '@react-three/fiber'
+import { MeshProps, extend, useLoader, BufferGeometryNode } from '@react-three/fiber'
 import { geometry } from 'maath'
 import { TextureLoader, DoubleSide, Side } from 'three'
 import MeshHoverable from '../MeshHoverable'
+import { RoundedBoxGeometry } from 'three/examples/jsm/Addons.js'
 
 export interface ImageProps extends MeshProps {
   src: string
@@ -12,19 +13,26 @@ export interface ImageProps extends MeshProps {
   isBasicMaterial?: boolean
 }
 
+extend({ RoundedPlaneGeometry: geometry.RoundedPlaneGeometry })
+
+declare module '@react-three/fiber' {
+  interface ThreeElements {
+    roundedPlaneGeometry: BufferGeometryNode<RoundedBoxGeometry, typeof RoundedBoxGeometry>
+  }
+}
+
+
 function Image({ src, size = 1, radius = 0.1, hoverable = false, side = DoubleSide, isBasicMaterial = false, ...props }: ImageProps): JSX.Element {
   const texture = useLoader(TextureLoader, src)
   const ratio = texture.source.data.height / texture.source.data.width
 
-  const geo = new geometry.RoundedPlaneGeometry(size, size * ratio, size * radius)
-  geo.computeVertexNormals()
-
   return (
-    <MeshHoverable geometry={geo} enabledCursor={hoverable} {...props}>
-      {isBasicMaterial ?
-        <meshBasicMaterial map={texture} side={side} transparent />
-        :
-        <meshStandardMaterial map={texture} side={side} transparent />
+    <MeshHoverable enabledCursor={hoverable} {...props}>
+      <roundedPlaneGeometry args={[size, size * ratio, size * radius]} onUpdate={self => self.computeVertexNormals()} />
+
+      {isBasicMaterial
+        ? <meshBasicMaterial map={texture} side={side} transparent />
+        : <meshStandardMaterial map={texture} side={side} transparent />
       }
     </MeshHoverable>
   )

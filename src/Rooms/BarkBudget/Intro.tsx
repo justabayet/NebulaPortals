@@ -1,7 +1,7 @@
 import { Object3DProps, useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import { useRef } from 'react'
-import { Mesh, Object3D, Euler, FrontSide, ColorRepresentation } from 'three'
+import { Mesh, Object3D, FrontSide, ColorRepresentation } from 'three'
 import { useIsActive } from '../../hooks'
 import { logo_dark, logo_light, graph } from './assets'
 import { Image } from '../../Components'
@@ -33,7 +33,7 @@ function Intro({ ...props }: IntroProps): JSX.Element {
       <Image src={logo_dark} position={[0, 0, 0]} size={1.5} isBasicMaterial />
       <Image src={logo_light} position={[0, 0, -0.001]} size={1.5} isBasicMaterial />
 
-      <object3D ref={graphRef} position={[0.2, 0.9, -0.3]} rotation={new Euler(Math.PI / 5, 0, -Math.PI / 10)}>
+      <object3D ref={graphRef} position={[0.2, 0.9, -0.3]} rotation={[Math.PI / 5, 0, -Math.PI / 10]}>
         <Image src={graph} size={1.3} side={FrontSide} isBasicMaterial />
       </object3D>
 

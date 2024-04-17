@@ -1,4 +1,4 @@
-import { ColorRepresentation, Euler, Object3D } from 'three'
+import { ColorRepresentation, Object3D } from 'three'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { easing } from 'maath'
@@ -21,12 +21,6 @@ const COLOR: ColorRepresentation = 'white'
 const FALLBACK_COLOR: ColorRepresentation = 'grey'
 const GITHUB = 'https://github.com/justabayet/BarkBudget'
 
-const ROTATION = {
-  LOGIN: new Euler(0, Math.PI / 3, 0),
-  GITHUB_BUTTON: new Euler(-Math.PI / 3, 0, 0),
-  DESCRIPTION: new Euler(0, -Math.PI / 3, 0)
-}
-
 function BarkBudget(): JSX.Element {
   const isActive = useIsActive()
 
@@ -48,12 +42,12 @@ function BarkBudget(): JSX.Element {
       <Intro color={COLOR} position={[0, 0, 2.5]} />
 
       <object3D ref={panelGroupRef} position={[0, 0, 0]}>
-        <Login position={[-1, 0, -0.4]} rotation={ROTATION.LOGIN} />
+        <Login position={[-1, 0, -0.4]} rotation={[0, Math.PI / 3, 0]} />
 
         <HomePage position={[0, 0, -1.1]} />
-        <GithubButton url={GITHUB} position={[0, -1.2, -0.9]} scale={1.6} rotation={ROTATION.GITHUB_BUTTON} />
+        <GithubButton url={GITHUB} position={[0, -1.2, -0.9]} scale={1.6} rotation={[-Math.PI / 3, 0, 0]} />
 
-        <DescriptionPanel position={[1, 0, -0.4]} rotation={ROTATION.DESCRIPTION} />
+        <DescriptionPanel position={[1, 0, -0.4]} rotation={[0, -Math.PI / 3, 0]} />
       </object3D>
 
       <Walls color={COLOR} />
