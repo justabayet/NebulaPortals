@@ -1,5 +1,5 @@
 import { ColorRepresentation, Euler } from 'three'
-import Panel from './Panel'
+import { Panel } from '../Components'
 
 interface WallsProps {
   color?: ColorRepresentation

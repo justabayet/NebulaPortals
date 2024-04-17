@@ -7,10 +7,8 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import Overlay from './Overlay'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Router hook={useHashLocation}>
-      <Overlay />
-      <App />
-    </Router>
-  </React.StrictMode>,
+  <Router hook={useHashLocation}>
+    <Overlay />
+    <App />
+  </Router>,
 )

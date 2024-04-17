@@ -1,6 +1,7 @@
 import { Color, Vector3 } from 'three'
 import BarkBudget from './BarkBudget'
-import DefaultContent, { RoomProps } from './DefaultContent'
+import DefaultRoom from './DefaultRoom'
+import { RoomProps } from './interface'
 
 const base = new Color()
 const red = new Color('red')
@@ -13,7 +14,7 @@ const rooms = [
 const NB_EXTRA_ROOMS = 10
 
 for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
-  const Room = (props: RoomProps) => DefaultContent({
+  const Room = (props: RoomProps) => DefaultRoom({
     ...props,
     name: `${i}`, 
     color: base.lerpColors(red, blue, i / NB_EXTRA_ROOMS)

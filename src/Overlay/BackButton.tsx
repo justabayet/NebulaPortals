@@ -1,5 +1,5 @@
 import { useLocation } from 'wouter'
-import useCurrentProject from '../hooks/useCurrentProject'
+import { useCurrentProject } from '../hooks'
 import './BackButton.css'
 
 function BackButton(): JSX.Element | undefined {

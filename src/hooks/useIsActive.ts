@@ -1,5 +1,5 @@
 import { useRoute } from 'wouter'
-import { useRoomData } from '../RoomDataProvider'
+import { useRoomData } from '../provider/RoomDataProvider'
 
 function useIsActive() {
   const { name } = useRoomData()

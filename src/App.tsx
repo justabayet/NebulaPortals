@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber'
 import './App.css'
-import Balls from './Balls'
+import { Balls } from './Components'
 import Controls, { CAMERA_DEFAULT_POSITION } from './Controls'
 import { ROOM_ANGLE, ROOM_DEFAULT_POSITION, ROOM_Y_DIFFERENCE, rooms } from './Rooms'
 import { Y_AXIS } from './const'

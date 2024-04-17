@@ -1,0 +1,7 @@
+const DELAY_ENTERING = 100
+const DELAY_EXITING = 100
+
+export {
+  DELAY_ENTERING,
+  DELAY_EXITING
+}

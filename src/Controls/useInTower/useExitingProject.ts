@@ -5,7 +5,7 @@ import { Scene } from 'three'
 import { DEFAULT_POSITION } from './useDefault'
 import { useScroll } from '@react-three/drei'
 import { rooms } from '../../Rooms/const'
-import usePreviousProject from '../../hooks/usePreviousProject'
+import { usePreviousProject } from '../../hooks'
 
 
 function useExitingProject() {

@@ -8,7 +8,7 @@ const NB_BALLS = 2
 const MIN_RADIUS = 4
 const DISTANCE_IN_BETWEEN = 5
 
-const POSITIONS: Array<[number, number, number]> = []
+const BALLS_POSITIONS: Array<[number, number, number]> = []
 
 for (let floorId = 0; floorId < NB_FLOORS; floorId++) {
   for (let circleId = 0; circleId < NB_CIRCLES; circleId++) {
@@ -19,7 +19,7 @@ for (let floorId = 0; floorId < NB_FLOORS; floorId++) {
       const x = Math.cos(angle) * radius
       const z = Math.sin(-angle) * radius
 
-      POSITIONS.push([x, floorId - (NB_FLOORS / 2), z])
+      BALLS_POSITIONS.push([x, floorId - (NB_FLOORS / 2), z])
     }
   }
 }
@@ -34,14 +34,14 @@ function Balls({ color = 'white' }: BallsProps): JSX.Element {
   useLayoutEffect(() => {
     const matrix = new Matrix4()
 
-    POSITIONS.forEach((position, index) => {
+    BALLS_POSITIONS.forEach((position, index) => {
       matrix.setPosition(...position)
       ref.current.setMatrixAt(index, matrix)
     })
   }, [])
 
   return (
-    <instancedMesh ref={ref} args={[undefined, undefined, POSITIONS.length]}>
+    <instancedMesh ref={ref} args={[undefined, undefined, BALLS_POSITIONS.length]}>
       <meshStandardMaterial color={color} emissive={color} emissiveIntensity={4} toneMapped={false} />
       <sphereGeometry args={[0.1]} />
     </instancedMesh>

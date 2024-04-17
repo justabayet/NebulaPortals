@@ -20,7 +20,7 @@ function Image({ src, size = 1, radius = 0.1, hoverable = false, side = DoubleSi
   geo.computeVertexNormals()
 
   return (
-    <MeshHoverable geometry={geo} enabled={hoverable} {...props}>
+    <MeshHoverable geometry={geo} enabledCursor={hoverable} {...props}>
       {isBasicMaterial ?
         <meshBasicMaterial map={texture} side={side} transparent />
         :

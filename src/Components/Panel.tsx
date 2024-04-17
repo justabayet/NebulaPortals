@@ -5,11 +5,11 @@ import { ColorRepresentation, FrontSide, Mesh, Side } from 'three'
 interface PanelProps extends MeshProps {
   width: number
   height: number
-  color?: ColorRepresentation
+  color: ColorRepresentation
   side?: Side
 }
 
-const Panel = forwardRef<Mesh, PanelProps>(({ width, height, color = 'red', side = FrontSide, ...props }, ref): JSX.Element => {
+const Panel = forwardRef<Mesh, PanelProps>(({ width, height, color, side = FrontSide, ...props }, ref): JSX.Element => {
   return (
     <mesh {...props} ref={ref}>
       <planeGeometry args={[width, height]} />

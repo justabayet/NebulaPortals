@@ -2,8 +2,8 @@ import { CameraControls, ScrollControls } from '@react-three/drei'
 import CameraControlsOriginal from 'camera-controls'
 import useInProject from './useInProject'
 import useInTower from './useInTower'
+import { useToggleTouch } from '../hooks'
 import { NB_FULL_ROTATION } from '../Rooms/const'
-import useToggleTouch from '../hooks/useToggleTouch'
 
 function CameraControlsTuned(): JSX.Element {
   const { isInsideProject } = useInProject()
