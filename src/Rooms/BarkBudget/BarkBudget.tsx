@@ -184,9 +184,9 @@ function BarkBudget_(): JSX.Element {
   )
 }
 
-function BarkBudget({ position, index }: RoomProps): JSX.Element {
+function BarkBudget(props: RoomProps): JSX.Element {
   return (
-    <Door position={position} name={'BarkBudget'} index={index}>
+    <Door name={'BarkBudget'} fallbackColor={'grey'} {...props}>
       <BarkBudget_ />
     </Door>
   )

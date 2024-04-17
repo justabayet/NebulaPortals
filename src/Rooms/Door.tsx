@@ -1,6 +1,6 @@
 import { PortalMaterialType } from '@react-three/drei'
-import { Vector3, Mesh, Object3D, FrontSide } from 'three'
-import { PropsWithChildren, ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Mesh, Object3D, FrontSide, ColorRepresentation, Euler } from 'three'
+import { PropsWithChildren, ReactNode, Suspense, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useLocation } from 'wouter'
 
@@ -14,40 +14,22 @@ import { easing } from 'maath'
 const DELAY_ENTERING = 100
 const DELAY_EXITING = 100
 
-function faceTowardsParentCenter(object: Object3D) {
-  const parent = object.parent
-  const focus = new Vector3(0, object.position.y, 0)
-
-  if (parent != null) {
-    const parentWorldPosition = parent.getWorldPosition(new Vector3())
-    focus.add(parentWorldPosition)
-  }
-
-  object.lookAt(focus)
-}
-
-interface Door_Props extends PropsWithChildren {
+interface Door_Props extends PropsWithChildren, FallbackPanelProps {
   position: [number, number, number]
   index: number
   childrenAbsolute?: ReactNode
+  angle: number
 }
 
-function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX.Element {
+interface FallbackPanelProps {
+  fallbackColor: ColorRepresentation
+}
+
+function Door_({ position, children, childrenAbsolute, index, fallbackColor, angle }: Door_Props): JSX.Element {
   const ref = useRef<Mesh>(null)
   const altCenter = useRef<Object3D>(null)
   const portal = useRef<PortalMaterialType>(null)
   const { name, setIsDisplayed } = useRoomData()
-
-
-  useLayoutEffect(() => {
-    if (ref.current == null) return
-    if (altCenter.current == null) return
-
-    faceTowardsParentCenter(ref.current)
-    const portalPos = ref.current?.getWorldPosition(new Vector3())
-    altCenter.current.position.copy(portalPos)
-    faceTowardsParentCenter(altCenter.current)
-  })
 
   const [, setLocation] = useLocation()
   const isActive = useIsActive()
@@ -72,26 +54,39 @@ function Door_({ position, children, childrenAbsolute, index }: Door_Props): JSX
     }
   }, [isActive])
 
+  const faceAngle = useMemo(() => new Euler(0, angle - Math.PI / 2, 0), [angle])
+
   return (
-    <MeshHoverable position={position} ref={ref} name={name} enabled={!isActive}
-      onClick={(e) => {
-        if (isActive) return
-        e.stopPropagation()
-        setLocation('previous/' + name)
-        setLocation('current/' + name)
-      }}
-      userData={{ index: index }}>
-      <planeGeometry args={[1, 2]} />
+    <>
+      <object3D position={position} rotation={faceAngle}>
+        <mesh position={[0, 0, -0.001]} >
+          <planeGeometry args={[1, 2]} />
+          <meshBasicMaterial color={fallbackColor} />
+        </mesh>
+      </object3D>
 
-      <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true}>
-        {childrenAbsolute}
+      <MeshHoverable ref={ref} position={position} rotation={faceAngle} name={name} enabled={!isActive}
+        onClick={(e) => {
+          if (isActive) return
+          e.stopPropagation()
+          setLocation('previous/' + name)
+          setLocation('current/' + name)
+        }}
+        userData={{ index: index }}>
+        <planeGeometry args={[1, 2]} />
 
-        <object3D ref={altCenter}>
-          {children}
-        </object3D>
+        <Suspense>
+          <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true} transparent>
+            {childrenAbsolute}
 
-      </MeshPortalMaterial>
-    </MeshHoverable>
+            <object3D ref={altCenter} position={position} rotation={faceAngle}>
+              {children}
+            </object3D>
+
+          </MeshPortalMaterial>
+        </Suspense>
+      </MeshHoverable>
+    </>
   )
 }
 
@@ -99,10 +94,10 @@ interface DoorProps extends Door_Props {
   name: string
 }
 
-function Door({ position, name, children, childrenAbsolute, index }: DoorProps): JSX.Element {
+function Door({ name, children, ...props }: DoorProps): JSX.Element {
   return (
     <RoomDataProvider name={name} >
-      <Door_ position={position} childrenAbsolute={childrenAbsolute} index={index}>
+      <Door_ {...props}>
         {children}
       </Door_>
     </RoomDataProvider>

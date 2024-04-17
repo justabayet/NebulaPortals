@@ -10,13 +10,14 @@ import { useRoomData } from '../RoomDataProvider'
 export interface RoomProps {
   position: [number, number, number]
   index: number
+  angle: number
 }
 
 interface DefaultContentProps {
   color?: ColorRepresentation
 }
 
-function DefaultContent_({ color = 'red' }: DefaultContentProps): JSX.Element {
+function DefaultContent_({ color }: DefaultContentProps): JSX.Element {
   const { isDisplayed } = useRoomData()
 
   return (
@@ -41,10 +42,10 @@ function DefaultContent_({ color = 'red' }: DefaultContentProps): JSX.Element {
   )
 }
 
-function DefaultContent({ position, name, index, ...props }: DefaultContentProps & RoomProps & { name: string }): JSX.Element {
+function DefaultContent({ color = 'red', ...props }: DefaultContentProps & RoomProps & { name: string }): JSX.Element {
   return (
-    <Door position={position} name={name} index={index}>
-      <DefaultContent_ {...props} />
+    <Door fallbackColor={color} {...props}>
+      <DefaultContent_ color={color} />
     </Door>
   )
 }

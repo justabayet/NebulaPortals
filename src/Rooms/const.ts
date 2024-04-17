@@ -7,16 +7,19 @@ const red = new Color('red')
 const blue = new Color('blue')
 
 const rooms = [
-  BarkBudget,
+  BarkBudget
 ]
 
 const NB_EXTRA_ROOMS = 10
 
 for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
-  rooms.push((props: RoomProps) => DefaultContent({
-    ...props, name: `${i}`, 
-    color: base.lerpColors(red, blue, i / NB_EXTRA_ROOMS) 
-  }))
+  const Room = (props: RoomProps) => DefaultContent({
+    ...props,
+    name: `${i}`, 
+    color: base.lerpColors(red, blue, i / NB_EXTRA_ROOMS)
+  })
+
+  rooms.push(Room)
 }
 
 const DEFAULT_POSITION = new Vector3(3, 0, 0)

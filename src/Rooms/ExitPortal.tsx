@@ -1,4 +1,4 @@
-import { MeshPortalMaterial } from '@react-three/drei'
+import { MeshPortalMaterial } from './MeshPortalMaterial'
 import { DoubleSide } from 'three'
 import Balls from '../Balls'
 import MeshHoverable from '../MeshHoverable'
