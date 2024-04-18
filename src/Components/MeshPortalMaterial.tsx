@@ -10,7 +10,6 @@ import { ReactThreeFiber, extend, useFrame, useThree } from '@react-three/fiber'
 import { FullScreenQuad } from 'three-stdlib'
 import { version } from '@react-three/drei/helpers/constants'
 import { useIntersect, useFBO, RenderTexture, shaderMaterial } from '@react-three/drei'
-import { useRoomData } from '../provider/RoomDataProvider'
 
 const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
   {
@@ -115,7 +114,6 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
     }, [events])
 
     const [visible, setVisible] = React.useState(false)
-    const { name } = useRoomData()
     // See if the parent mesh is in the camera frustum
     const setVisibleLog = React.useCallback((val: boolean) => {
       // console.log(`Room ${name} ${val}`)
