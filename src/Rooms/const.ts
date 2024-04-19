@@ -2,12 +2,13 @@ import { Color, Vector3 } from 'three'
 import BarkBudget from './BarkBudget'
 import DefaultRoom from './DefaultRoom'
 import { RoomProps } from './interface'
+import { Y_AXIS } from '../const'
 
 const base = new Color()
 const red = new Color('red')
 const blue = new Color('blue')
 
-const rooms = [
+const rooms: ((props: RoomProps) => JSX.Element)[] = [
   BarkBudget
 ]
 
@@ -27,17 +28,25 @@ const DEFAULT_POSITION = new Vector3(3, 0, 0)
 const ANGLE = Math.PI / 2.5
 const Y_DIFFERENCE = 1.5
 const NB_ROOMS = rooms.length
+
+function getRoomArgs(index: number): { angle: number, position: [number, number, number] } {
+  const angle = -ANGLE * index
+  const position = DEFAULT_POSITION
+    .clone()
+    .applyAxisAngle(Y_AXIS, angle)
+    .setY(-index * Y_DIFFERENCE)
+
+  return { angle, position: position.toArray() }
+}
+
 const FULL_ANGLE = (NB_ROOMS - 1) * ANGLE
 const NB_FULL_ROTATION = FULL_ANGLE / (Math.PI * 2)
 const FULL_HEIGHT = (NB_ROOMS - 1) * Y_DIFFERENCE
 
 export {
   rooms,
-  DEFAULT_POSITION,
-  ANGLE,
-  Y_DIFFERENCE,
-  NB_ROOMS,
-  NB_FULL_ROTATION,
+  getRoomArgs,
   FULL_ANGLE,
+  NB_FULL_ROTATION,
   FULL_HEIGHT
 }
