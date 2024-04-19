@@ -1,4 +1,4 @@
-import { PortalMaterialType } from '@react-three/drei'
+import { Detailed, PortalMaterialType } from '@react-three/drei'
 import { FrontSide, ColorRepresentation, Euler } from 'three'
 import { PropsWithChildren, ReactNode, Suspense, useCallback, useMemo, useRef } from 'react'
 
@@ -27,7 +27,7 @@ function Portal({ position, children, childrenAbsolute, index, fallbackColor, an
   const portal = useRef<PortalMaterialType>(null)
   useBlending(portal)
 
-  const faceAngle = useMemo(() => new Euler(0, angle - Math.PI / 2, 0), [angle])
+  const rotation = useMemo(() => new Euler(0, angle - Math.PI / 2, 0), [angle])
 
   const onClick = useCallback((e: ThreeEvent<MouseEvent>) => {
     if (isActive) return
@@ -38,29 +38,30 @@ function Portal({ position, children, childrenAbsolute, index, fallbackColor, an
 
   return (
     <>
-      <Fallback position={position} rotation={faceAngle} color={fallbackColor} />
+      <Fallback position={position} rotation={rotation} color={fallbackColor} />
 
-      <MeshHoverable
-        position={position}
-        rotation={faceAngle}
-        name={name}
-        enabledCursor={!isActive}
-        onClick={onClick}
-        userData={{ index: index }}
-      >
-        <planeGeometry args={[1, 2]} />
+      <Detailed distances={[0, 8]} position={position} rotation={rotation}>
+        <MeshHoverable
+          name={name}
+          enabledCursor={!isActive}
+          onClick={onClick}
+          userData={{ index: index, position }}>
+          <planeGeometry args={[1, 2]} />
 
-        <Suspense>
-          <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true} transparent>
-            {childrenAbsolute}
+          <Suspense>
+            <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true} transparent>
+              {childrenAbsolute}
 
-            <object3D position={position} rotation={faceAngle}>
-              {children}
-            </object3D>
+              <object3D position={position} rotation={rotation}>
+                {children}
+              </object3D>
 
-          </MeshPortalMaterial>
-        </Suspense>
-      </MeshHoverable>
+            </MeshPortalMaterial>
+          </Suspense>
+        </MeshHoverable>
+
+        <mesh visible={false} />
+      </Detailed>
     </>
   )
 }

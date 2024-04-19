@@ -1,7 +1,7 @@
 import { useThree } from '@react-three/fiber'
 import CameraControls from 'camera-controls'
 import { useEffect } from 'react'
-import { Scene } from 'three'
+import { Scene, Vector3 } from 'three'
 import { DEFAULT_POSITION } from './useDefault'
 import { useScroll } from '@react-three/drei'
 import { rooms } from '../../Rooms/const'
@@ -28,8 +28,9 @@ function useExitingProject() {
     const scrollValue = scrollState.el.children[1].scrollHeight * scrollRatio
     scrollState.el.scrollTop = scrollValue
 
-    const y = project.position.y
-    const newPosition = project.position.clone()
+    const position = new Vector3(...project.userData.position)
+    const y = position.y
+    const newPosition = position.clone()
       .setY(0)
       .normalize()
       .multiplyScalar(DEFAULT_POSITION.length())
