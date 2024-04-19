@@ -1,8 +1,12 @@
 import BackButton from './BackButton'
+import WelcomeScreen from './WelcomeScreen'
 
 function Overlay(): JSX.Element {
   return (
-    <BackButton />
+    <>
+      <BackButton />
+      <WelcomeScreen />
+    </>
   )
 }
 
