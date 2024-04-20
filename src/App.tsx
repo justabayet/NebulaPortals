@@ -4,12 +4,17 @@ import { Balls } from './Components'
 import Controls, { CAMERA_DEFAULT_POSITION } from './Controls'
 import { getRoomArgs, rooms } from './Rooms'
 import { Suspense } from 'react'
+import { useInteractionState } from './provider/InteractionStateProvider'
 
 function App() {
+  const { setHasWhelled } = useInteractionState()
+
   return (
     <div id="canvas-container">
       <Suspense>
-        <Canvas camera={{ position: CAMERA_DEFAULT_POSITION }} >
+        <Canvas camera={{ position: CAMERA_DEFAULT_POSITION }} onWheel={() => {
+          setHasWhelled(true)
+        }}>
           <Balls />
 
           {rooms.map((Room, index) =>

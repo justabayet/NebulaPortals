@@ -10,11 +10,12 @@ class InteractionState {
     public setHasEnteredRoom: Dispatch<SetStateAction<boolean>>,
     public isCameraStill: boolean,
     public setIsCameraStill: Dispatch<SetStateAction<boolean>>,
+    public setHasWhelled: Dispatch<SetStateAction<boolean>>,
 
   ) { }
 }
 
-const InteractionStateContext = createContext(new InteractionState(false, () => { }, false, () => { }, false, () => { }, true, () => { }))
+const InteractionStateContext = createContext(new InteractionState(false, () => { }, false, () => { }, false, () => { }, true, () => { }, () => { }))
 
 interface InteractionStateProviderProps extends PropsWithChildren { }
 
@@ -23,13 +24,16 @@ export const InteractionStateProvider = ({ children }: InteractionStateProviderP
   const [hasScrolled, setHasScrolled] = useState(false)
   const [hasLookedAround, setHasLookedAround] = useState(false)
   const [isCameraStill, setIsCameraStill] = useState(true)
+  const [hasWhelled, setHasWhelled] = useState(true)
+  const hasActuallyScrolled = hasScrolled && hasWhelled
 
   const value = useMemo(() => new InteractionState(
     hasEnteredRoom, setHasEnteredRoom,
-    hasScrolled, setHasScrolled,
+    hasActuallyScrolled, setHasScrolled,
     hasLookedAround, setHasLookedAround,
-    isCameraStill, setIsCameraStill
-  ), [hasEnteredRoom, hasScrolled, hasLookedAround, isCameraStill])
+    isCameraStill, setIsCameraStill,
+    setHasWhelled
+  ), [hasEnteredRoom, hasActuallyScrolled, hasLookedAround, isCameraStill])
 
   return (
     <InteractionStateContext.Provider value={value}>
