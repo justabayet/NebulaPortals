@@ -8,6 +8,7 @@
   background-color: var(--background-color);
   z-index: 1;
 
+  gap: 12px;
   display: flex;
   justify-content: center;
   align-content: center;

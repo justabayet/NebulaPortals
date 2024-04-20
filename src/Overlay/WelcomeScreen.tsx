@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import './WelcomeScreen.css'
+import { ClickOneFinger } from '../Components/AnimatedIcons'
 
 
 function WelcomeScreen(): JSX.Element {
@@ -13,12 +14,20 @@ function WelcomeScreen(): JSX.Element {
     <div
       className='welcome-screen'
       onClick={(onClick)}
-      style={{
-        cursor: isShown ? 'pointer' : 'auto',
-        pointerEvents: isShown ? 'auto' : 'none',
-        opacity: isShown ? 1 : 0
+      style={isShown ? {
+        cursor: 'pointer',
+        pointerEvents: 'auto',
+        opacity: 1
+      } : {
+        cursor: 'auto',
+        pointerEvents: 'none',
+        opacity: 0
       }}>
-      Bonjour
+      <span>Bonjour</span>
+
+      <div>
+        <ClickOneFinger theme='light' style={{ width: '35px' }} />
+      </div>
     </div>
   )
 }
