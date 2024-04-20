@@ -15,7 +15,7 @@ function BottomCentered({ children }: PropsWithChildren): JSX.Element {
 }
 
 const getIconStyle = (isDisplayed: boolean) =>
-  ({ width: '35px', transition: 'opacity 0.3s linear 0.5s', opacity: isDisplayed ? 1 : 0 })
+  ({ width: '35px', transition: 'opacity 0.3s linear 1.5s', opacity: isDisplayed ? 1 : 0 })
 
 function RoomIndicator(): JSX.Element {
   const { hasLookedAround } = useInteractionState()
