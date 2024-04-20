@@ -6,7 +6,7 @@ import CameraControls from 'camera-controls'
 const CAMERA_STILL_DELAY = 1000
 
 function useCameraStillness() {
-  const stillCameraTimeout = useRef<NodeJS.Timeout>()
+  const stillCameraTimeout = useRef<ReturnType<typeof setTimeout>>()
 
   const { controls }: { controls: CameraControls | null } = useThree()
   const { setIsCameraStill } = useInteractionState()
