@@ -1,5 +1,6 @@
 import './WelcomeScreen.css'
 import { ClickOneFinger } from '../Components/AnimatedIcons'
+import { useEffect, useState } from 'react'
 
 interface WelcomeScreenProps {
   hasStarted: boolean
@@ -7,6 +8,13 @@ interface WelcomeScreenProps {
 }
 
 function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.Element {
+
+  const [showIndicator, setShowIndicator] = useState<boolean>(false)
+
+  useEffect(() => {
+    setTimeout(() => setShowIndicator(true), 800)
+  }, [])
+
   return (
     <div
       className='welcome-screen'
@@ -23,7 +31,7 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
       <span>Bonjour</span>
 
       <div>
-        <ClickOneFinger theme='light' style={{ width: '35px' }} />
+        <ClickOneFinger theme='light' style={{ width: '35px', opacity: showIndicator ? 1 : 0, transition: 'opacity 1.5s' }} />
       </div>
     </div>
   )
