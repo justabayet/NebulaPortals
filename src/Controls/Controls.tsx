@@ -4,12 +4,15 @@ import useInProject from './useInProject'
 import useInTower from './useInTower'
 import { useToggleTouch } from '../hooks'
 import { NB_FULL_ROTATION } from '../Rooms/const'
+import useCameraStillness from './useCameraStillness'
 
 function CameraControlsTuned(): JSX.Element {
   const { isInsideProject } = useInProject()
+  useToggleTouch(isInsideProject)
+
   useInTower()
 
-  useToggleTouch(isInsideProject)
+  useCameraStillness()
 
   return (
     <CameraControls makeDefault smoothTime={0.4}

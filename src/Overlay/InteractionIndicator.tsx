@@ -15,7 +15,7 @@ function BottomCentered({ children }: PropsWithChildren): JSX.Element {
 }
 
 const getIconStyle = (isDisplayed: boolean) =>
-  ({ width: '35px', transition: 'opacity 0.3s linear 1.5s', opacity: isDisplayed ? 1 : 0 })
+  ({ width: '35px', transition: 'opacity 0.3s linear 0.5s', opacity: isDisplayed ? 1 : 0 })
 
 function RoomIndicator(): JSX.Element {
   const { hasLookedAround } = useInteractionState()
@@ -44,10 +44,10 @@ function TowerIndicator(): JSX.Element {
 }
 
 function PortalClickIndicator(): JSX.Element {
-  const { hasEnteredRoom, hasScrolled } = useInteractionState()
+  const { hasEnteredRoom, hasScrolled, isCameraStill } = useInteractionState()
   const { hasCurrent: isInRoom } = useCurrentProject()
 
-  const isDisplayed = !isInRoom && !hasEnteredRoom && hasScrolled
+  const isDisplayed = !isInRoom && !hasEnteredRoom && hasScrolled && isCameraStill
 
   return (
     <div className='overlay center full-screen'>
