@@ -27,6 +27,7 @@ function TiltableImage({ refToTilt, baseImage, ...props }: TiltableImageProps): 
 
   return (
     <MeshHoverable {...props}
+      enabledCursor={false}
       onPointerMove={(e) => {
         if (e.uv == null || isTouch) return
         rotateTowards(e.uv)

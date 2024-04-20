@@ -6,7 +6,7 @@ interface HoverableImageProps extends MeshProps, WithBaseImage {
   hoverable?: boolean
 }
 
-function HoverableImage({ baseImage, hoverable = false, ...props }: HoverableImageProps): JSX.Element {
+function HoverableImage({ baseImage, hoverable = true, ...props }: HoverableImageProps): JSX.Element {
   return (
     <MeshHoverable enabledCursor={hoverable} {...props}>
       {baseImage}
