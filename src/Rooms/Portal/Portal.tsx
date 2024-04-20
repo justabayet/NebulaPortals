@@ -11,6 +11,7 @@ import useBlending from './useBlending'
 import Fallback from './Fallback'
 import { ThreeEvent } from '@react-three/fiber'
 import { RoomProps } from '../interface'
+import { useInteractionState } from '../../provider/InteractionStateProvider'
 
 
 interface PortalInternalProps extends PropsWithChildren, RoomProps {
@@ -29,12 +30,15 @@ function Portal({ position, children, childrenAbsolute, index, fallbackColor, an
 
   const rotation = useMemo(() => new Euler(0, angle - Math.PI / 2, 0), [angle])
 
+  const { setHasEnteredRoom } = useInteractionState()
+
   const onClick = useCallback((e: ThreeEvent<MouseEvent>) => {
     if (isActive) return
     e.stopPropagation()
     setLocation('previous/' + name)
     setLocation('current/' + name)
-  }, [isActive, name, setLocation])
+    setHasEnteredRoom(true)
+  }, [isActive, name, setLocation, setHasEnteredRoom])
 
   return (
     <>

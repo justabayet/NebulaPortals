@@ -1,27 +1,24 @@
-import { useCallback, useState } from 'react'
 import './WelcomeScreen.css'
 import { ClickOneFinger } from '../Components/AnimatedIcons'
 
+interface WelcomeScreenProps {
+  hasStarted: boolean
+  setHasStarted: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-function WelcomeScreen(): JSX.Element {
-  const [isShown, setIsShown] = useState<boolean>(true)
-
-  const onClick = useCallback(() => {
-    setIsShown(false)
-  }, [])
-
+function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.Element {
   return (
     <div
       className='welcome-screen'
-      onClick={(onClick)}
-      style={isShown ? {
-        cursor: 'pointer',
-        pointerEvents: 'auto',
-        opacity: 1
-      } : {
+      onClick={() => setHasStarted(true)}
+      style={hasStarted ? {
         cursor: 'auto',
         pointerEvents: 'none',
         opacity: 0
+      } : {
+        cursor: 'pointer',
+        pointerEvents: 'auto',
+        opacity: 1
       }}>
       <span>Bonjour</span>
 

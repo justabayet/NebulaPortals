@@ -5,12 +5,14 @@ import { FULL_ANGLE, FULL_HEIGHT } from '../../Rooms/const'
 import { useThree, useFrame } from '@react-three/fiber'
 import { Vector3 } from 'three'
 import { useRef } from 'react'
+import { useInteractionState } from '../../provider/InteractionStateProvider'
 
 const AXIS = new Vector3(0, 1, 0)
 
 function useScrollControl(enabled = true) {
   const { controls }: { controls: CameraControls | null } = useThree()
 
+  const { setHasScrolled } = useInteractionState()
   const scrollProgress = useRef(0)
 
   const scrollState = useScroll()
@@ -21,6 +23,7 @@ function useScrollControl(enabled = true) {
     const newProgress = scrollState.el.scrollTop
 
     if(prevProgress != newProgress) {
+      setHasScrolled(true)
       scrollProgress.current = scrollState.el.scrollTop
 
       const ratio = scrollState.el.scrollTop / scrollState.el.children[1].scrollHeight

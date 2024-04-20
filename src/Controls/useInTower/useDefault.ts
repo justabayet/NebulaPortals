@@ -18,7 +18,7 @@ function useDefault() {
   useEffect(() => {
     if(!isDefault || controls == null) return
       
-    console.log('useDefault')
+    console.log('Use default camera position in tower')
     controls.setLookAt(...DEFAULT_POSITION.toArray(), ...DEFAULT_FOCUS, true)
 
   }, [isDefault, controls])

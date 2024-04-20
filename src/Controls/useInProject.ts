@@ -3,6 +3,7 @@ import CameraControls from 'camera-controls'
 import { useEffect } from 'react'
 import { Scene, Vector3 } from 'three'
 import { useCurrentProject } from '../hooks'
+import { useInteractionState } from '../provider/InteractionStateProvider'
 
 const position = new Vector3(0, 0, 0)
 const focus = new Vector3(0, 0, 0)
@@ -26,6 +27,18 @@ function useInProject() {
     controls.setLookAt(...position.toArray(), ...focus.toArray(), true)
       
   }, [isInsideProject, scene, controls, projectName])
+
+  const { setHasLookedAround } = useInteractionState()
+  useEffect(() => {
+    if(!isInsideProject || controls == null) return
+
+    const onTransitionStart = () => { setHasLookedAround(true) }
+
+    controls.addEventListener('transitionstart', onTransitionStart)
+    return () => {
+      controls.removeEventListener('transitionstart', onTransitionStart)
+    }
+  }, [controls, isInsideProject, setHasLookedAround])
 
   return { isInsideProject }
 }
