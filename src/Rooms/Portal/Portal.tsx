@@ -12,14 +12,16 @@ import Fallback from './Fallback'
 import { ThreeEvent } from '@react-three/fiber'
 import { RoomProps } from '../interface'
 import { useInteractionState } from '../../provider/InteractionStateProvider'
+import Border, { BorderSpecificProps } from './Border'
 
 
 interface PortalInternalProps extends PropsWithChildren, RoomProps {
   childrenAbsolute?: ReactNode
   fallbackColor: ColorRepresentation
+  border?: BorderSpecificProps
 }
 
-function Portal({ position, children, childrenAbsolute, index, fallbackColor, angle }: PortalInternalProps): JSX.Element {
+function Portal({ position, children, childrenAbsolute, index, fallbackColor, angle, border }: PortalInternalProps): JSX.Element {
   const { name } = useRoomData()
 
   const [, setLocation] = useLocation()
@@ -42,6 +44,8 @@ function Portal({ position, children, childrenAbsolute, index, fallbackColor, an
 
   return (
     <>
+      {border != null && <Border position={position} rotation={rotation} {...border} />}
+
       <Fallback position={position} rotation={rotation} color={fallbackColor} />
 
       <Detailed distances={[0, 8]} position={position} rotation={rotation}>

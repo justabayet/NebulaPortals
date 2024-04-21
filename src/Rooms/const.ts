@@ -1,15 +1,17 @@
 import { Color, Vector3 } from 'three'
-import BarkBudget from './BarkBudget'
-import DefaultRoom from './DefaultRoom'
 import { RoomProps } from './interface'
 import { Y_AXIS } from '../const'
+import BarkBudget from './BarkBudget'
+import DefaultRoom from './DefaultRoom'
+import LolRoom from './LolRoom'
 
 const base = new Color()
 const red = new Color('red')
 const blue = new Color('blue')
 
 const rooms: ((props: RoomProps) => JSX.Element)[] = [
-  BarkBudget
+  BarkBudget,
+  LolRoom
 ]
 
 const NB_EXTRA_ROOMS = 10

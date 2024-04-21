@@ -10,7 +10,7 @@ function Login(props: Object3DProps): JSX.Element {
 
   return (
     <object3D {...props}>
-      <object3D ref={ref} >
+      <object3D ref={ref}>
         <TiltableImage src={login} size={1.1} refToTilt={ref} />
 
         <Image src={google_button} position={[0, -0.3, 0.2]} size={0.2} radius={0.4} />

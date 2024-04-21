@@ -12,7 +12,7 @@ function App() {
   return (
     <div id="canvas-container">
       <Suspense>
-        <Canvas camera={{ position: CAMERA_DEFAULT_POSITION }} onWheel={() => {
+        <Canvas camera={{ position: CAMERA_DEFAULT_POSITION }} shadows onWheel={() => {
           setHasWhelled(true)
         }}>
           <Balls />
