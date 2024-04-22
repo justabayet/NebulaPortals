@@ -6,12 +6,15 @@ import './index.css'
 import Overlay from './Overlay'
 import App from './App'
 import { InteractionStateProvider } from './provider/InteractionStateProvider.tsx'
+import { CameraStillnessProvider } from './provider/CameraStillnessProvider.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Router hook={useHashLocation}>
-    <InteractionStateProvider>
-      <Overlay />
-      <App />
-    </InteractionStateProvider>
+    <CameraStillnessProvider>
+      <InteractionStateProvider>
+        <Overlay />
+        <App />
+      </InteractionStateProvider>
+    </CameraStillnessProvider>
   </Router>,
 )

@@ -1,7 +1,7 @@
 import { useThree } from '@react-three/fiber'
 import { useRef, useEffect } from 'react'
-import { useInteractionState } from '../provider/InteractionStateProvider'
 import CameraControls from 'camera-controls'
+import { useCameraStillnessContext } from '../provider/CameraStillnessProvider'
 
 const CAMERA_STILL_DELAY = 1000
 
@@ -9,7 +9,7 @@ function useCameraStillness() {
   const stillCameraTimeout = useRef<ReturnType<typeof setTimeout>>()
 
   const { controls }: { controls: CameraControls | null } = useThree()
-  const { setIsCameraStill } = useInteractionState()
+  const { setIsCameraStill } = useCameraStillnessContext()
 
   useEffect(() => {
     const fnc = () => {

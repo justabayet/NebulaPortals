@@ -3,6 +3,7 @@ import { ClickOneFinger, SwipeHorizontal, SwipeVertical } from '../Components/An
 import './InteractionIndicator.css'
 import { useInteractionState } from '../provider/InteractionStateProvider'
 import { useCurrentProject } from '../hooks'
+import { useCameraStillnessContext } from '../provider/CameraStillnessProvider'
 
 function BottomCentered({ children }: PropsWithChildren): JSX.Element {
   return (
@@ -44,7 +45,8 @@ function TowerIndicator(): JSX.Element {
 }
 
 function PortalClickIndicator(): JSX.Element {
-  const { hasEnteredRoom, hasScrolled, isCameraStill } = useInteractionState()
+  const { hasEnteredRoom, hasScrolled } = useInteractionState()
+  const { isCameraStill } = useCameraStillnessContext()
   const { hasCurrent: isInRoom } = useCurrentProject()
 
   const isDisplayed = !isInRoom && !hasEnteredRoom && hasScrolled && isCameraStill
