@@ -2,7 +2,7 @@ import { Color, Vector3 } from 'three'
 import { RoomProps } from './interface'
 import { Y_AXIS } from '../const'
 import BarkBudget from './BarkBudget'
-import DefaultRoom from './DefaultRoom'
+import IncomingRoom from './IncomingRoom'
 import LolRoom from './LolRoom'
 
 const base = new Color()
@@ -17,10 +17,10 @@ const rooms: ((props: RoomProps) => JSX.Element)[] = [
 const NB_EXTRA_ROOMS = 10
 
 for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
-  const Room = (props: RoomProps) => DefaultRoom({
+  const Room = (props: RoomProps) => IncomingRoom({
     ...props,
-    name: `${i}`, 
-    color: base.lerpColors(red, blue, i / NB_EXTRA_ROOMS)
+    name: `Incoming${i}`,
+    color: base.lerpColors(red, blue, i / NB_EXTRA_ROOMS).clone()
   })
 
   rooms.push(Room)
