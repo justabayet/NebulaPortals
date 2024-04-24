@@ -14,11 +14,13 @@ import Intro from './Intro'
 import Login from './Login'
 import Portal from '../Portal'
 import { RoomProps } from '../interface'
+import OpenButton from '../../Components/OpenButton'
 
 const NAME = 'BarkBudget'
 const COLOR: ColorRepresentation = 'white'
 const FALLBACK_COLOR: ColorRepresentation = 'grey'
 const GITHUB = 'https://github.com/justabayet/BarkBudget'
+const SITE = 'https://bb.justabayet.com/'
 
 function BarkBudget(): JSX.Element {
   const { isDisplayed, isActive } = useRoomData()
@@ -42,7 +44,8 @@ function BarkBudget(): JSX.Element {
         <Login position={[-1, 0, -0.4]} rotation={[0, Math.PI / 3, 0]} />
 
         <HomePage position={[0, 0, -1.1]} />
-        <GithubButton url={GITHUB} position={[0, -1.2, -0.9]} scale={1.6} rotation={[-Math.PI / 3, 0, 0]} />
+        <GithubButton url={GITHUB} position={[-0.2, -1.2, -0.9]} scale={1.6} rotation={[-Math.PI / 3, 0, 0]} />
+        <OpenButton url={SITE} text='BarkBudget site' position={[0.2, -1.2, -0.9]} scale={1.6} rotation={[-Math.PI / 3, 0, 0]} />
 
         <DescriptionPanel position={[1, 0, -0.4]} rotation={[0, -Math.PI / 3, 0]} />
       </object3D>

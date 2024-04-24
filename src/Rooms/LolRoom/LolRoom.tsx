@@ -13,6 +13,7 @@ import Ground from './Ground'
 import ControlPanel from './ControlPanel'
 import DescriptionPanel from './DescriptionPanel'
 import Intro from './Intro'
+import OpenButton from '../../Components/OpenButton'
 
 const NAME = 'LolRoom'
 
@@ -21,10 +22,10 @@ const FALLBACK_COLOR: ColorRepresentation = COLOR
 const GOLD: ColorRepresentation = new Color(0x8c6e3a)
 
 const GITHUB_WINLC = 'https://github.com/justabayet/whenisnextlolclash'
-// const LINK_WINLC = 'https://whenisnextlolclash.justabayet.com/'
+const SITE_WINLC = 'https://whenisnextlolclash.justabayet.com/'
 
 const GITHUB_LSC = 'https://github.com/justabayet/LoLSceneCreator'
-// const LINK_LSC = 'https://lsc.justabayet.com/'
+const SITE_LSC = 'https://lsc.justabayet.com/'
 
 function LolRoom(): JSX.Element {
   const { isDisplayed, isActive } = useRoomData()
@@ -51,9 +52,11 @@ function LolRoom(): JSX.Element {
         <Ground />
       </object3D>
 
-      <GithubButton url={GITHUB_WINLC} position={[-0.7, 0.17, -0.4]} scale={0.7} rotation={[0, Math.PI * 0.2, 0]} />
+      <GithubButton url={GITHUB_WINLC} position={[-0.7, 0.37, -0.4]} scale={0.7} rotation={[0, Math.PI * 0.2, 0]} />
+      <OpenButton url={SITE_WINLC} text='example site' position={[-0.7, 0.17, -0.4]} scale={0.7} rotation={[0, Math.PI * 0.2, 0]} />
       <DescriptionPanel position={[0, 0.3, -0.5]} rotation={[0, 0, 0]} />
       <GithubButton url={GITHUB_LSC} position={[0.7, 0.5, -0.5]} scale={0.7} rotation={[0, - Math.PI * 0.2, 0]} />
+      <OpenButton url={SITE_LSC} text='Creator' position={[0.7, 0.3, -0.5]} scale={0.7} rotation={[0, - Math.PI * 0.2, 0]} />
 
       <ControlPanel position={[1, 0.2, -0.1]} rotation={[0, -Math.PI * 0.4, 0]} scale={0.5} />
 
