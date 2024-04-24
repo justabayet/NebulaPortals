@@ -3,10 +3,12 @@ import './App.css'
 import { Balls } from './Components'
 import Controls, { CAMERA_DEFAULT_POSITION } from './Controls'
 import { getRoomArgs, rooms } from './Rooms'
-import { Dispatch, SetStateAction, Suspense, memo } from 'react'
+import { Suspense } from 'react'
 import { useSetInteractionState } from './provider/InteractionStateProvider'
 
-const Appli = memo(function Appli({ setHasWhelled }: { setHasWhelled: Dispatch<SetStateAction<boolean>> }): JSX.Element {
+function App(): JSX.Element {
+  const { setHasWhelled } = useSetInteractionState()
+
   return (
     <div id="canvas-container">
       <Suspense>
@@ -23,12 +25,6 @@ const Appli = memo(function Appli({ setHasWhelled }: { setHasWhelled: Dispatch<S
       </Suspense>
     </div>
   )
-})
-
-function App() {
-  const { setHasWhelled } = useSetInteractionState()
-
-  return <Appli setHasWhelled={setHasWhelled} />
 }
 
 export default App
