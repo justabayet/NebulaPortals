@@ -18,7 +18,7 @@ import OpenButton from '../../Components/OpenButton'
 const NAME = 'LolRoom'
 
 const COLOR: ColorRepresentation = new Color(0x326196) // Darkblue rgb: 3, 10, 18
-const FALLBACK_COLOR: ColorRepresentation = COLOR
+const FALLBACK_COLOR: ColorRepresentation = new Color('rgb(0, 5, 40)')
 const GOLD: ColorRepresentation = new Color(0x8c6e3a)
 
 const GITHUB_WINLC = 'https://github.com/justabayet/whenisnextlolclash'

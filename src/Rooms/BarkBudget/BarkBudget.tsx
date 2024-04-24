@@ -1,4 +1,4 @@
-import { ColorRepresentation, Object3D } from 'three'
+import { Color, ColorRepresentation, Object3D } from 'three'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { easing } from 'maath'
@@ -18,7 +18,7 @@ import OpenButton from '../../Components/OpenButton'
 
 const NAME = 'BarkBudget'
 const COLOR: ColorRepresentation = 'white'
-const FALLBACK_COLOR: ColorRepresentation = 'grey'
+const FALLBACK_COLOR: ColorRepresentation = new Color('rgb(207, 207, 207)')
 const GITHUB = 'https://github.com/justabayet/BarkBudget'
 const SITE = 'https://bb.justabayet.com/'
 

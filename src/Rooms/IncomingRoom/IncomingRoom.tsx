@@ -75,8 +75,9 @@ interface WrapperProps {
 export type IncomingRoomProps = WrapperProps & IncomingRoomInternalProps & RoomProps
 
 function WrappedIncomingRoom({ color = 'red', ...props }: IncomingRoomProps): JSX.Element {
+  const fallbackColor = useMemo(() => new Color(color).lerp(new Color('black'), 0.9), [color])
   return (
-    <Portal fallbackColor={color} {...props}>
+    <Portal fallbackColor={fallbackColor} {...props}>
       <IncomingRoom color={color} />
     </Portal>
   )

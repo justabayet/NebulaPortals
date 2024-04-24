@@ -11,7 +11,7 @@ function Fallback({ position, rotation, color }: FallbackProps): JSX.Element {
     <object3D position={position} rotation={rotation}>
       <mesh position={[0, 0, -0.001]} >
         <planeGeometry args={[1, 2]} />
-        <meshBasicMaterial color={color} opacity={0.4} transparent />
+        <meshBasicMaterial color={color} />
       </mesh>
     </object3D>
   )
