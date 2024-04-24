@@ -3,7 +3,7 @@ import { easing } from 'maath'
 import { useRef } from 'react'
 import { Mesh, Object3D, FrontSide, ColorRepresentation } from 'three'
 import { useIsActive } from '../../hooks'
-import { logo_dark, logo_light, graph } from './assets'
+import { logo_dark, logo_light } from './assets'
 import { Image } from '../../Components'
 
 interface IntroProps extends Object3DProps {
@@ -33,15 +33,10 @@ function Intro({ ...props }: IntroProps): JSX.Element {
       <Image src={logo_dark} position={[0, 0, 0]} size={1.5} isBasicMaterial />
       <Image src={logo_light} position={[0, 0, -0.001]} size={1.5} isBasicMaterial />
 
-      <object3D ref={graphRef} position={[0.2, 0.9, -0.3]} rotation={[Math.PI / 5, 0, -Math.PI / 10]}>
-        <Image src={graph} size={1.3} side={FrontSide} isBasicMaterial />
-      </object3D>
-
-
       <mesh ref={backgroundRef}
         position={[0, 0, -1]}>
         <planeGeometry args={[3, 4]} />
-        <meshBasicMaterial side={FrontSide} color={'grey'} />
+        <meshBasicMaterial side={FrontSide} color={0xcccccc} />
       </mesh>
     </object3D>
   )
