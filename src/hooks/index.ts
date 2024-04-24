@@ -4,6 +4,7 @@ import useIsTouch from './useIsTouch'
 import usePreviousProject from './usePreviousProject'
 import useToggleTouch from './useToggleTouch'
 import useAnimatedRotation from './useAnimatedRotation'
+import useToggleScrollbar from './useToggleScrollbar'
 
 export {
   useCurrentProject,
@@ -11,5 +12,6 @@ export {
   useIsTouch,
   usePreviousProject,
   useToggleTouch,
-  useAnimatedRotation
+  useAnimatedRotation,
+  useToggleScrollbar
 }
