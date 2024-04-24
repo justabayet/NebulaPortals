@@ -1,0 +1,10 @@
+.contact {
+  position: absolute;
+  top: 1vh;
+  right: 1vh;
+  padding: 1vh;
+  color: white;
+  z-index: 2;
+  cursor: pointer;
+  opacity: 0.5;
+}
