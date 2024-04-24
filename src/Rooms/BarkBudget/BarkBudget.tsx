@@ -8,7 +8,6 @@ import ExitPortal from '../ExitPortal'
 import { GithubButton } from '../../Components'
 
 import { useRoomData } from '../../provider/RoomDataProvider'
-import { useIsActive } from '../../hooks'
 import DescriptionPanel from './DescriptionPanel'
 import HomePage from './HomePage'
 import Intro from './Intro'
@@ -22,9 +21,7 @@ const FALLBACK_COLOR: ColorRepresentation = 'grey'
 const GITHUB = 'https://github.com/justabayet/BarkBudget'
 
 function BarkBudget(): JSX.Element {
-  const isActive = useIsActive()
-
-  const { isDisplayed } = useRoomData()
+  const { isDisplayed, isActive } = useRoomData()
 
   const panelGroupRef = useRef<Object3D>(null)
   useFrame((_, dt) => {

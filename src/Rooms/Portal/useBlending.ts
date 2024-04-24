@@ -1,20 +1,19 @@
 import { PortalMaterialType } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
-import { RefObject, useState, useEffect } from 'react'
-import { useIsActive } from '../../hooks'
+import { RefObject, useEffect, useRef } from 'react'
 import { useRoomData } from '../../provider/RoomDataProvider'
 import { DELAY_ENTERING, DELAY_EXITING } from './const'
 
 
 function useBlending(portalMaterial: RefObject<PortalMaterialType>) {
-  const isActive = useIsActive()
-  const [isBlend, setIsBlend] = useState(isActive)
+  const { setIsDisplayed, isActive } = useRoomData()
 
-  const { setIsDisplayed } = useRoomData()
+  const isBlend = useRef<boolean>(isActive)
+
   useFrame((_, dt) => {
     if (portalMaterial.current == null) return
-    easing.damp(portalMaterial.current, 'blend', isBlend ? 1 : 0, 0.1, dt)
+    easing.damp(portalMaterial.current, 'blend', isBlend.current ? 1 : 0, 0.1, dt)
 
     setIsDisplayed(portalMaterial.current.blend > 0)
   })
@@ -22,11 +21,11 @@ function useBlending(portalMaterial: RefObject<PortalMaterialType>) {
   useEffect(() => {
     if (isActive) {
       setTimeout(() => {
-        setIsBlend(true)
+        isBlend.current = true
       }, DELAY_ENTERING)
     } else {
       setTimeout(() => {
-        setIsBlend(false)
+        isBlend.current = false
       }, DELAY_EXITING)
     }
   }, [isActive])

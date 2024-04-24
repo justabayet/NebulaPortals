@@ -2,16 +2,16 @@ import { Object3DProps, useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import { useRef } from 'react'
 import { Mesh, Object3D, FrontSide, ColorRepresentation } from 'three'
-import { useIsActive } from '../../hooks'
 import { logo_dark, logo_light } from './assets'
 import { Image } from '../../Components'
+import { useRoomData } from '../../provider/RoomDataProvider'
 
 interface IntroProps extends Object3DProps {
   color: ColorRepresentation
 }
 
 function Intro({ ...props }: IntroProps): JSX.Element {
-  const isActive = useIsActive()
+  const { isActive } = useRoomData()
 
   const backgroundRef = useRef<Mesh>(null)
   const graphRef = useRef<Object3D>(null)

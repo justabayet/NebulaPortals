@@ -3,7 +3,6 @@ import { easing } from 'maath'
 import { useRef } from 'react'
 import { Color, ColorRepresentation, PointLight } from 'three'
 import { GithubButton } from '../../Components'
-import { useIsActive } from '../../hooks'
 import { useRoomData } from '../../provider/RoomDataProvider'
 import ExitPortal from '../ExitPortal'
 import Portal from '../Portal'
@@ -28,9 +27,7 @@ const GITHUB_LSC = 'https://github.com/justabayet/LoLSceneCreator'
 // const LINK_LSC = 'https://lsc.justabayet.com/'
 
 function LolRoom(): JSX.Element {
-  const { isDisplayed } = useRoomData()
-
-  const isActive = useIsActive()
+  const { isDisplayed, isActive } = useRoomData()
 
   const lightRef = useRef<PointLight>(null)
   useFrame((_, dt) => {

@@ -2,12 +2,12 @@ import { Object3DProps, useFrame } from '@react-three/fiber'
 import { Image } from '../../Components'
 import logo from './assets/logo.png'
 import { FrontSide, Object3D } from 'three'
-import { useIsActive } from '../../hooks'
 import { easing } from 'maath'
 import { useRef } from 'react'
+import { useRoomData } from '../../provider/RoomDataProvider'
 
 function Intro(props: Object3DProps): JSX.Element {
-  const isActive = useIsActive()
+  const { isActive } = useRoomData()
 
   const ref = useRef<Object3D>(null)
 
