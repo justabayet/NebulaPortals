@@ -1,5 +1,7 @@
 :root {
-  --background-color: #030303
+  --background-color: #030303;
+  --scrollbar-foreground: #dddddd77;
+  --scrollbar-background: #00000000;
 }
 
 html, body{
@@ -13,8 +15,14 @@ html, body{
   overscroll-behavior-y: none;
 
   height: 100%;
+
+  scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
 }
 
-::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-foreground);
 }
