@@ -1,5 +1,5 @@
 import './WelcomeScreen.css'
-import { ClickOneFinger } from '../Components/AnimatedIcons'
+import { ClickOneFinger } from 'animated-icons'
 import { useEffect, useState } from 'react'
 
 interface WelcomeScreenProps {

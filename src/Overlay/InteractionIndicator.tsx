@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { ClickOneFinger, SwipeHorizontal, SwipeVertical } from '../Components/AnimatedIcons'
+import { ClickOneFinger, SwipeHorizontal, SwipeVertical } from 'animated-icons'
 import './InteractionIndicator.css'
 import { useInteractionState } from '../provider/InteractionStateProvider'
 import { useCurrentProject } from '../hooks'
