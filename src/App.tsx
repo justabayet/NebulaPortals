@@ -4,7 +4,7 @@ import { Balls } from './Components'
 import Controls, { CAMERA_DEFAULT_POSITION } from './Controls'
 import { getRoomArgs, rooms } from './Rooms'
 import { Dispatch, SetStateAction, Suspense, memo } from 'react'
-import { useInteractionState } from './provider/InteractionStateProvider'
+import { useSetInteractionState } from './provider/InteractionStateProvider'
 
 const Appli = memo(function Appli({ setHasWhelled }: { setHasWhelled: Dispatch<SetStateAction<boolean>> }): JSX.Element {
   return (
@@ -26,7 +26,7 @@ const Appli = memo(function Appli({ setHasWhelled }: { setHasWhelled: Dispatch<S
 })
 
 function App() {
-  const { setHasWhelled } = useInteractionState()
+  const { setHasWhelled } = useSetInteractionState()
 
   return <Appli setHasWhelled={setHasWhelled} />
 }

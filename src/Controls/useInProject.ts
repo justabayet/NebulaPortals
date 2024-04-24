@@ -3,7 +3,7 @@ import CameraControls from 'camera-controls'
 import { useEffect } from 'react'
 import { Scene, Vector3 } from 'three'
 import { useCurrentProject } from '../hooks'
-import { useInteractionState } from '../provider/InteractionStateProvider'
+import { useSetInteractionState } from '../provider/InteractionStateProvider'
 
 const position = new Vector3(0, 0, 0)
 const focus = new Vector3(0, 0, 0)
@@ -28,7 +28,7 @@ function useInProject() {
       
   }, [isInsideProject, scene, controls, projectName])
 
-  const { setHasLookedAround } = useInteractionState()
+  const { setHasLookedAround } = useSetInteractionState()
   useEffect(() => {
     if(!isInsideProject || controls == null) return
 

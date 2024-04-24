@@ -2,16 +2,13 @@ import { Detailed, PortalMaterialType } from '@react-three/drei'
 import { FrontSide, ColorRepresentation, Euler } from 'three'
 import { PropsWithChildren, ReactNode, Suspense, useCallback, useMemo, useRef } from 'react'
 
-import { useLocation } from 'wouter'
-
-import { useIsActive } from '../../hooks'
 import { RoomDataProvider, useRoomData } from '../../provider/RoomDataProvider'
 import { MeshPortalMaterial, MeshHoverable } from '../../Components'
 import useBlending from './useBlending'
 import Fallback from './Fallback'
 import { ThreeEvent } from '@react-three/fiber'
 import { RoomProps } from '../interface'
-import { useInteractionState } from '../../provider/InteractionStateProvider'
+import { useSetInteractionState } from '../../provider/InteractionStateProvider'
 import Border, { BorderSpecificProps } from './Border'
 
 
@@ -22,17 +19,14 @@ interface PortalInternalProps extends PropsWithChildren, RoomProps {
 }
 
 function Portal({ position, children, childrenAbsolute, index, fallbackColor, angle, border }: PortalInternalProps): JSX.Element {
-  const { name } = useRoomData()
-
-  const [, setLocation] = useLocation()
-  const isActive = useIsActive()
+  const { name, isActive, setLocation } = useRoomData()
 
   const portal = useRef<PortalMaterialType>(null)
   useBlending(portal)
 
   const rotation = useMemo(() => new Euler(0, angle - Math.PI / 2, 0), [angle])
 
-  const { setHasEnteredRoom } = useInteractionState()
+  const { setHasEnteredRoom } = useSetInteractionState()
 
   const onClick = useCallback((e: ThreeEvent<MouseEvent>) => {
     if (isActive) return
