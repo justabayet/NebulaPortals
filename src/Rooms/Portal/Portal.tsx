@@ -51,7 +51,7 @@ function Portal({ position, children, childrenAbsolute, index, fallbackColor, an
           userData={{ index: index, position }}>
           <planeGeometry args={[1, 2]} />
 
-          <Suspense>
+          <Suspense fallback={<meshStandardMaterial transparent opacity={0} />}>
             <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true} transparent>
               {childrenAbsolute}
 
