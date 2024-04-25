@@ -123,7 +123,6 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
     React.useLayoutEffect(() => {
       // Since the ref above is not tied to a mesh directly (we're inside a material),
       // it has to be tied to the parent mesh here
-      // console.log('parent.current')
       parent.current = (ref.current as any)?.__r3f.parent
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -133,7 +132,6 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
 
       // Apply the SDF mask only once
       if (blur && ref.current.sdf === null) {
-        // console.log('blur && ref.current.sdf')
         const tempMesh = new THREE.Mesh(parent.current.geometry, new THREE.MeshBasicMaterial())
         const boundingBox = new THREE.Box3().setFromBufferAttribute(
           tempMesh.geometry.attributes.position as THREE.BufferAttribute
@@ -188,10 +186,6 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // console.log(size, viewport)
-    // const width = 100//size.width
-    // const height = 100//size.height
-
     return (
       <portalMaterialImpl
         ref={ref as any}
@@ -207,8 +201,6 @@ export const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
           eventPriority={eventPriority}
           renderPriority={renderPriority}
           compute={compute}
-        // width={width}
-        // height={height}
         >
           {children}
           <ManagePortalScene
@@ -253,7 +245,6 @@ function ManagePortalScene({
   }, [events])
 
   const [quad, blend] = React.useMemo(() => {
-    // console.log('quad, blend')
     // This fullscreen-quad is used to blend the two textures
     const blend = { value: 0 }
     const quad = new FullScreenQuad(
