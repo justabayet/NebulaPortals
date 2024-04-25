@@ -1,4 +1,4 @@
-import { useCursor } from '@react-three/drei'
+import { useCursor } from '@react-three/drei/web/useCursor'
 import { forwardRef, useEffect, useState } from 'react'
 
 import { MeshProps } from '@react-three/fiber'

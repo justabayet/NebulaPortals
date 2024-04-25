@@ -1,4 +1,5 @@
-import { CameraControls, ScrollControls } from '@react-three/drei'
+import { CameraControls } from '@react-three/drei/core/CameraControls'
+import { ScrollControls } from '@react-three/drei/web/ScrollControls'
 import CameraControlsOriginal from 'camera-controls'
 import useInProject from './useInProject'
 import useInTower from './useInTower'

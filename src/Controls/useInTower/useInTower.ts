@@ -1,4 +1,5 @@
-import { CameraControls, useScroll } from '@react-three/drei'
+import { useScroll } from '@react-three/drei/web/ScrollControls'
+import { CameraControls } from '@react-three/drei/core/CameraControls'
 import useDefault, { DEFAULT_FOCUS, DEFAULT_POSITION } from './useDefault'
 import useExitingProject from './useExitingProject'
 import { FULL_ANGLE, FULL_HEIGHT } from '../../Rooms/const'

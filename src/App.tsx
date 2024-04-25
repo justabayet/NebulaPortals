@@ -5,6 +5,7 @@ import Controls, { CAMERA_DEFAULT_POSITION } from './Controls'
 import { getRoomArgs, rooms } from './Rooms'
 import { Suspense } from 'react'
 import { useSetInteractionState } from './provider/InteractionStateProvider'
+import { Stats } from '@react-three/drei/core/Stats'
 
 function App(): JSX.Element {
   const { setHasWhelled } = useSetInteractionState()
@@ -22,6 +23,7 @@ function App(): JSX.Element {
 
           <Controls />
         </Canvas>
+        <Stats></Stats>
       </Suspense>
     </div>
   )

@@ -4,7 +4,7 @@ import Image from '../Image'
 import exitFace from './exit.png'
 import exitLeft from './exit_left.png'
 import exitRight from './exit_right.png'
-import { RoundedBox } from '@react-three/drei'
+import { RoundedBox } from '@react-three/drei/core/RoundedBox'
 
 const DEPTH = 0.2
 

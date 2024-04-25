@@ -1,4 +1,5 @@
-import { Center, Text3D } from '@react-three/drei'
+import { Center } from '@react-three/drei/core/Center'
+import { Text3D } from '@react-three/drei/core/Text3D'
 import { Color, ColorRepresentation } from 'three'
 import { Panel } from '../../Components'
 import { useRoomData } from '../../provider/RoomDataProvider'

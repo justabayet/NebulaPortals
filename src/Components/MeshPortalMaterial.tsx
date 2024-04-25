@@ -9,7 +9,10 @@ import * as React from 'react'
 import { ReactThreeFiber, extend, useFrame, useThree } from '@react-three/fiber'
 import FullScreenQuad from './FullScreenQuad'
 import { version } from '@react-three/drei/helpers/constants'
-import { useIntersect, useFBO, RenderTexture, shaderMaterial } from '@react-three/drei'
+import { useIntersect } from '@react-three/drei/core/useIntersect'
+import { useFBO } from '@react-three/drei/core/useFBO'
+import { RenderTexture } from '@react-three/drei/core/RenderTexture'
+import { shaderMaterial } from '@react-three/drei/core/shaderMaterial'
 
 const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
   {

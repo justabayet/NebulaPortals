@@ -1,4 +1,4 @@
-import { PortalMaterialType } from '@react-three/drei'
+import { PortalMaterialType } from '../../Components/MeshPortalMaterial'
 import { useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import { RefObject, useEffect, useRef } from 'react'

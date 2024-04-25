@@ -3,7 +3,7 @@ import CameraControls from 'camera-controls'
 import { useEffect } from 'react'
 import { Scene, Vector3 } from 'three'
 import { DEFAULT_POSITION } from './useDefault'
-import { useScroll } from '@react-three/drei'
+import { useScroll } from '@react-three/drei/web/ScrollControls'
 import { rooms } from '../../Rooms/const'
 import { usePreviousProject } from '../../hooks'
 

@@ -1,4 +1,5 @@
-import { Detailed, PortalMaterialType } from '@react-three/drei'
+import { PortalMaterialType } from '../../Components/MeshPortalMaterial'
+import { Detailed } from '@react-three/drei/core/Detailed'
 import { FrontSide, ColorRepresentation, Euler } from 'three'
 import { PropsWithChildren, ReactNode, Suspense, useCallback, useMemo, useRef } from 'react'
 
