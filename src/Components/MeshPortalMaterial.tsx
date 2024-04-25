@@ -7,7 +7,7 @@
 import * as THREE from 'three'
 import * as React from 'react'
 import { ReactThreeFiber, extend, useFrame, useThree } from '@react-three/fiber'
-import { FullScreenQuad } from 'three-stdlib'
+import FullScreenQuad from './FullScreenQuad'
 import { version } from '@react-three/drei/helpers/constants'
 import { useIntersect, useFBO, RenderTexture, shaderMaterial } from '@react-three/drei'
 
