@@ -1,5 +1,5 @@
 import './WelcomeScreen.css'
-import { ClickOneFinger } from 'animated-icons'
+import { ClickOneFingerBigLight } from 'animated-icons'
 import { useEffect, useState } from 'react'
 
 interface WelcomeScreenProps {
@@ -31,7 +31,7 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
       <span>Bonjour</span>
 
       <div>
-        <ClickOneFinger theme='light' style={{ width: '35px', opacity: showIndicator ? 1 : 0, transition: 'opacity 1.5s' }} />
+        <ClickOneFingerBigLight style={{ width: '35px', opacity: showIndicator ? 1 : 0, transition: 'opacity 1.5s' }} />
       </div>
     </div>
   )

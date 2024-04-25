@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { ClickOneFinger, SwipeHorizontal, SwipeVertical } from 'animated-icons'
+import { ClickOneFingerBigLight, SwipeHorizontalBigLight, SwipeVerticalBigLight } from 'animated-icons'
 import './InteractionIndicator.css'
 import { useInteractionState } from '../provider/InteractionStateProvider'
 import { useCurrentProject } from '../hooks'
@@ -26,7 +26,7 @@ function RoomIndicator(): JSX.Element {
 
   return (
     <BottomCentered>
-      <SwipeHorizontal theme='light' style={{ ...getIconStyle(isDisplayed) }} />
+      <SwipeHorizontalBigLight style={{ ...getIconStyle(isDisplayed) }} />
     </BottomCentered>
   )
 }
@@ -39,7 +39,7 @@ function TowerIndicator(): JSX.Element {
 
   return (
     <BottomCentered>
-      <SwipeVertical theme='light' style={{ ...getIconStyle(isDisplayed) }} />
+      <SwipeVerticalBigLight style={{ ...getIconStyle(isDisplayed) }} />
     </BottomCentered>
   )
 }
@@ -54,7 +54,7 @@ function PortalClickIndicator(): JSX.Element {
   return (
     <div className='overlay center full-screen'>
       <div>
-        <ClickOneFinger theme='light' style={{ ...getIconStyle(isDisplayed) }} />
+        <ClickOneFingerBigLight style={{ ...getIconStyle(isDisplayed) }} />
       </div>
     </div>
   )
