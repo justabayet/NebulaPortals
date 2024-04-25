@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import BackButton from './BackButton'
 import InteractionIndicator from './InteractionIndicator'
 import WelcomeScreen from './WelcomeScreen'
@@ -11,7 +11,9 @@ function Overlay(): JSX.Element {
     <>
       <BackButton />
       <WelcomeScreen hasStarted={hasStarted} setHasStarted={setHasStarted} />
-      {hasStarted && <InteractionIndicator />}
+      <Suspense>
+        {hasStarted && <InteractionIndicator />}
+      </Suspense>
       <Contact />
       <Title />
     </>
