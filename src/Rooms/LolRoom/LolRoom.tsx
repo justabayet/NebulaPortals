@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
-import { useRef } from 'react'
+import { Suspense, useRef } from 'react'
 import { Color, ColorRepresentation, PointLight } from 'three'
 import { GithubButton } from '../../Components'
 import { useRoomData } from '../../provider/RoomDataProvider'
@@ -48,7 +48,9 @@ function LolRoom(): JSX.Element {
       <Intro position={[0, 0, 2.5]} />
 
       <object3D position={[0, -0.4, 0]}>
-        <Champion />
+        <Suspense>
+          <Champion />
+        </Suspense>
         <Ground />
       </object3D>
 
