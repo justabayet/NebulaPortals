@@ -1,0 +1,1 @@
+export { ClickOneFingerBigLight as default } from 'animated-icons'

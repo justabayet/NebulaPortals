@@ -1,0 +1,1 @@
+export { SwipeHorizontalBigLight as default } from 'animated-icons'

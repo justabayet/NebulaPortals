@@ -1,9 +1,12 @@
-import { PropsWithChildren } from 'react'
-import { ClickOneFingerBigLight, SwipeHorizontalBigLight, SwipeVerticalBigLight } from 'animated-icons'
+import { PropsWithChildren, lazy } from 'react'
 import './InteractionIndicator.css'
 import { useInteractionState } from '../provider/InteractionStateProvider'
 import { useCurrentProject } from '../hooks'
 import { useCameraStillnessContext } from '../provider/CameraStillnessProvider'
+
+const ClickOneFingerBigLight = lazy(() => import('../Components/LazyAnimatedIcons/ClickOneFingerBigLight'))
+const SwipeHorizontalBigLight = lazy(() => import('../Components/LazyAnimatedIcons/SwipeHorizontalBigLight'))
+const SwipeVerticalBigLight = lazy(() => import('../Components/LazyAnimatedIcons/SwipeVerticalBigLight'))
 
 function BottomCentered({ children }: PropsWithChildren): JSX.Element {
   return (

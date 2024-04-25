@@ -1,0 +1,1 @@
+export { SwipeVerticalBigLight as default } from 'animated-icons'

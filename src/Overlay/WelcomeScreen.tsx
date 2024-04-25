@@ -1,6 +1,7 @@
 import './WelcomeScreen.css'
-import { ClickOneFingerBigLight } from 'animated-icons'
-import { useEffect, useState } from 'react'
+import { lazy, useEffect, useState } from 'react'
+
+const ClickOneFingerBigLight = lazy(() => import('../Components/LazyAnimatedIcons/ClickOneFingerBigLight'))
 
 interface WelcomeScreenProps {
   hasStarted: boolean
