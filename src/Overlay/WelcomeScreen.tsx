@@ -17,26 +17,37 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
   }, [])
 
   return (
-    <div
-      className='welcome-screen'
-      onClick={() => setHasStarted(true)}
-      style={hasStarted ? {
-        cursor: 'auto',
-        pointerEvents: 'none',
-        opacity: 0
-      } : {
-        cursor: 'pointer',
-        pointerEvents: 'auto',
-        opacity: 1
-      }}>
-      <span>Bonjour</span>
-
-      <div>
-        <Suspense>
-          <ClickOneFingerBigLight style={{ width: '35px', opacity: showIndicator ? 1 : 0, transition: 'opacity 1.5s' }} />
-        </Suspense>
+    <Suspense fallback={
+      <div
+        className='welcome-screen'
+        style={{
+          cursor: 'auto',
+          pointerEvents: 'auto',
+          opacity: 1
+        }}>
+        <span>Bonjour</span>
+        <div style={{ height: '35px' }} />
       </div>
-    </div>
+    }>
+      <div
+        className='welcome-screen'
+        onClick={() => setHasStarted(true)}
+        style={hasStarted ? {
+          cursor: 'auto',
+          pointerEvents: 'none',
+          opacity: 0
+        } : {
+          cursor: 'pointer',
+          pointerEvents: 'auto',
+          opacity: 1
+        }}>
+        <span>Bonjour</span>
+
+        <div>
+          <ClickOneFingerBigLight style={{ width: '35px', opacity: showIndicator ? 1 : 0, transition: 'opacity 1.5s' }} />
+        </div>
+      </div>
+    </Suspense>
   )
 }
 

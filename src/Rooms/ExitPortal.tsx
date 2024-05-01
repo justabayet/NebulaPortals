@@ -1,8 +1,10 @@
-import { MeshPortalMaterial, Balls, MeshHoverable } from '../Components'
+import { Balls, MeshHoverable } from '../Components'
 import { DoubleSide } from 'three'
 import { useLocation } from 'wouter'
 import { useRoomData } from '../provider/RoomDataProvider'
-import { Suspense } from 'react'
+import { Suspense, lazy } from 'react'
+
+const MeshPortalMaterial = lazy(() => import('../Components/MeshPortalMaterial'))
 
 interface ExitPortalProps {
   position: [number, number, number]

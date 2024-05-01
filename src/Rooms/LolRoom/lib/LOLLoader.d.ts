@@ -42,4 +42,5 @@ declare class MeshLoL extends THREE.Mesh {
   }
 }
 
-export { LOLLoader, MeshLoL, Model }
+export default LOLLoader
+export { MeshLoL, Model }

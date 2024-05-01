@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import * as THREE from 'three'
-import pako from 'pako'
+import { inflate } from 'pako/lib/inflate.js'
 import { dispatch } from 'd3-dispatch'
-import * as gl from 'gl-matrix'
+import { mat4, vec3, vec4, quat } from 'gl-matrix'
+import hiddenBones from './hiddenBones'
+import { TextureLoader } from 'three/src/loaders/TextureLoader.js'
+import { FileLoader } from 'three/src/loaders/FileLoader.js'
+import { BufferGeometry } from 'three/src/core/BufferGeometry.js'
+import { BufferAttribute } from 'three/src/core/BufferAttribute.js'
+import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial.js'
 /**
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
@@ -143,7 +148,7 @@ function Texture$1(model, url) {
 Texture$1.prototype.load = function () {
   var self = this
 
-  self.texture = new THREE.TextureLoader().load(self.url, function (texture) {
+  self.texture = new TextureLoader().load(self.url, function (texture) {
     self.onLoad.call(self, texture)
   })
 }
@@ -169,941 +174,20 @@ function Bone(model, index, r) {
   self.name = r.getString().toLowerCase()
   self.parent = r.getInt32()
   self.scale = r.getFloat()
-  self.origMatrix = gl.mat4.create()
+  self.origMatrix = mat4.create()
   for (i = 0; i < 16; ++i) self.origMatrix[i] = r.getFloat()
-  self.baseMatrix = gl.mat4.clone(self.origMatrix)
-  gl.mat4.transpose(self.baseMatrix, self.baseMatrix)
-  gl.mat4.invert(self.baseMatrix, self.baseMatrix)
-  gl.mat4.transpose(self.origMatrix, self.origMatrix)
-  self.incrMatrix = gl.mat4.create()
+  self.baseMatrix = mat4.clone(self.origMatrix)
+  mat4.transpose(self.baseMatrix, self.baseMatrix)
+  mat4.invert(self.baseMatrix, self.baseMatrix)
+  mat4.transpose(self.origMatrix, self.origMatrix)
+  self.incrMatrix = mat4.create()
   if (model.version >= 2) {
     for (i = 0; i < 16; ++i) self.incrMatrix[i] = r.getFloat()
-    gl.mat4.transpose(self.incrMatrix, self.incrMatrix)
+    mat4.transpose(self.incrMatrix, self.incrMatrix)
   } else {
-    gl.mat4.identity(self.incrMatrix)
+    mat4.identity(self.incrMatrix)
   }
 }
-
-/**
- * @author lolking / http://www.lolking.net/models
- * @author tengge / https://github.com/tengge1
- */
-var HiddenBones = {
-  12: {
-    9: {
-      recall: {},
-      all: {
-        recall_chair: true,
-      },
-    },
-    10: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-    11: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-    12: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-    13: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-    14: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-    15: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-    16: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-    17: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-    18: {
-      recall: {
-        cowbell: true,
-        stick: true,
-      },
-      dancein: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      danceloop: {
-        cata_root: true,
-        catb_root: true,
-        catc_root: true,
-        cork: true,
-        bowl: true,
-        bowl_milk: true,
-        milk_root: true,
-        bottle: true,
-      },
-      all: {},
-    },
-  },
-  21: {
-    9: {
-      all: {
-        orange: true,
-      },
-      recall: {
-        l_weapon: true,
-        r_weapon: true,
-      },
-    },
-    10: {
-      recall: {},
-      all: {
-        tv_joint: true,
-        tv_rabit_ears_joints: true,
-      },
-    },
-    11: {
-      recall: {},
-      all: {
-        tv_joint: true,
-        tv_rabit_ears_joints: true,
-      },
-    },
-    12: {
-      recall: {},
-      all: {
-        tv_joint: true,
-        tv_rabit_ears_joints: true,
-      },
-    },
-    13: {
-      recall: {},
-      all: {
-        tv_joint: true,
-        tv_rabit_ears_joints: true,
-      },
-    },
-    14: {
-      recall: {},
-      all: {
-        tv_joint: true,
-        tv_rabit_ears_joints: true,
-      },
-    },
-  },
-  22: {
-    8: {
-      all: {
-        c_drone_base: true,
-      },
-      joke: {},
-      dance: {},
-    },
-  },
-  36: {
-    9: {
-      all: {
-        recall_chair: true,
-      },
-      recall: {},
-    },
-  },
-  41: {
-    0: {
-      all: {
-        orange1: true,
-        orange2: true,
-        orange3: true,
-      },
-      joke: {},
-    },
-    1: {
-      all: {
-        orange1: true,
-        orange2: true,
-        orange3: true,
-      },
-      joke: {},
-    },
-    2: {
-      all: {
-        orange1: true,
-        orange2: true,
-        orange3: true,
-      },
-      joke: {},
-    },
-    3: {
-      all: {
-        orange1: true,
-        orange2: true,
-        orange3: true,
-      },
-      joke: {},
-    },
-    4: {
-      all: {
-        orange1: true,
-        orange2: true,
-        orange3: true,
-      },
-      joke: {},
-    },
-    5: {
-      all: {
-        orange1: true,
-        orange2: true,
-        orange3: true,
-      },
-      joke: {},
-    },
-    6: {
-      all: {
-        orange1: true,
-        orange2: true,
-        orange3: true,
-      },
-      joke: {},
-    },
-    7: {
-      all: {
-        orange1: true,
-        orange2: true,
-        orange3: true,
-      },
-      joke: {},
-    },
-  },
-  44: {
-    4: {
-      all: {
-        jacket: true,
-      },
-      dance: {
-        jacket: true,
-        weapon: true,
-      },
-      recall: {
-        weapon: true,
-      },
-    },
-  },
-  55: {
-    7: {
-      recall: {},
-      all: {
-        xmas_pole_skin07: true,
-      },
-    },
-  },
-  61: {
-    7: {
-      recall: {},
-      all: {
-        planet1: true,
-        planet2: true,
-        planet3: true,
-        planet4: true,
-        planet5: true,
-        planet6: true,
-      },
-    },
-  },
-  69: {
-    4: {
-      all: {
-        l_fan: true,
-        r_fan: true,
-      },
-      recall: {},
-    },
-  },
-  80: {
-    8: {
-      all: {
-        oven: true,
-      },
-      recall: {},
-    },
-  },
-  83: {
-    0: {
-      all: {},
-      idle2: {
-        weapon: true,
-      },
-    },
-    1: {
-      all: {},
-      idle2: {
-        weapon: true,
-      },
-    },
-    2: {
-      all: {},
-      idle2: {
-        weapon: true,
-      },
-    },
-  },
-  103: {
-    7: {
-      recall: {},
-      all: {
-        arcade: true,
-      },
-    },
-  },
-  114: {
-    5: {
-      all: {
-        weapon_krab: true,
-        root_krab: true,
-      },
-      recall: {},
-    },
-  },
-  115: {
-    4: {
-      all: {
-        sled: true,
-      },
-      satcheljump: {
-        bomb: true,
-        bomb_b: true,
-      },
-    },
-  },
-  119: {
-    4: {
-      all: {
-        chair_root: true,
-        sun_reflector_root: true,
-      },
-      recall: {},
-    },
-  },
-  136: {
-    0: {
-      all: {
-        shades_sunglass: true,
-      },
-      joke: {},
-    },
-    1: {
-      all: {
-        shades_sunglass: true,
-      },
-      joke: {},
-    },
-  },
-  143: {
-    4: {
-      attack1: {
-        r_wing: true,
-        l_wing: true,
-      },
-      attack2: {
-        r_wing: true,
-        l_wing: true,
-      },
-      dance: {
-        r_wing: true,
-        l_wing: true,
-      },
-      idle1: {
-        r_wing: true,
-        l_wing: true,
-      },
-      idle3: {
-        r_wing: true,
-        l_wing: true,
-      },
-      idle4: {
-        r_wing: true,
-        l_wing: true,
-      },
-      laugh: {
-        r_wing: true,
-        l_wing: true,
-      },
-      run: {
-        r_wing: true,
-        l_wing: true,
-      },
-      spell2: {
-        r_wing: true,
-        l_wing: true,
-      },
-      all: {},
-    },
-  },
-  157: {
-    4: {
-      all: {
-        flute: true,
-      },
-      dance: {},
-    },
-    5: {
-      all: {
-        flute: true,
-      },
-      dance: {},
-    },
-    6: {
-      all: {
-        flute: true,
-      },
-      dance: {},
-    },
-    7: {
-      all: {
-        flute: true,
-      },
-      dance: {},
-    },
-    8: {
-      all: {
-        flute: true,
-      },
-      dance: {},
-    },
-  },
-  201: {
-    3: {
-      all: {
-        poro: true,
-      },
-    },
-  },
-  222: {
-    4: {
-      all: {
-        rocket_launcher: true,
-      },
-      r_attack1: {},
-      r_attack2: {},
-      r_idle1: {},
-      r_idle_in: {},
-      r_run: {},
-      r_run_fast: {},
-      r_run_haste: {},
-      r_spell2: {},
-      r_spell3: {},
-      r_spell3_run: {},
-      r_spell4: {},
-      respawn_trans_rlauncher: {},
-      rlauncher_spell3: {},
-      spell1a: {},
-    },
-  },
-  238: {
-    10: {
-      all: {
-        chair_skin10: true,
-        step1_skin10: true,
-        step2_skin10: true,
-      },
-      recall: {},
-    },
-  },
-  245: {
-    0: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    1: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    2: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    3: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    4: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    5: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    6: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    7: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    8: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    9: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-    10: {
-      deathrespawn: {},
-      all: {
-        book_pen: true,
-      },
-    },
-  },
-  254: {
-    0: {
-      all: {
-        teacup: true,
-      },
-      taunt2: {},
-    },
-    1: {
-      all: {
-        teacup: true,
-      },
-      taunt2: {},
-    },
-    3: {
-      all: {
-        teacup: true,
-      },
-      taunt2: {},
-    },
-    4: {
-      all: {
-        teacup: true,
-      },
-      taunt2: {},
-    },
-  },
-  412: {
-    1: {
-      all: {
-        coin1: true,
-        coin2: true,
-        coin3: true,
-        coin4: true,
-        coin5: true,
-        coin6: true,
-        coin7: true,
-        treasure_chest: true,
-        treasure_chest_cover: true,
-        tire: true,
-      },
-      recall: {
-        tire: true,
-      },
-      undersea_recall_loop: {
-        tire: true,
-      },
-      undersea_recall_loop2: {
-        coin1: true,
-        coin2: true,
-        coin3: true,
-        coin4: true,
-        coin5: true,
-        coin6: true,
-        coin7: true,
-        treasure_chest: true,
-        treasure_chest_cover: true,
-      },
-      undersea_recall_windup: {
-        tire: true,
-      },
-      undersea_recall_windup2: {
-        coin1: true,
-        coin2: true,
-        coin3: true,
-        coin4: true,
-        coin5: true,
-        coin6: true,
-        coin7: true,
-        treasure_chest: true,
-        treasure_chest_cover: true,
-      },
-    },
-    5: {
-      all: {
-        mini_root: true,
-      },
-      joke: {},
-    },
-  },
-  420: {
-    0: {
-      all: {
-        c_tentacle1: true,
-      },
-    },
-    1: {
-      all: {
-        c_tentacle1: true,
-      },
-    },
-  },
-  429: {
-    3: {
-      death: {
-        altar_spear: true,
-        buffbone_cstm_back_spear1: true,
-        buffbone_cstm_back_spear2: true,
-        buffbone_cstm_back_spear3: true,
-      },
-    },
-  },
-  432: {
-    0: {
-      all: {
-        follower_root: true,
-      },
-      dance: {},
-    },
-    2: {
-      all: {
-        follower_root: true,
-      },
-      dance: {},
-    },
-    3: {
-      all: {
-        follower_root: true,
-      },
-      dance: {},
-    },
-    4: {
-      all: {
-        follower_root: true,
-      },
-      dance: {},
-    },
-  },
-  gnarbig: {
-    0: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    1: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    2: {
-      all: {
-        rock: true,
-        cane_bot: true,
-        cane_top: true,
-      },
-      spell1: {
-        cane_bot: true,
-        cane_top: true,
-      },
-      laugh: {
-        cane_bot: true,
-        cane_top: true,
-      },
-      recall: {
-        rock: true,
-      },
-    },
-    3: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    4: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    5: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    6: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    7: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    8: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    9: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    10: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    11: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-    12: {
-      all: {
-        rock: true,
-      },
-      spell1: {},
-      laugh: {},
-    },
-  },
-}
-
 /**
  * @author lolking / http://www.lolking.net/models
  * @author tengge / https://github.com/tengge1
@@ -1127,12 +211,12 @@ function AnimationBone(model, anim, r, version) {
       scale: scale,
     }
   }
-  self.matrix = gl.mat4.create()
-  self.tmpMat = gl.mat4.create()
-  self.tmpMat2 = gl.mat4.create()
-  self.tmpPos = gl.vec3.create()
-  self.tmpRot = gl.quat.create()
-  self.tmpScale = gl.vec3.create()
+  self.matrix = mat4.create()
+  self.tmpMat = mat4.create()
+  self.tmpMat2 = mat4.create()
+  self.tmpPos = vec3.create()
+  self.tmpRot = quat.create()
+  self.tmpScale = vec3.create()
 }
 AnimationBone.prototype.update = function (boneId, frame, r) {
   var self = this
@@ -1140,20 +224,20 @@ AnimationBone.prototype.update = function (boneId, frame, r) {
   var parent = self.model.bones[boneId].parent
   var f0 = frame % self.frames.length,
     f1 = (frame + 1) % self.frames.length
-  gl.vec3.lerp(self.tmpPos, self.frames[f0].pos, self.frames[f1].pos, r)
-  gl.vec3.lerp(self.tmpScale, self.frames[f0].scale, self.frames[f1].scale, r)
-  gl.quat.slerp(self.tmpRot, self.frames[f0].rot, self.frames[f1].rot, r)
+  vec3.lerp(self.tmpPos, self.frames[f0].pos, self.frames[f1].pos, r)
+  vec3.lerp(self.tmpScale, self.frames[f0].scale, self.frames[f1].scale, r)
+  quat.slerp(self.tmpRot, self.frames[f0].rot, self.frames[f1].rot, r)
   self.translation(self.tmpMat2, self.tmpPos)
   self.rotationQuat(self.tmpMat, self.tmpRot)
   self.mulSlimDX(self.matrix, self.tmpMat, self.tmpMat2)
   if (parent != -1) {
     self.mulSlimDX(self.matrix, self.matrix, self.model.transforms[parent])
   }
-  gl.mat4.copy(self.model.transforms[boneId], self.matrix)
+  mat4.copy(self.model.transforms[boneId], self.matrix)
 }
 
 AnimationBone.prototype.translation = function (out, vec) {
-  gl.mat4.identity(out)
+  mat4.identity(out)
   out[12] = vec[0]
   out[13] = vec[1]
   out[14] = vec[2]
@@ -1161,7 +245,7 @@ AnimationBone.prototype.translation = function (out, vec) {
 }
 
 AnimationBone.prototype.rotationQuat = function (out, q) {
-  gl.mat4.identity(out)
+  mat4.identity(out)
   var xx = q[0] * q[0],
     yy = q[1] * q[1],
     zz = q[2] * q[2],
@@ -1381,14 +465,13 @@ function Model(options) {
   self.animCycle = true
   self.animTime = 0
   self.deltaTime = 0
-  self.tmpMat = gl.mat4.create()
-  self.tmpVec = gl.vec4.create()
+  self.tmpMat = mat4.create()
+  self.tmpVec = vec4.create()
   self.animStatus = true
 
   self.dispatch = dispatch('load', 'loadMesh', 'loadTexture', 'loadAnim')
 
   self.hiddenBones = null
-  var hiddenBones = HiddenBones
   if (hiddenBones[self.champion] !== undefined) {
     if (hiddenBones[self.champion][self.skin] !== undefined) {
       self.hiddenBones = hiddenBones[self.champion][self.skin]
@@ -1398,16 +481,16 @@ function Model(options) {
   self.ambientColor = [0.35, 0.35, 0.35, 1]
   self.primaryColor = [1, 1, 1, 1]
   self.secondaryColor = [0.35, 0.35, 0.35, 1]
-  self.lightDir1 = gl.vec3.create()
-  self.lightDir2 = gl.vec3.create()
-  self.lightDir3 = gl.vec3.create()
-  gl.vec3.normalize(self.lightDir1, [5, 5, -5])
-  gl.vec3.normalize(self.lightDir2, [5, 5, 5])
-  gl.vec3.normalize(self.lightDir3, [-5, -5, -5])
+  self.lightDir1 = vec3.create()
+  self.lightDir2 = vec3.create()
+  self.lightDir3 = vec3.create()
+  vec3.normalize(self.lightDir1, [5, 5, -5])
+  vec3.normalize(self.lightDir2, [5, 5, 5])
+  vec3.normalize(self.lightDir3, [-5, -5, -5])
 
   self.texture = null
-  self.geometry = new THREE.BufferGeometry()
-  self.material = new THREE.MeshPhongMaterial()
+  self.geometry = new BufferGeometry()
+  self.material = new MeshPhongMaterial()
 
   var promise1 = new Promise((resolve) => {
     self.dispatch.on('loadMesh.Model', () => {
@@ -1588,13 +671,13 @@ Model.prototype.update = function (time) {
       for (i = 0; i < self.bones.length; ++i) {
         b = self.bones[i]
         if (hiddenBones[b.name]) {
-          gl.mat4.identity(self.tmpMat)
-          gl.mat4.scale(
+          mat4.identity(self.tmpMat)
+          mat4.scale(
             self.tmpMat,
             self.tmpMat,
-            gl.vec3.set(self.tmpVec, 0, 0, 0)
+            vec3.set(self.tmpVec, 0, 0, 0)
           )
-          gl.mat4.copy(self.transforms[i], self.tmpMat)
+          mat4.copy(self.transforms[i], self.tmpMat)
         } else if (anim.lookup[b.name] !== undefined) {
           anim.bones[anim.lookup[b.name]].update(i, frame, r)
         } else if (
@@ -1610,7 +693,7 @@ Model.prototype.update = function (time) {
               self.transforms[b.parent]
             )
           } else {
-            gl.mat4.copy(self.transforms[i], b.incrMatrix)
+            mat4.copy(self.transforms[i], b.incrMatrix)
           }
         }
       }
@@ -1623,7 +706,7 @@ Model.prototype.update = function (time) {
           var parentBone = anim.bones[i - 1]
           if (!parentBone) continue
           if (parentBone.index + 1 < self.transforms.length) {
-            gl.mat4.copy(
+            mat4.copy(
               self.transforms[parentBone.index + 1],
               self.transforms[parentBone.index]
             )
@@ -1640,7 +723,7 @@ Model.prototype.update = function (time) {
         self.transforms[i]
       )
     }
-    gl.mat4.identity(self.tmpMat)
+    mat4.identity(self.tmpMat)
     var numVerts = self.vertices.length,
       vec = self.tmpVec,
       position = self.geometry.attributes.position.array,
@@ -1658,11 +741,11 @@ Model.prototype.update = function (time) {
         if (v.weights[j] > 0) {
           w = v.weights[j]
           m = anim.fps == 1 ? self.tmpMat : self.transforms[v.bones[j]]
-          gl.vec3.transformMat4(vec, v.position, m)
+          vec3.transformMat4(vec, v.position, m)
           position[idx] += vec[0] * w
           position[idx + 1] += vec[1] * w
           position[idx + 2] += vec[2] * w
-          gl.vec4.transformMat4(vec, v.normal, m)
+          vec4.transformMat4(vec, v.normal, m)
           normal[idx] += vec[0] * w
           normal[idx + 1] += vec[1] * w
           normal[idx + 2] += vec[2] * w
@@ -1679,7 +762,7 @@ Model.prototype.update = function (time) {
 
 Model.prototype.load = function () {
   var self = this
-  var loader = new THREE.FileLoader()
+  var loader = new FileLoader()
   loader.setResponseType('arraybuffer')
   loader.load(self.meshUrl, function (buffer) {
     self.loadMesh(buffer)
@@ -1713,7 +796,7 @@ Model.prototype.loadMesh = function (buffer) {
   var animFile = r.getString()
   var textureFile = r.getString()
   if (animFile && animFile.length > 0) {
-    var loader = new THREE.FileLoader()
+    var loader = new FileLoader()
     loader.setResponseType('arraybuffer')
     var animUrl = self.baseUrl + `models/${animFile}.lanim`
     loader.load(
@@ -1777,15 +860,15 @@ Model.prototype.loadMesh = function (buffer) {
     }
     self.geometry.setAttribute(
       'position',
-      new THREE.BufferAttribute(new Float32Array(position), 3)
+      new BufferAttribute(new Float32Array(position), 3)
     )
     self.geometry.setAttribute(
       'normal',
-      new THREE.BufferAttribute(new Float32Array(normal), 3)
+      new BufferAttribute(new Float32Array(normal), 3)
     )
     self.geometry.setAttribute(
       'uv',
-      new THREE.BufferAttribute(new Float32Array(uv), 2)
+      new BufferAttribute(new Float32Array(uv), 2)
     )
   }
   var numIndices = r.getUint32()
@@ -1795,7 +878,7 @@ Model.prototype.loadMesh = function (buffer) {
       self.indices[i] = r.getUint16()
     }
     self.geometry.setIndex(
-      new THREE.BufferAttribute(new Uint16Array(self.indices), 1)
+      new BufferAttribute(new Uint16Array(self.indices), 1)
     )
   }
   var numBones = r.getUint32()
@@ -1808,7 +891,7 @@ Model.prototype.loadMesh = function (buffer) {
         self.bones[i].name = self.bones[i].name + '2'
       }
       self.boneLookup[self.bones[i].name] = i
-      self.transforms[i] = new gl.mat4.create()
+      self.transforms[i] = new mat4.create()
     }
   }
   self.loaded = true
@@ -1833,7 +916,7 @@ Model.prototype.loadAnim = function (buffer) {
     var compressedData = new Uint8Array(buffer, r.position)
     var data = null
     try {
-      data = pako.inflate(compressedData)
+      data = inflate(compressedData)
     } catch (err) {
       console.log('Decompression error: ' + err)
       return
@@ -1858,7 +941,7 @@ Model.prototype.on = function (eventName, callback) {
  * LOLLoader
  * @author tengge / https://github.com/tengge1
  */
-export function LOLLoader() {
+export default function LOLLoader() {
   // BaseLoader.call(this);
 }
 

@@ -1,10 +1,10 @@
 import { PortalMaterialType } from '../../Components/MeshPortalMaterial'
 import { Detailed } from '@react-three/drei/core/Detailed'
 import { FrontSide, ColorRepresentation, Euler } from 'three'
-import { PropsWithChildren, ReactNode, Suspense, useCallback, useMemo, useRef } from 'react'
+import { PropsWithChildren, ReactNode, Suspense, lazy, useCallback, useMemo, useRef } from 'react'
 
 import { RoomDataProvider, useRoomData } from '../../provider/RoomDataProvider'
-import { MeshPortalMaterial, MeshHoverable } from '../../Components'
+import { MeshHoverable } from '../../Components'
 import useBlending from './useBlending'
 import Fallback from './Fallback'
 import { ThreeEvent } from '@react-three/fiber'
@@ -12,6 +12,7 @@ import { RoomProps } from '../interface'
 import { useSetInteractionState } from '../../provider/InteractionStateProvider'
 import Border, { BorderSpecificProps } from './Border'
 
+const MeshPortalMaterial = lazy(() => import('../../Components/MeshPortalMaterial'))
 
 interface PortalInternalProps extends PropsWithChildren, RoomProps {
   childrenAbsolute?: ReactNode
