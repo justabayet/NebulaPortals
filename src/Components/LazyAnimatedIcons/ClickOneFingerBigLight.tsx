@@ -1,1 +1,3 @@
-export { ClickOneFingerBigLight as default } from 'animated-icons'
+import ClickOneFingerBigLight from 'animated-icons/dist/ClickOneFinger/ClickOneFingerBigLight'
+
+export default ClickOneFingerBigLight

@@ -1,1 +1,3 @@
-export { SwipeVerticalBigLight as default } from 'animated-icons'
+import SwipeVerticalBigLight from 'animated-icons/dist/SwipeVertical/SwipeVerticalBigLight'
+
+export default SwipeVerticalBigLight

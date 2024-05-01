@@ -1,1 +1,3 @@
-export { SwipeHorizontalBigLight as default } from 'animated-icons'
+import SwipeHorizontalBigLight from 'animated-icons/dist/SwipeHorizontal/SwipeHorizontalBigLight'
+
+export default SwipeHorizontalBigLight
