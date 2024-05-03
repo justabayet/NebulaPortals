@@ -64,7 +64,7 @@ function IncomingRoom({ color }: IncomingRoomInternalProps): JSX.Element {
         height={1}
         color={color} />
 
-      {isDisplayed && <ExitPortal position={[0, 0, 5.9]} />}
+      <ExitPortal position={[0, 0, 5.9]} isVisible={isDisplayed} />
     </>
   )
 }

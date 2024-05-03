@@ -52,7 +52,7 @@ function BarkBudget(): JSX.Element {
 
       <Walls color={COLOR} />
 
-      {isDisplayed && <ExitPortal position={[0, 0, 8.9]} />}
+      <ExitPortal position={[0, 0, 8.9]} isVisible={isDisplayed} />
     </object3D>
   )
 }

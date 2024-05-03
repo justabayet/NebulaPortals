@@ -12,7 +12,7 @@ import { useIntersect } from '@react-three/drei/core/useIntersect'
 import { useFBO } from '@react-three/drei/core/useFBO'
 import { RenderTexture } from '@react-three/drei/core/RenderTexture'
 import { shaderMaterial } from '@react-three/drei/core/shaderMaterial'
-import { Vector2, Texture, Mesh, BufferGeometry, MeshBasicMaterial, Box3, BufferAttribute, OrthographicCamera, Scene, ShaderMaterial, WebGLRenderTarget, LinearMipmapLinearFilter, LinearFilter, FloatType, RedFormat, NearestFilter } from 'three'
+import { Vector2, Texture, Mesh, BufferGeometry, MeshBasicMaterial, Box3, BufferAttribute, OrthographicCamera, Scene, ShaderMaterial, WebGLRenderTarget, LinearMipmapLinearFilter, LinearFilter, FloatType, RedFormat, NearestFilter, WebGLRenderer } from 'three'
 
 const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
   {
@@ -82,6 +82,8 @@ export type PortalProps = JSX.IntrinsicElements['shaderMaterial'] & {
   renderPriority?: number
   /** Optionally diable events inside the portal, defaults to false */
   events?: boolean
+
+  isVisible?: boolean
 }
 
 const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
@@ -89,6 +91,7 @@ const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
     {
       children,
       events = undefined,
+      isVisible = true,
       blur = 0,
       eventPriority = 0,
       renderPriority = 0,
@@ -200,7 +203,7 @@ const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
       >
         <RenderTexture
           attach="map"
-          frames={visible ? Infinity : 1}
+          frames={visible && isVisible ? Infinity : 1}
           eventPriority={eventPriority}
           renderPriority={renderPriority}
           compute={compute}
@@ -234,8 +237,7 @@ function ManagePortalScene({
   priority: number
   worldUnits: boolean
 }) {
-  const scene = useThree((state) => state.scene)
-  const setEvents = useThree((state) => state.setEvents)
+  const { scene, camera, gl, setEvents } = useThree()
   const buffer1 = useFBO()
   const buffer2 = useFBO()
 
@@ -243,6 +245,10 @@ function ManagePortalScene({
     scene.matrixAutoUpdate = false
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  React.useEffect(() => {
+    gl.compile(scene, camera)
+  }, [camera, gl, scene])
 
   React.useEffect(() => {
     if (events !== undefined) setEvents({ enabled: events })
@@ -284,7 +290,7 @@ function ManagePortalScene({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useFrame((state) => {
+  useFrame(function renderPortalScene(state) {
     const parent = (material?.current as any)?.__r3f.parent
     if (parent) {
       // Move portal contents along with the parent if worldUnits is true
@@ -317,7 +323,7 @@ function ManagePortalScene({
   return <></>
 }
 
-const makeSDFGenerator = (clientWidth: any, clientHeight: any, renderer: any) => {
+const makeSDFGenerator = (clientWidth: number, clientHeight: number, renderer: WebGLRenderer) => {
   const finalTarget = new WebGLRenderTarget(clientWidth, clientHeight, {
     minFilter: LinearMipmapLinearFilter,
     magFilter: LinearFilter,

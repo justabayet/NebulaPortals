@@ -53,7 +53,7 @@ function Portal({ position, children, childrenAbsolute, index, fallbackColor, an
           <planeGeometry args={[1, 2]} />
 
           <Suspense fallback={<meshStandardMaterial transparent opacity={0} />}>
-            <MeshPortalMaterial blend={0} ref={portal} side={FrontSide} worldUnits={true} transparent>
+            <MeshPortalMaterial blend={0.1} ref={portal} side={FrontSide} worldUnits={true} transparent>
               {childrenAbsolute}
 
               <object3D position={position} rotation={rotation}>
