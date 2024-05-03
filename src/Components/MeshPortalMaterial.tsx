@@ -200,7 +200,7 @@ const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
       >
         <RenderTexture
           attach="map"
-          frames={visible ? Infinity : 0}
+          frames={visible ? Infinity : 1}
           eventPriority={eventPriority}
           renderPriority={renderPriority}
           compute={compute}
