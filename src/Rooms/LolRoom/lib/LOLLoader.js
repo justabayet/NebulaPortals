@@ -2,7 +2,6 @@
 import { inflate } from 'pako/lib/inflate.js'
 import { dispatch } from 'd3-dispatch'
 import { mat4, vec3, vec4, quat } from 'gl-matrix'
-import hiddenBones from './hiddenBones'
 import { TextureLoader } from 'three/src/loaders/TextureLoader.js'
 import { FileLoader } from 'three/src/loaders/FileLoader.js'
 import { BufferGeometry } from 'three/src/core/BufferGeometry.js'
@@ -471,13 +470,6 @@ function Model(options) {
 
   self.dispatch = dispatch('load', 'loadMesh', 'loadTexture', 'loadAnim')
 
-  self.hiddenBones = null
-  if (hiddenBones[self.champion] !== undefined) {
-    if (hiddenBones[self.champion][self.skin] !== undefined) {
-      self.hiddenBones = hiddenBones[self.champion][self.skin]
-    }
-  }
-
   self.ambientColor = [0.35, 0.35, 0.35, 1]
   self.primaryColor = [1, 1, 1, 1]
   self.secondaryColor = [0.35, 0.35, 0.35, 1]
@@ -658,27 +650,11 @@ Model.prototype.update = function (time) {
       frame = Math.floor(self.setFrame)
       r = self.setFrame - frame
     }
-    var hiddenBones = {}
-    if (self.hiddenBones) {
-      if (self.hiddenBones[anim.name]) {
-        hiddenBones = self.hiddenBones[anim.name]
-      } else if (self.hiddenBones['all']) {
-        hiddenBones = self.hiddenBones['all']
-      }
-    }
     var b
     if (self.version >= 1) {
       for (i = 0; i < self.bones.length; ++i) {
         b = self.bones[i]
-        if (hiddenBones[b.name]) {
-          mat4.identity(self.tmpMat)
-          mat4.scale(
-            self.tmpMat,
-            self.tmpMat,
-            vec3.set(self.tmpVec, 0, 0, 0)
-          )
-          mat4.copy(self.transforms[i], self.tmpMat)
-        } else if (anim.lookup[b.name] !== undefined) {
+        if (anim.lookup[b.name] !== undefined) {
           anim.bones[anim.lookup[b.name]].update(i, frame, r)
         } else if (
           self.baseAnim &&
