@@ -1,5 +1,18 @@
 import { PropsWithChildren, createContext, useCallback, useContext, useMemo, useState } from 'react'
-import { rooms } from '../Rooms'
+import { RoomType } from '../Rooms/type'
+
+export const roomsConfig: RoomType[] = [
+  'BarkBudget',
+  'LolRoom'
+]
+
+const NB_EXTRA_ROOMS = 10
+
+for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
+  roomsConfig.push('IncomingRoom')
+}
+
+const NB_ROOMS = roomsConfig.length
 
 class RoomReady {
   constructor(
@@ -20,9 +33,9 @@ export const RoomReadyProvider = ({ children }: PropsWithChildren): JSX.Element 
 
     const nbRoomsReady = Object.values(roomStates).filter((roomState) => roomState).length
 
-    console.log(`Room ${name} is ready. ${nbRoomsReady}/${rooms.length}`)
+    console.log(`Room ${name} is ready. ${nbRoomsReady}/${NB_ROOMS}`)
 
-    setAllReady(rooms.length == nbRoomsReady)
+    setAllReady(NB_ROOMS == nbRoomsReady)
   }, [])
 
 

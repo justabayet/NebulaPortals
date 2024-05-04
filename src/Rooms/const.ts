@@ -4,27 +4,30 @@ import { Y_AXIS } from '../const'
 import BarkBudget from './BarkBudget'
 import IncomingRoom from './IncomingRoom'
 import LolRoom from './LolRoom'
+import { RoomType } from './type'
+import { roomsConfig } from '../provider/RoomReadyProvider'
 
 const base = new Color()
 const red = new Color('red')
 const blue = new Color('blue')
 
-const rooms: ((props: RoomProps) => JSX.Element)[] = [
-  BarkBudget,
-  LolRoom
-]
-
-const NB_EXTRA_ROOMS = 10
-
-for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
-  const Room = (props: RoomProps) => IncomingRoom({
-    ...props,
-    name: `Incoming${i}`,
-    color: base.lerpColors(red, blue, i / NB_EXTRA_ROOMS).clone()
-  })
-
-  rooms.push(Room)
+type RoomFunction = (props: RoomProps) => JSX.Element
+type RoomGenerator = (index: number) => RoomFunction
+const roomFnMapping: Record<RoomType, RoomGenerator> = {
+  'BarkBudget': () => BarkBudget,
+  'LolRoom': () => LolRoom,
+  'IncomingRoom': getIncomingRoom,
 }
+
+function getIncomingRoom(index: number) {
+  return (props: RoomProps) => IncomingRoom({
+    ...props,
+    name: `Incoming${index}`,
+    color: base.lerpColors(red, blue, index / roomsConfig.length).clone()
+  })
+}
+
+const rooms = roomsConfig.map((roomType, index) => roomFnMapping[roomType](index))
 
 const DEFAULT_POSITION = new Vector3(3, 0, 0)
 const ANGLE = Math.PI / 2.5
