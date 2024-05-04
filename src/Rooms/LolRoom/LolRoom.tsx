@@ -48,7 +48,7 @@ function LolRoom(): JSX.Element {
       </object3D>
 
       <LinkCreator position={[0, 0.5, -0.5]} />
-      <LinkWINLC position={[0, 0.1, -0.5]} />
+      <LinkWINLC position={[-1, 0.2, 0]} rotation={[0, Math.PI * 0.4, 0]} />
 
       <ControlPanel position={[1, 0.2, -0.1]} rotation={[0, -Math.PI * 0.4, 0]} scale={0.5} />
 

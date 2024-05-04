@@ -13,8 +13,8 @@ const SITE_LSC = 'https://lsc.justabayet.com/'
 function LinkCreator(props: Object3DProps): JSX.Element {
   return (
     <object3D {...props}>
-      <ButtonGithub url={GITHUB_LSC} position={[0.3, 0.1, 0]} scale={1.2} />
-      <ButtonOpen url={SITE_LSC} text='Creator' position={[0.3, -0.1, 0]} scale={1.2} />
+      <ButtonGithub url={GITHUB_LSC} position={[0.3, 0.05, 0]} scale={1.2} />
+      <ButtonOpen url={SITE_LSC} text='Creator' position={[0.3, -0.15, 0]} scale={1.2} />
 
       <Suspense>
         <Center position={[-0.2, 0, 0]}>
@@ -29,7 +29,7 @@ function LinkCreator(props: Object3DProps): JSX.Element {
             letterSpacing={0.015}
             size={0.1}
             font="/Inter_Bold.json">
-            {'Scene\nCreator'}
+            {'LoL\nScene\nCreator'}
             <meshStandardMaterial color={gold} />
           </Text3D>
         </Center>

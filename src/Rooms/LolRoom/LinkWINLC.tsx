@@ -12,11 +12,8 @@ const SITE_WINLC = 'https://whenisnextlolclash.justabayet.com/'
 function LinkWINLC(props: Object3DProps): JSX.Element {
   return (
     <object3D {...props}>
-      <ButtonGithub url={GITHUB_WINLC} position={[-0.3, 0.1, 0]} scale={1.2} />
-      <ButtonOpen url={SITE_WINLC} text='example site' position={[-0.3, -0.1, 0]} scale={1.2} />
-
       <Suspense>
-        <Center position={[0.2, 0, 0]}>
+        <Center position={[0, 0, 0]}>
           <Text3D
             curveSegments={16}
             bevelEnabled
@@ -33,6 +30,9 @@ function LinkWINLC(props: Object3DProps): JSX.Element {
           </Text3D>
         </Center>
       </Suspense>
+
+      <ButtonGithub url={GITHUB_WINLC} position={[0.2, -0.25, 0]} scale={1.5} />
+      <ButtonOpen url={SITE_WINLC} text='example site' position={[-0.2, -0.25, 0]} scale={1.5} />
     </object3D>
   )
 }

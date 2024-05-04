@@ -46,7 +46,7 @@ function ButtonCube({ variant, url, text, ...props }: ButtonCubeProps): JSX.Elem
         {/* edges */}
         <lineSegments>
           <edgesGeometry args={[cubeGeometry]} />
-          <lineBasicMaterial color={0xffffff} transparent opacity={0.7} />
+          <lineBasicMaterial color={0xffffff} transparent opacity={0.3} />
         </lineSegments>
 
         {/* faces */}
@@ -54,7 +54,7 @@ function ButtonCube({ variant, url, text, ...props }: ButtonCubeProps): JSX.Elem
           if (window.confirm(urlText))
             window.open(url, '_blank')
         }}>
-          <meshBasicMaterial color={0xffffff} transparent opacity={0.2} side={BackSide} />
+          <meshBasicMaterial color={0xffffff} transparent opacity={0.1} side={BackSide} />
         </mesh>
       </object3D>
     </Object3DHoverable>
