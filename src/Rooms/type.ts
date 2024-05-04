@@ -1,0 +1,1 @@
+export type RoomType = 'BarkBudget' | 'LolRoom' | 'IncomingRoom'

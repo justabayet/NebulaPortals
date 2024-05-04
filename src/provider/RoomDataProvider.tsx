@@ -1,6 +1,6 @@
 import { Dispatch, PropsWithChildren, SetStateAction, createContext, useContext, useMemo, useState } from 'react'
 import { useLocation } from 'wouter'
-import { useIsActive } from '../hooks'
+import useIsActive from '../hooks/useIsActive'
 
 class RoomData {
   constructor(

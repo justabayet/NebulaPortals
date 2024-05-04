@@ -2,8 +2,8 @@ import { useThree } from '@react-three/fiber'
 import CameraControls from 'camera-controls'
 import { useEffect } from 'react'
 import { Scene, Vector3 } from 'three'
-import { useCurrentProject } from '../hooks'
 import { useSetInteractionState } from '../provider/InteractionStateProvider'
+import useCurrentProject from '../hooks/useCurrentProject'
 
 const position = new Vector3(0, 0, 0)
 const focus = new Vector3(0, 0, 0)

@@ -3,9 +3,10 @@ import { ScrollControls } from '@react-three/drei/web/ScrollControls'
 import CameraControlsOriginal from 'camera-controls'
 import useInProject from './useInProject'
 import useInTower from './useInTower'
-import { useToggleTouch, useToggleScrollbar } from '../hooks'
 import { NB_FULL_ROTATION } from '../Rooms/const'
 import useCameraStillness from './useCameraStillness'
+import useToggleScrollbar from '../hooks/useToggleScrollbar'
+import useToggleTouch from '../hooks/useToggleTouch'
 
 function CameraControlsTuned(): JSX.Element {
   const { isInsideProject } = useInProject()

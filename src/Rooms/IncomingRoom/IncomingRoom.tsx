@@ -7,7 +7,7 @@ import ExitPortal from '../ExitPortal'
 import Portal from '../Portal'
 import Walls from '../Walls'
 import { RoomProps } from '../interface'
-import { useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
 
 interface IncomingRoomInternalProps {
   color: ColorRepresentation
@@ -24,22 +24,24 @@ function IncomingRoom({ color }: IncomingRoomInternalProps): JSX.Element {
       <ambientLight intensity={0.1} />
       <pointLight intensity={5} position={[1, 0, -2]} />
 
-      <Center position={[0, 0, -4]}>
-        <Text3D
-          curveSegments={16}
-          bevelEnabled
-          bevelSegments={8}
-          bevelSize={0.04}
-          bevelThickness={0.05}
-          height={0.1}
-          lineHeight={0.7}
-          letterSpacing={0.06}
-          size={0.5}
-          font="/Inter_Bold.json">
-          {'I\nN\nC.'}
-          <meshStandardMaterial color={textColor} />
-        </Text3D>
-      </Center>
+      <Suspense>
+        <Center position={[0, 0, -4]}>
+          <Text3D
+            curveSegments={16}
+            bevelEnabled
+            bevelSegments={8}
+            bevelSize={0.04}
+            bevelThickness={0.05}
+            height={0.1}
+            lineHeight={0.7}
+            letterSpacing={0.06}
+            size={0.5}
+            font="/Inter_Bold.json">
+            {'I\nN\nC.'}
+            <meshStandardMaterial color={textColor} />
+          </Text3D>
+        </Center>
+      </Suspense>
 
       <Walls color={color} />
 

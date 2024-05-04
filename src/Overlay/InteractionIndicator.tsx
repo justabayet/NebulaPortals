@@ -1,8 +1,8 @@
 import { PropsWithChildren, lazy } from 'react'
 import './InteractionIndicator.css'
 import { useInteractionState } from '../provider/InteractionStateProvider'
-import { useCurrentProject } from '../hooks'
 import { useCameraStillnessContext } from '../provider/CameraStillnessProvider'
+import useCurrentProject from '../hooks/useCurrentProject'
 
 const ClickOneFingerBigLight = lazy(() => import('../Components/LazyAnimatedIcons/ClickOneFingerBigLight'))
 const SwipeHorizontalBigLight = lazy(() => import('../Components/LazyAnimatedIcons/SwipeHorizontalBigLight'))

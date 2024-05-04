@@ -5,7 +5,7 @@ import { Scene, Vector3 } from 'three'
 import { DEFAULT_POSITION } from './useDefault'
 import { useScroll } from '@react-three/drei/web/ScrollControls'
 import { rooms } from '../../Rooms/const'
-import { usePreviousProject } from '../../hooks'
+import usePreviousProject from '../../hooks/usePreviousProject'
 
 
 function useExitingProject() {

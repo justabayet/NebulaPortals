@@ -2,7 +2,8 @@ import { useThree } from '@react-three/fiber'
 import CameraControls from 'camera-controls'
 import { useEffect } from 'react'
 import { Vector3 } from 'three'
-import { useCurrentProject, usePreviousProject } from '../../hooks'
+import usePreviousProject from '../../hooks/usePreviousProject'
+import useCurrentProject from '../../hooks/useCurrentProject'
 
 const DEFAULT_POSITION = new Vector3(-2, 0, 0)
 const DEFAULT_FOCUS: [number, number, number] = [0, 0, 0]

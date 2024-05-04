@@ -1,9 +1,10 @@
 import { RefObject, useCallback } from 'react'
 import { Object3D, Vector2 } from 'three'
-import { useAnimatedRotation, useIsTouch } from '../../hooks'
 import MeshHoverable from '../MeshHoverable'
 import { WithBaseImage, withBaseImage } from './BaseImage'
 import { MeshProps } from '@react-three/fiber'
+import useAnimatedRotation from '../../hooks/useAnimatedRotation'
+import useIsTouch from '../../hooks/useIsTouch'
 
 interface TiltableImageProps extends MeshProps, WithBaseImage {
   refToTilt: RefObject<Object3D>
