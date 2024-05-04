@@ -2,7 +2,8 @@ import Balls from './Balls'
 import MeshHoverable from './MeshHoverable'
 import Panel from './Panel'
 import Image, { TiltableImage } from './Image'
-import GithubButton from './GithubButton'
+import ButtonOpen from './ButtonOpen'
+import ButtonGithub from './ButtonGithub'
 
 export {
   Balls,
@@ -10,5 +11,6 @@ export {
   Panel,
   Image,
   TiltableImage,
-  GithubButton
+  ButtonOpen,
+  ButtonGithub
 }
