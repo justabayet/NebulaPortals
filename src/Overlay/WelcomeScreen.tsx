@@ -1,6 +1,6 @@
 import { useRoomReady } from '../provider/RoomReadyProvider'
 import './WelcomeScreen.css'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 
 const ClickOneFingerBigLight = lazy(() => import('../Components/LazyAnimatedIcons/ClickOneFingerBigLight'))
 
@@ -21,7 +21,7 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
           pointerEvents: 'auto',
           opacity: 1
         }}>
-        <span>Bonjour</span>
+        <LoadingText />
         <div style={{ height: '38.5px' }} />
       </div>
     }>
@@ -37,7 +37,7 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
           pointerEvents: showIndicator ? 'auto' : 'none',
           opacity: 1
         }}>
-        <span>Bonjour</span>
+        {showIndicator ? <span>Bonjour</span> : <LoadingText />}
 
         <div>
           <ClickOneFingerBigLight style={{ width: '35px', opacity: showIndicator ? 1 : 0, transition: 'opacity 1.5s' }} />
@@ -45,6 +45,20 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
       </div>
     </Suspense>
   )
+}
+
+function LoadingText(): JSX.Element {
+  const [counter, setCounter] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => setCounter(c => c + 1), 1200)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const dots = '.'.repeat((counter % 3) + 1)
+
+  return <span>Loading{dots}</span>
 }
 
 export default WelcomeScreen
