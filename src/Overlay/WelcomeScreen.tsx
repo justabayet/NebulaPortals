@@ -1,5 +1,6 @@
+import { useRoomReady } from '../provider/RoomReadyProvider'
 import './WelcomeScreen.css'
-import { Suspense, lazy, useEffect, useState } from 'react'
+import { Suspense, lazy } from 'react'
 
 const ClickOneFingerBigLight = lazy(() => import('../Components/LazyAnimatedIcons/ClickOneFingerBigLight'))
 
@@ -9,12 +10,7 @@ interface WelcomeScreenProps {
 }
 
 function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.Element {
-
-  const [showIndicator, setShowIndicator] = useState<boolean>(false)
-
-  useEffect(() => {
-    setTimeout(() => setShowIndicator(true), 800)
-  }, [])
+  const { allReady: showIndicator } = useRoomReady()
 
   return (
     <Suspense fallback={
@@ -26,7 +22,7 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
           opacity: 1
         }}>
         <span>Bonjour</span>
-        <div style={{ height: '35px' }} />
+        <div style={{ height: '38.5px' }} />
       </div>
     }>
       <div
@@ -37,8 +33,8 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
           pointerEvents: 'none',
           opacity: 0
         } : {
-          cursor: 'pointer',
-          pointerEvents: 'auto',
+          cursor: showIndicator ? 'pointer' : 'auto',
+          pointerEvents: showIndicator ? 'auto' : 'none',
           opacity: 1
         }}>
         <span>Bonjour</span>

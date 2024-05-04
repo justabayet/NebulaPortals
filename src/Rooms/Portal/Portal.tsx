@@ -1,7 +1,7 @@
 import { PortalMaterialType } from '../../Components/MeshPortalMaterial'
 import { Detailed } from '@react-three/drei/core/Detailed'
 import { FrontSide, ColorRepresentation, Euler } from 'three'
-import { PropsWithChildren, ReactNode, Suspense, lazy, useCallback, useMemo, useRef } from 'react'
+import { PropsWithChildren, ReactNode, Suspense, lazy, useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { RoomDataProvider, useRoomData } from '../../provider/RoomDataProvider'
 import { MeshHoverable } from '../../Components'
@@ -11,6 +11,7 @@ import { ThreeEvent } from '@react-three/fiber'
 import { RoomProps } from '../interface'
 import { useSetInteractionState } from '../../provider/InteractionStateProvider'
 import Border, { BorderSpecificProps } from './Border'
+import { useRoomReady } from '../../provider/RoomReadyProvider'
 
 const MeshPortalMaterial = lazy(() => import('../../Components/MeshPortalMaterial'))
 
@@ -60,6 +61,8 @@ function Portal({ position, children, childrenAbsolute, index, fallbackColor, an
                 {children}
               </object3D>
 
+              <IsReady name={name} />
+
             </MeshPortalMaterial>
           </Suspense>
         </MeshHoverable>
@@ -68,6 +71,19 @@ function Portal({ position, children, childrenAbsolute, index, fallbackColor, an
       </Detailed>
     </>
   )
+}
+
+interface IsReadyProps {
+  name: string
+}
+
+function IsReady({ name }: IsReadyProps): JSX.Element {
+  const { setRoomReady } = useRoomReady()
+  useEffect(() => {
+    setRoomReady(name)
+  }, [setRoomReady, name])
+
+  return <></>
 }
 
 interface WrapperProps {
