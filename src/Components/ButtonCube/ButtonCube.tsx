@@ -7,7 +7,7 @@ import { useMemo, useRef } from 'react'
 import githubLogo from './github.png'
 import redirectLogo from './redirect.png'
 import linkedinLogo from './linkedin_no_bg.png'
-import Object3DHoverable from '../Object3DHoverable'
+import MeshHoverable from '../MeshHoverable'
 
 type Variant = 'github' | 'redirect' | 'linkedin'
 
@@ -37,7 +37,7 @@ function ButtonCube({ variant, url, text, ...props }: ButtonCubeProps): JSX.Elem
   })
 
   return (
-    <Object3DHoverable {...props}>
+    <object3D {...props}>
       {/* logo */}
       {variant != null && <Image src={variants[variant]} size={0.1} radius={0.49} />}
 
@@ -50,14 +50,14 @@ function ButtonCube({ variant, url, text, ...props }: ButtonCubeProps): JSX.Elem
         </lineSegments>
 
         {/* faces */}
-        <mesh geometry={cubeGeometry} onClick={() => {
+        <MeshHoverable geometry={cubeGeometry} onClick={() => {
           if (window.confirm(urlText))
             window.open(url, '_blank')
         }}>
           <meshBasicMaterial color={0xffffff} transparent opacity={0.1} side={BackSide} />
-        </mesh>
+        </MeshHoverable>
       </object3D>
-    </Object3DHoverable>
+    </object3D>
   )
 }
 
