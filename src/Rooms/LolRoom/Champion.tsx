@@ -24,7 +24,7 @@ function Champion() {
     const { default: LOLLoader } = await import('./lib/LOLLoader')
     const loader = new LOLLoader()
 
-    const model = await loader.load(championKey, skinIndex, { enableTexture: true, animName })
+    const model = await loader.load(championKey, skinIndex, { enableTexture: true })
 
     model.setAnimation(animName)
     model.update(0)
