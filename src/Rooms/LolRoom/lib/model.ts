@@ -30,10 +30,6 @@ export interface ModelOptions {
   enableTexture?: boolean
 }
 
-/**
- * @author lolking / http://www.lolking.net/models
- * @author tengge / https://github.com/tengge1
- */
 export class Model {
   champion: string
   skin: number
@@ -116,17 +112,17 @@ export class Model {
     this.geometry = new BufferGeometry()
     this.material = new MeshPhongMaterial()
   
-    const promise1 = new Promise<void>((resolve) => {
+    const promiseLoadMesh = new Promise<void>((resolve) => {
       this.dispatch.on('loadMesh.Model', () => {
         resolve()
       })
     })
-    const promise2 = new Promise<void>((resolve) => {
+    const promiseLoadAnim = new Promise<void>((resolve) => {
       this.dispatch.on('loadAnim.Model', () => {
         resolve()
       })
     })
-    Promise.all([promise1, promise2]).then(() => {
+    Promise.all([promiseLoadMesh, promiseLoadAnim]).then(() => {
       this.dispatch.call('load')
     })
   }

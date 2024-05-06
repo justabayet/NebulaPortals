@@ -42,7 +42,7 @@ function LolRoom(): JSX.Element {
 
       <object3D position={[0, -0.4, 0]}>
         <Suspense>
-          <Champion />
+          <Champion position={[0, 0, 0]} rotation={[0, 0.7, 0]} />
         </Suspense>
         <Ground />
       </object3D>

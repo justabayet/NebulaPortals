@@ -2,10 +2,6 @@ import { AnimationBone } from './animationBone'
 import { DataViewCustom } from './dataViewCustom'
 import { Model } from './model'
 
-/**
- * @author lolking / http://www.lolking.net/models
- * @author tengge / https://github.com/tengge1
- */
 export class Animation {
   model: Model
   name: string

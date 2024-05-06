@@ -1,12 +1,7 @@
-
 import { mat4 } from 'gl-matrix'
 import { DataViewCustom } from './dataViewCustom'
 import { Model } from './model'
 
-/**
- * @author lolking / http://www.lolking.net/models
- * @author tengge / https://github.com/tengge1
- */
 export class Bone {
   model: Model
   index: number

@@ -1,11 +1,7 @@
 import { Texture } from 'three'
 import { TextureLoader } from 'three/src/loaders/TextureLoader.js'
 import { Model } from './model'
-/**
- * TextureCustom
- * @author lolking / http://www.lolking.net/models
- * @author tengge / https://github.com/tengge1
- */
+
 export class TextureCustom {
   model: Model
   url: string

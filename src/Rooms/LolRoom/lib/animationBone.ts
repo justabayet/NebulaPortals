@@ -1,13 +1,8 @@
-
 import { mat4, vec3, quat } from 'gl-matrix'
 import { DataViewCustom } from './dataViewCustom'
 import { Animation } from './animation'
 import { Position, Rotation, Scale } from './types'
 import { Model } from './model'
-/**
- * @author lolking / http://www.lolking.net/models
- * @author tengge / https://github.com/tengge1
- */
 
 interface Frame {
   pos: Position
