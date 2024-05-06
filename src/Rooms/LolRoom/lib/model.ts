@@ -26,6 +26,7 @@ interface MeshData {
 export interface ModelOptions {
   champion: string
   skin: number
+  animation?: string
   setFrame?: number
   enableTexture?: boolean
 }
@@ -67,10 +68,12 @@ export class Model {
   animations: Animation[] | null = null
   version: number | null = null
   vbData: Float32Array | null = null
+  startAnimation?: string
   
   constructor(options: ModelOptions) {
     this.champion = options.champion || '1'
     this.skin = options.skin || 0
+    this.startAnimation = options.animation
     this.baseUrl = 'https://lolking-models.justabayet.com/'
     this.meshUrl = this.baseUrl + `models/${this.champion}_${this.skin}.lmesh`
   
@@ -123,6 +126,7 @@ export class Model {
       })
     })
     Promise.all([promiseLoadMesh, promiseLoadAnim]).then(() => {
+      if(this.startAnimation) this.setAnimation(this.startAnimation)
       this.dispatch.call('load')
     })
   }
@@ -173,6 +177,7 @@ export class Model {
       this.deltaTime = 0
       this.newAnimation = true
     }
+    this.update(0)
   }
 
   setAnimationOnce(name: string) {

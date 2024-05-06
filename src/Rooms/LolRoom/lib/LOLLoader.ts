@@ -3,13 +3,13 @@ import { Model, ModelOptions } from './model'
 
 type Urls = '266/0/idle3_base'
 
-type ModelLoaderOptions = ModelOptions & { anim: string }
+type ModelLoaderOptions = ModelOptions
 
 const options: Record<Urls, ModelLoaderOptions> = {
   '266/0/idle3_base': {
     champion: '266',
     skin: 0,
-    anim: 'idle3_base'
+    animation: 'idle3_base'
   }
 }
 
@@ -22,17 +22,13 @@ export default class LOLLoader extends Loader<Model> {
   }
 
   load(url: Urls, onLoad: (data: Model) => void) {
-    const { champion, skin, anim } = options[url]
+    const { champion, skin, animation } = options[url]
     
-    const model = new Model({ champion, skin })
+    const model = new Model({ champion, skin, animation })
     model.load()
 
     model.on('load', () => {
-      if (model.animsLoaded) {
-        model.setAnimation(anim)
-        model.update(0)
-        onLoad(model)
-      }
+      onLoad(model)
     })
   }
 }
