@@ -1,4 +1,4 @@
-import { inflate } from 'pako'
+import inflate from './process'
 import { Dispatch, dispatch } from 'd3-dispatch'
 import { mat4, vec3, vec4 } from 'gl-matrix'
 import { FileLoader } from 'three/src/loaders/FileLoader.js'
@@ -396,7 +396,6 @@ export class Model {
         animUrl,
         (buffer) => {
           this.loadAnim(buffer as unknown as ArrayBuffer)
-          this.dispatch.call('loadAnim')
         },
         undefined,
         () => {
@@ -503,26 +502,34 @@ export class Model {
       console.log('Bad magic value')
       return
     }
+
+    const generateAnimations = () => {
+      const numAnims = r.getUint32()
+      if (numAnims > 0) {
+        this.animations = new Array(numAnims)
+        for (let i = 0; i < numAnims; ++i) {
+          this.animations[i] = new Animation(this, r, version)
+        }
+      }
+      this.dispatch.call('loadAnim')
+      this.animsLoaded = true
+    }
+
     const version = r.getUint32()
     if (version >= 2) {
-      const compressedData = new Uint8Array(buffer, r.position)
-      let data = null
       try {
-        data = inflate(compressedData)
+        const compressedData = new Uint8Array(buffer, r.position)
+        inflate(compressedData, (data) => {
+          r = new DataViewCustom(data.buffer)
+          generateAnimations()
+        })
       } catch (err) {
         console.log('Decompression error: ' + err)
         return
       }
-      r = new DataViewCustom(data.buffer)
+    } else {
+      generateAnimations()
     }
-    const numAnims = r.getUint32()
-    if (numAnims > 0) {
-      this.animations = new Array(numAnims)
-      for (let i = 0; i < numAnims; ++i) {
-        this.animations[i] = new Animation(this, r, version)
-      }
-    }
-    this.animsLoaded = true
   }
 
   on(eventName: DispatchEvent, callback: () => void) {
