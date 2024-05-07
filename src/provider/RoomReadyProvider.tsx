@@ -6,11 +6,14 @@ export const roomsConfig: RoomType[] = [
   'LolRoom'
 ]
 
-const NB_EXTRA_ROOMS = 10
+const NB_EXTRA_ROOMS = 3
 
 for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
   roomsConfig.push('IncomingRoom')
 }
+
+roomsConfig.push('LinkedIn')
+roomsConfig.push('Github')
 
 const NB_ROOMS = roomsConfig.length
 

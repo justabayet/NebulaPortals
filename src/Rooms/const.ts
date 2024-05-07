@@ -6,6 +6,8 @@ import IncomingRoom from './IncomingRoom'
 import LolRoom from './LolRoom'
 import { RoomType } from './type'
 import { roomsConfig } from '../provider/RoomReadyProvider'
+import LinkedIn from './LinkedIn'
+import Github from './Github'
 
 const base = new Color()
 const red = new Color('red')
@@ -17,6 +19,8 @@ const roomFnMapping: Record<RoomType, RoomGenerator> = {
   'BarkBudget': () => BarkBudget,
   'LolRoom': () => LolRoom,
   'IncomingRoom': getIncomingRoom,
+  'LinkedIn': () => LinkedIn,
+  'Github': () => Github,
 }
 
 function getIncomingRoom(index: number) {

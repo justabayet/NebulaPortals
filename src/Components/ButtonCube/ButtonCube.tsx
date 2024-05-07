@@ -17,15 +17,18 @@ const variants: Record<Variant, string> = {
   'linkedin': linkedinLogo
 }
 
-interface ButtonCubeProps extends Object3DProps {
+export interface ButtonCubeProps extends Object3DProps {
   url: string
   text?: string
   variant?: Variant
+  cornerRadius?: number
+  logoScale?: number
+  isLogoBasicMaterial?: boolean
 }
 
 const rotationAxis = (new Vector3(0, 1, 0)).normalize()
 
-function ButtonCube({ variant, url, text, ...props }: ButtonCubeProps): JSX.Element {
+function ButtonCube({ variant, url, text, logoScale = 1, cornerRadius = 0.49, isLogoBasicMaterial = false, ...props }: ButtonCubeProps): JSX.Element {
   const urlText = text ?? `Open ${url} in a new tab?`
   const cube = useRef<Object3D>(null)
   const cubeSize = 0.1
@@ -39,7 +42,7 @@ function ButtonCube({ variant, url, text, ...props }: ButtonCubeProps): JSX.Elem
   return (
     <object3D {...props}>
       {/* logo */}
-      {variant != null && <Image src={variants[variant]} size={0.1} radius={0.49} />}
+      {variant != null && <Image src={variants[variant]} size={0.1 * logoScale} radius={cornerRadius} isBasicMaterial={isLogoBasicMaterial} />}
 
       {/* cube */}
       <object3D ref={cube} rotation={[0, Math.PI / 4, Math.PI / 4]}>

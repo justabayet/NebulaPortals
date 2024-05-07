@@ -1,9 +1,7 @@
-import { Object3DProps } from '@react-three/fiber'
 import ButtonCube from './ButtonCube'
+import { ButtonCubeProps } from './ButtonCube/ButtonCube'
 
-interface ButtonGithubProps extends Object3DProps {
-  url: string
-}
+type ButtonGithubProps = Omit<ButtonCubeProps, 'variant' | 'text'>
 
 function ButtonGithub(props: ButtonGithubProps): JSX.Element {
   return <ButtonCube variant='github' {...props} text='Open github.com in a new tab?' />

@@ -77,7 +77,7 @@ interface IsReadyProps {
   name: string
 }
 
-function IsReady({ name }: IsReadyProps): JSX.Element {
+export function IsReady({ name }: IsReadyProps): JSX.Element {
   const { setRoomReady } = useRoomReady()
   useEffect(() => {
     setRoomReady(name)
