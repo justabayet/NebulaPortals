@@ -1,8 +1,7 @@
 import { useRoomReady } from '../provider/RoomReadyProvider'
 import './WelcomeScreen.css'
-import { Suspense, lazy, useEffect, useState } from 'react'
-
-const ClickOneFingerBigLight = lazy(() => import('../Components/LazyAnimatedIcons/ClickOneFingerBigLight'))
+import { Suspense, useEffect, useState } from 'react'
+import ClickCTA from './ClickCTA'
 
 interface WelcomeScreenProps {
   hasStarted: boolean
@@ -40,7 +39,7 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
         {showIndicator ? <span>Bonjour</span> : <LoadingText />}
 
         <div>
-          <ClickOneFingerBigLight style={{ width: '35px', opacity: showIndicator ? 1 : 0, transition: 'opacity 1.5s' }} />
+          <ClickCTA style={{ opacity: showIndicator ? 1 : 0, transition: 'opacity 1.5s' }} />
         </div>
       </div>
     </Suspense>
