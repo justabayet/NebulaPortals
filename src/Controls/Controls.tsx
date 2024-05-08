@@ -7,10 +7,14 @@ import { NB_FULL_ROTATION } from '../Rooms/const'
 import useCameraStillness from './useCameraStillness'
 import useToggleScrollbar from '../hooks/useToggleScrollbar'
 import useToggleTouch from '../hooks/useToggleTouch'
+import useIsTouch from '../hooks/useIsTouch'
 
 function CameraControlsTuned(): JSX.Element {
   const { isInsideProject } = useInProject()
+
   useToggleTouch(isInsideProject)
+  const isTouch = useIsTouch()
+  const ROTATION_FACTOR = isTouch ? 1 : 0.7
 
   useInTower()
 
@@ -18,6 +22,8 @@ function CameraControlsTuned(): JSX.Element {
 
   return (
     <CameraControls makeDefault smoothTime={0.4}
+      azimuthRotateSpeed={ROTATION_FACTOR}
+      polarRotateSpeed={ROTATION_FACTOR}
       mouseButtons={{
         middle: CameraControlsOriginal.ACTION.NONE,
         left: CameraControlsOriginal.ACTION.ROTATE,
