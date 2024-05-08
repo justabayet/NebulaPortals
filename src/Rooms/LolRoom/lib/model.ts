@@ -508,6 +508,7 @@ export class Model {
       if (numAnims > 0) {
         this.animations = new Array(numAnims)
         for (let i = 0; i < numAnims; ++i) {
+          if(i !== 0) continue // To remove
           this.animations[i] = new Animation(this, r, version)
         }
       }
