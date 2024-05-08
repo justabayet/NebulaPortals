@@ -2,7 +2,7 @@
 import { Object3DProps, useFrame } from '@react-three/fiber'
 import { BackSide, BoxGeometry, Object3D, Vector3 } from 'three'
 import Image from '../Image'
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 
 import githubLogo from './github.png'
 import redirectLogo from './redirect.png'
@@ -36,9 +36,12 @@ function ButtonCube({ variant, url, text, logoScale = 1, cornerRadius = 0.49, is
   const cubeSize = 0.1
   const cubeGeometry = useMemo(() => new BoxGeometry(cubeSize, cubeSize, cubeSize), [])
 
+  const [hover, setHover] = useState<boolean>(false)
+
   useFrame((_, delta) => {
     if (cube.current == null) return
-    cube.current.rotateOnWorldAxis(rotationAxis, delta / 5)
+    const ROTATION_SPEED = hover ? 1 : 0.2
+    cube.current.rotateOnWorldAxis(rotationAxis, delta * ROTATION_SPEED)
   })
 
   return (
@@ -55,10 +58,13 @@ function ButtonCube({ variant, url, text, logoScale = 1, cornerRadius = 0.49, is
         </lineSegments>
 
         {/* faces */}
-        <MeshHoverable geometry={cubeGeometry} onClick={() => {
-          if (window.confirm(urlText))
-            window.open(url, '_blank')
-        }}>
+        <MeshHoverable geometry={cubeGeometry}
+          onClick={() => {
+            if (window.confirm(urlText))
+              window.open(url, '_blank')
+          }}
+          onPointerOver={() => { setHover(true) }}
+          onPointerOut={() => { setHover(false) }}>
           <meshBasicMaterial color={0xffffff} transparent opacity={0.1} side={BackSide} />
         </MeshHoverable>
       </object3D>
