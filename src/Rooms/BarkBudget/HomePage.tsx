@@ -9,9 +9,9 @@ function HomePage(props: Object3DProps): JSX.Element {
 
   return (
     <object3D ref={ref} {...props}>
-      <TiltableImage src={home} position={[0, 0, 0]} refToTilt={ref} />
+      <TiltableImage src={home} position={[0, 0, 0]} refToTilt={ref} waitForLoading />
 
-      <Image src={graph} position={[0, 0.57, 0.2]} size={0.85} />
+      <Image src={graph} position={[0, 0.57, 0.2]} size={0.85} waitForLoading />
 
       <Image src={record} position={[0, 0.2, 0.1]} size={0.9} radius={0.06} />
       <Image src={record} position={[0, 0, 0.1]} size={0.9} radius={0.06} />
