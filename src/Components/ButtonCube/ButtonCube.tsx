@@ -50,7 +50,7 @@ function ButtonCube({ variant, url, text, logoScale = 1, cornerRadius = 0.49, is
       {variant != null && <Image src={variants[variant]} size={0.1 * logoScale} radius={cornerRadius} isBasicMaterial={isLogoBasicMaterial} />}
 
       {/* cube */}
-      <object3D ref={cube} rotation={[0, Math.PI / 4, Math.PI / 4]}>
+      <object3D ref={cube} rotation={[Math.PI / 4, Math.PI / 4, Math.PI / 4]}>
         {/* edges */}
         <lineSegments>
           <edgesGeometry args={[cubeGeometry]} />
