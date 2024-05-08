@@ -6,15 +6,17 @@ import { useMemo, useRef } from 'react'
 
 import githubLogo from './github.png'
 import redirectLogo from './redirect.png'
+import emailLogo from './email.png'
 import linkedinLogo from './linkedin_no_bg.png'
 import MeshHoverable from '../MeshHoverable'
 
-type Variant = 'github' | 'redirect' | 'linkedin'
+type Variant = 'github' | 'redirect' | 'linkedin' | 'email'
 
 const variants: Record<Variant, string> = {
   'github': githubLogo,
   'redirect': redirectLogo,
-  'linkedin': linkedinLogo
+  'linkedin': linkedinLogo,
+  'email': emailLogo
 }
 
 export interface ButtonCubeProps extends Object3DProps {

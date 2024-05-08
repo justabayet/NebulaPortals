@@ -13,6 +13,7 @@ for (let i = 1; i <= NB_EXTRA_ROOMS; i++) {
 }
 
 roomsConfig.push('LinkedIn')
+roomsConfig.push('Email')
 roomsConfig.push('Github')
 
 const NB_ROOMS = roomsConfig.length

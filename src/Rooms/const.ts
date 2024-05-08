@@ -8,6 +8,7 @@ import { RoomType } from './type'
 import { roomsConfig } from '../provider/RoomReadyProvider'
 import LinkedIn from './LinkedIn'
 import Github from './Github'
+import Email from './Email'
 
 const base = new Color()
 const red = new Color('red')
@@ -21,6 +22,7 @@ const roomFnMapping: Record<RoomType, RoomGenerator> = {
   'IncomingRoom': getIncomingRoom,
   'LinkedIn': () => LinkedIn,
   'Github': () => Github,
+  'Email': () => Email,
 }
 
 function getIncomingRoom(index: number) {

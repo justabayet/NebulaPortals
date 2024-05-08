@@ -1,1 +1,1 @@
-export type RoomType = 'BarkBudget' | 'LolRoom' | 'IncomingRoom' | 'LinkedIn' | 'Github'
+export type RoomType = 'BarkBudget' | 'LolRoom' | 'IncomingRoom' | 'LinkedIn' | 'Github' | 'Email'
