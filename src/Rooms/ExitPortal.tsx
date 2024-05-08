@@ -1,6 +1,5 @@
 import { Balls, MeshHoverable } from '../Components'
 import { DoubleSide } from 'three'
-import { useLocation } from 'wouter'
 import { useRoomData } from '../provider/RoomDataProvider'
 import { Suspense, lazy } from 'react'
 
@@ -12,8 +11,7 @@ interface ExitPortalProps {
 }
 
 function ExitPortal({ position, isVisible }: ExitPortalProps): JSX.Element {
-  const [, setLocation] = useLocation()
-  const { name } = useRoomData()
+  const { name, setLocation } = useRoomData()
 
   return (
     <MeshHoverable
