@@ -6,6 +6,7 @@ import exitLeft from './exit_left.png'
 import exitRight from './exit_right.png'
 import { RoundedBox } from '@react-three/drei/core/RoundedBox'
 import { useRoomData } from '../../provider/RoomDataProvider'
+import MeshHoverable from '../MeshHoverable'
 
 const DEPTH = 0.2
 
@@ -32,10 +33,14 @@ function ExitPanel({ direction = 'face', ...props }: ExitPanelProps): JSX.Elemen
             e.stopPropagation()
             setLocation('previous/' + name)
           }} />
-        <mesh>
+        <MeshHoverable
+          onClick={(e) => {
+            e.stopPropagation()
+            setLocation('previous/' + name)
+          }} >
           <RoundedBox args={[0.95, 0.5, DEPTH]} />
           <meshBasicMaterial color={'white'} />
-        </mesh>
+        </MeshHoverable>
       </object3D>
     </object3D>
   )
