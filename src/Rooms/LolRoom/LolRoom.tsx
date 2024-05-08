@@ -19,6 +19,7 @@ const NAME = 'LolRoom'
 const COLOR: ColorRepresentation = new Color(0x326196) // Darkblue rgb: 3, 10, 18
 const FALLBACK_COLOR: ColorRepresentation = new Color('rgb(0, 5, 40)')
 const GOLD: ColorRepresentation = new Color(0x8c6e3a)
+export const TEXT_COLOR = 0xd4b777
 
 function LolRoom(): JSX.Element {
   const { isDisplayed, isActive } = useRoomData()

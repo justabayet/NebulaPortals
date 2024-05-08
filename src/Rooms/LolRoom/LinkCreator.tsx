@@ -4,8 +4,8 @@ import { Text3D } from '@react-three/drei/core/Text3D'
 import { Suspense } from 'react'
 import ButtonOpen from '../../Components/ButtonOpen'
 import { ButtonGithub } from '../../Components'
+import { TEXT_COLOR } from './LolRoom'
 
-const gold = 0xC19D4D
 
 const GITHUB_LSC = 'https://github.com/justabayet/LoLSceneCreator'
 const SITE_LSC = 'https://lsc.justabayet.com/'
@@ -30,7 +30,7 @@ function LinkCreator(props: Object3DProps): JSX.Element {
             size={0.1}
             font="/Inter_Bold.json">
             {'LoL\nScene\nCreator'}
-            <meshStandardMaterial color={gold} />
+            <meshStandardMaterial color={TEXT_COLOR} />
           </Text3D>
         </Center>
       </Suspense>
