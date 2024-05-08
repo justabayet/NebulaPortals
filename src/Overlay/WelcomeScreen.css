@@ -18,3 +18,16 @@
   
   transition: opacity 0.4s;
 }
+
+#loading-text:before{
+  content: 'Loading';
+  animation-name: dots;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes dots {
+  25% { content: "Loading." }
+  50% { content: "Loading.." }
+  75% { content: "Loading..."}
+}
