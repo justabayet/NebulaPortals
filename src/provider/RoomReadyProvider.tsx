@@ -37,8 +37,6 @@ export const RoomReadyProvider = ({ children }: PropsWithChildren): JSX.Element 
 
     const nbRoomsReady = Object.values(roomStates).filter((roomState) => roomState).length
 
-    console.log(`Room ${name} is ready. ${nbRoomsReady}/${NB_ROOMS}`)
-
     setAllReady(NB_ROOMS == nbRoomsReady)
   }, [])
 
