@@ -1,6 +1,6 @@
 import { Object3DProps } from '@react-three/fiber'
 import { TiltableImage } from '../../Components'
-import control_panel from './assets/control_panel.png'
+import control_panel from './assets/control_panel.webp'
 import { useRef } from 'react'
 import { FrontSide, Object3D } from 'three'
 

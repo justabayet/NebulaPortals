@@ -1,6 +1,6 @@
 import { Object3DProps, useFrame } from '@react-three/fiber'
 import { Image } from '../../Components'
-import logo from './assets/logo.png'
+import logo from './assets/logo.webp'
 import { FrontSide, Object3D } from 'three'
 import { easing } from 'maath'
 import { useRef } from 'react'

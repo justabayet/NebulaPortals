@@ -1,6 +1,6 @@
 import { useLoader } from '@react-three/fiber'
 import { DoubleSide, MeshPhongMaterial, TextureLoader } from 'three'
-import ground from './assets/bg.png'
+import ground from './assets/bg.webp'
 
 function Ground() {
   const texture = useLoader(TextureLoader, ground)

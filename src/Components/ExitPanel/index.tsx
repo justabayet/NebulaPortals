@@ -1,9 +1,9 @@
 // Icon asset from https://www.flaticon.com/free-icons/exit Exit icons created by Freepik - Flaticon
 import { Object3DProps } from '@react-three/fiber'
 import { HoverableImage } from '../Image'
-import exitFace from './exit.png'
-import exitLeft from './exit_left.png'
-import exitRight from './exit_right.png'
+import exitFace from './exit.webp'
+import exitLeft from './exit_left.webp'
+import exitRight from './exit_right.webp'
 import { RoundedBox } from '@react-three/drei/core/RoundedBox'
 import { useRoomData } from '../../provider/RoomDataProvider'
 import MeshHoverable from '../MeshHoverable'

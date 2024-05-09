@@ -1,7 +1,7 @@
 import { useLocation } from 'wouter'
 import './BackButton.css'
 import useCurrentProject from '../hooks/useCurrentProject'
-import backImage from './back.png'
+import backImage from './back.webp'
 
 function BackButton(): JSX.Element | undefined {
   const { hasCurrent: isVisible, project } = useCurrentProject()
