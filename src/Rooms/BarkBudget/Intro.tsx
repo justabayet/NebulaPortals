@@ -1,7 +1,7 @@
 import { Object3DProps, useFrame } from '@react-three/fiber'
 import { easing } from 'maath'
 import { useRef } from 'react'
-import { Mesh, Object3D, FrontSide, ColorRepresentation } from 'three'
+import { Mesh, Object3D, FrontSide, ColorRepresentation, BackSide } from 'three'
 import { logo_dark, logo_light } from './assets'
 import { Image } from '../../Components'
 import { useRoomData } from '../../provider/RoomDataProvider'
@@ -30,8 +30,8 @@ function Intro({ ...props }: IntroProps): JSX.Element {
 
   return (
     <object3D {...props}>
-      <Image src={logo_dark} position={[0, 0, 0]} size={1.5} isBasicMaterial />
-      <Image src={logo_light} position={[0, 0, -0.001]} size={1.5} isBasicMaterial />
+      <Image src={logo_dark} position={[0, 0, 0]} size={1.5} isBasicMaterial side={FrontSide} />
+      <Image src={logo_light} position={[0, 0, -0.001]} size={1.5} isBasicMaterial side={BackSide} />
 
       <mesh ref={backgroundRef}
         position={[0, 0, -1]}>
