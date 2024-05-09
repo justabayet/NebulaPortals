@@ -43,7 +43,7 @@ function Controls(): JSX.Element {
   useToggleScrollbar()
 
   return (
-    <ScrollControls pages={NB_FULL_ROTATION} damping={0.15}>
+    <ScrollControls pages={NB_FULL_ROTATION} damping={0.15} >
       <CameraControlsTuned />
     </ScrollControls>
   )

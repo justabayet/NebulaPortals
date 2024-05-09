@@ -12,7 +12,7 @@ class SetInteractionState {
     public setHasScrolled: Dispatch<SetStateAction<boolean>>,
     public setHasLookedAround: Dispatch<SetStateAction<boolean>>,
     public setHasEnteredRoom: Dispatch<SetStateAction<boolean>>,
-    public setHasWhelled: Dispatch<SetStateAction<boolean>>,
+    public reset: () => void,
   ) { }
 }
 
@@ -22,23 +22,25 @@ const SetInteractionStateContext = createContext(new SetInteractionState(() => {
 interface InteractionStateProviderProps extends PropsWithChildren { }
 
 export const InteractionStateProvider = ({ children }: InteractionStateProviderProps): JSX.Element => {
-  const [hasEnteredRoom, setHasEnteredRoom] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
   const [hasLookedAround, setHasLookedAround] = useState(false)
-  const [hasWhelled, setHasWhelled] = useState(true)
-  const hasActuallyScrolled = hasScrolled && hasWhelled
+  const [hasEnteredRoom, setHasEnteredRoom] = useState(false)
 
   const value = useMemo(() => new InteractionState(
+    hasScrolled,
+    hasLookedAround,
     hasEnteredRoom,
-    hasActuallyScrolled,
-    hasLookedAround
-  ), [hasEnteredRoom, hasActuallyScrolled, hasLookedAround])
+  ), [hasScrolled, hasLookedAround, hasEnteredRoom])
 
   const setValue = useMemo(() => new SetInteractionState(
-    setHasEnteredRoom,
     setHasScrolled,
     setHasLookedAround,
-    setHasWhelled
+    setHasEnteredRoom,
+    () => {
+      setHasScrolled(false)
+      setHasLookedAround(false)
+      setHasEnteredRoom(false)
+    }
   ), [])
 
   return (
