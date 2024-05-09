@@ -13,6 +13,7 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
   return (
     <div
       className='welcome-screen'
+      role="button"
       onClick={() => setHasStarted(true)}
       style={hasStarted ? {
         cursor: 'auto',
