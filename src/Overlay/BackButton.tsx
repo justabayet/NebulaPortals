@@ -8,19 +8,18 @@ function BackButton(): JSX.Element | undefined {
   const [, setLocation] = useLocation()
 
   return (
-    <div className='button'
+    <img src={backImage}
+      className='button'
       onClick={(e) => {
         if (!isVisible) return
         e.stopPropagation()
         setLocation('previous/' + project)
       }}
       style={{
+        width: '5em',
         opacity: isVisible ? 0.8 : 0,
         cursor: isVisible ? 'pointer' : 'auto'
-      }}>
-      <img src={backImage}
-        style={{ width: '5em' }} />
-    </div>
+      }} />
   )
 }
 
