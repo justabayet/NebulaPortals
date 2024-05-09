@@ -1,3 +1,3 @@
-import ClickOneFingerBigLight from 'animated-icons/dist/ClickOneFinger/ClickOneFingerBigLight'
+import ClickOneFingerBigLight from 'animated-icons/dist/ClickOneFinger/ClickOneFingerSmallLight'
 
 export default ClickOneFingerBigLight
