@@ -12,8 +12,8 @@ function Scene3D(): JSX.Element {
         <Canvas camera={{ position: CAMERA_DEFAULT_POSITION }} shadows >
           <Balls />
 
-          {rooms.map((Room, index) =>
-            <Room key={index} index={index} {...getRoomArgs(index)} />)}
+          {rooms.map(([Room, key], index) =>
+            <Room key={key} index={index} {...getRoomArgs(index)} />)}
 
           <Controls />
         </Canvas>

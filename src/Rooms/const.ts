@@ -33,7 +33,14 @@ function getIncomingRoom(index: number) {
   })
 }
 
-const rooms = roomsConfig.map((roomType, index) => roomFnMapping[roomType](index))
+type RoomArray = [RoomFunction, `${string}-${string}-${string}-${string}-${string}`][]
+
+const rooms: RoomArray = roomsConfig.map((roomType, index) => {
+  return [
+    roomFnMapping[roomType](index),
+    crypto.randomUUID()
+  ]
+})
 
 const DEFAULT_POSITION = new Vector3(3, 0, 0)
 const ANGLE = Math.PI / 2.5
