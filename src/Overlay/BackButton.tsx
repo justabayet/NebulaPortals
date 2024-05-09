@@ -11,6 +11,7 @@ function BackButton(): JSX.Element | undefined {
     <img src={backImage}
       alt='Go back to tower'
       className='button'
+      role="button"
       onClick={(e) => {
         if (!isVisible) return
         e.stopPropagation()
