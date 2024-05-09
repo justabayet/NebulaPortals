@@ -9,6 +9,7 @@ function BackButton(): JSX.Element | undefined {
 
   return (
     <img src={backImage}
+      alt='Go back to tower'
       className='button'
       onClick={(e) => {
         if (!isVisible) return
