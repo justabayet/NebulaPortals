@@ -9,6 +9,7 @@ import { roomsConfig } from '../provider/RoomReadyProvider'
 import LinkedIn from './LinkedIn'
 import Github from './Github'
 import Email from './Email'
+import { generateUUID } from 'three/src/math/MathUtils.js'
 
 const base = new Color()
 const red = new Color('red')
@@ -33,12 +34,12 @@ function getIncomingRoom(index: number) {
   })
 }
 
-type RoomArray = [RoomFunction, `${string}-${string}-${string}-${string}-${string}`][]
+type RoomArray = [RoomFunction, string][]
 
 const rooms: RoomArray = roomsConfig.map((roomType, index) => {
   return [
     roomFnMapping[roomType](index),
-    crypto.randomUUID()
+    generateUUID()
   ]
 })
 
