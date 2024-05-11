@@ -1,6 +1,6 @@
 // Icon asset from https://www.flaticon.com/free-icons/share Share icons created by IconKanan - Flaticon
 import { Object3DProps, useFrame } from '@react-three/fiber'
-import { BackSide, BoxGeometry, Object3D, Vector3 } from 'three'
+import { BackSide, BoxGeometry, LineBasicMaterial, Object3D, Vector3 } from 'three'
 import Image from '../Image'
 import { useMemo, useRef, useState } from 'react'
 
@@ -9,6 +9,7 @@ import redirectLogo from './redirect.webp'
 import emailLogo from './email.webp'
 import linkedinLogo from './linkedin_no_bg.webp'
 import MeshHoverable from '../MeshHoverable'
+import { easing } from 'maath'
 
 type Variant = 'github' | 'redirect' | 'linkedin' | 'email'
 
@@ -35,13 +36,19 @@ function ButtonCube({ variant, url, text, logoScale = 1, cornerRadius = 0.49, is
   const cube = useRef<Object3D>(null)
   const cubeSize = 0.1
   const cubeGeometry = useMemo(() => new BoxGeometry(cubeSize, cubeSize, cubeSize), [])
+  const lineMaterial = useRef<LineBasicMaterial>(null)
 
   const [hover, setHover] = useState<boolean>(false)
 
   useFrame((_, delta) => {
-    if (cube.current == null) return
-    const ROTATION_SPEED = hover ? 1 : 0.2
-    cube.current.rotateOnWorldAxis(rotationAxis, delta * ROTATION_SPEED)
+    if (cube.current != null) {
+      const ROTATION_SPEED = hover ? 1 : 0.2
+      cube.current.rotateOnWorldAxis(rotationAxis, delta * ROTATION_SPEED)
+    }
+
+    if (lineMaterial.current != null) {
+      easing.damp(lineMaterial.current, 'opacity', hover ? 0.9 : 0.3, 0.1, delta)
+    }
   })
 
   return (
@@ -54,7 +61,7 @@ function ButtonCube({ variant, url, text, logoScale = 1, cornerRadius = 0.49, is
         {/* edges */}
         <lineSegments>
           <edgesGeometry args={[cubeGeometry]} />
-          <lineBasicMaterial color={0xffffff} transparent opacity={0.3} />
+          <lineBasicMaterial ref={lineMaterial} color={0xffffff} transparent opacity={0.3} />
         </lineSegments>
 
         {/* faces */}
