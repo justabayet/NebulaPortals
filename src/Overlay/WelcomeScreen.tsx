@@ -14,14 +14,14 @@ function WelcomeScreen({ hasStarted, setHasStarted }: WelcomeScreenProps): JSX.E
     <div
       className='welcome-screen'
       role="button"
-      onClick={() => setHasStarted(true)}
+      onClick={() => { if (showIndicator) setHasStarted(true) }}
       style={hasStarted ? {
         cursor: 'auto',
         pointerEvents: 'none',
         opacity: 0
       } : {
         cursor: showIndicator ? 'pointer' : 'auto',
-        pointerEvents: showIndicator ? 'auto' : 'none',
+        pointerEvents: 'auto',
         opacity: 1
       }}>
       {showIndicator ? <span>Bonjour</span> : <span id='loading-text' />}
