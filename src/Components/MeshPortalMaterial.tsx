@@ -122,7 +122,7 @@ const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
     const [visible, setVisible] = React.useState(false)
     // See if the parent mesh is in the camera frustum
     const setVisibleLog = React.useCallback((val: boolean) => {
-      // console.log(`Room ${name} ${val}`)
+      // console.log(`${scene.uuid} ${val}`)
       setVisible(val)
     }, [])
     const parent = useIntersect(setVisibleLog) as React.MutableRefObject<Mesh<BufferGeometry>>
@@ -192,12 +192,16 @@ const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const renderTextureRatio = 0.5
+    const width = size.width * viewport.dpr
+    const height = size.height * viewport.dpr
+
     return (
       <portalMaterialImpl
         ref={ref as any}
         blur={blur}
         blend={0}
-        resolution={[size.width * viewport.dpr, size.height * viewport.dpr]}
+        resolution={[width, height]}
         attach="material"
         {...props}
       >
@@ -206,6 +210,9 @@ const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
           frames={visible && isVisible ? Infinity : 1}
           eventPriority={eventPriority}
           renderPriority={renderPriority}
+          width={width * renderTextureRatio}
+          height={height * renderTextureRatio}
+
           compute={compute}
         >
           {children}
