@@ -17,7 +17,7 @@
     "@react-three/drei": "^9.96.5",
     "@react-three/fiber": "^8.15.15",
     "@react-three/postprocessing": "^2.15.12",
-    "animated-icons": "^0.0.6",
+    "animated-icons": "^0.0.7",
     "camera-controls": "^2.7.4",
     "d3-dispatch": "^3.0.1",
     "gl-matrix": "^3.4.3",

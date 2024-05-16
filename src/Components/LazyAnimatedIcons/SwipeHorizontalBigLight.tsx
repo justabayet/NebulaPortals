@@ -1,3 +1,0 @@
-import SwipeHorizontalBigLight from 'animated-icons/dist/SwipeHorizontal/SwipeHorizontalSmallLight'
-
-export default SwipeHorizontalBigLight

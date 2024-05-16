@@ -4,9 +4,9 @@ import { useInteractionState } from '../provider/InteractionStateProvider'
 import { useCameraStillnessContext } from '../provider/CameraStillnessProvider'
 import useCurrentProject from '../hooks/useCurrentProject'
 
-const ClickOneFingerBigLight = lazy(() => import('../Components/LazyAnimatedIcons/ClickOneFingerBigLight'))
-const SwipeHorizontalBigLight = lazy(() => import('../Components/LazyAnimatedIcons/SwipeHorizontalBigLight'))
-const SwipeVerticalBigLight = lazy(() => import('../Components/LazyAnimatedIcons/SwipeVerticalBigLight'))
+const ClickOneFingerSmallLight = lazy(() => import('../Components/LazyAnimatedIcons/ClickOneFingerSmallLight'))
+const SwipeHorizontalSmallLight = lazy(() => import('../Components/LazyAnimatedIcons/SwipeHorizontalSmallLight'))
+const SwipeVerticalSmallLight = lazy(() => import('../Components/LazyAnimatedIcons/SwipeVerticalSmallLight'))
 
 function BottomCentered({ children }: PropsWithChildren): JSX.Element {
   return (
@@ -29,7 +29,7 @@ function RoomIndicator(): JSX.Element {
 
   return (
     <BottomCentered>
-      <SwipeHorizontalBigLight style={{ ...getIconStyle(isDisplayed) }} />
+      <SwipeHorizontalSmallLight style={{ ...getIconStyle(isDisplayed) }} />
     </BottomCentered>
   )
 }
@@ -42,7 +42,7 @@ function TowerIndicator(): JSX.Element {
 
   return (
     <BottomCentered>
-      <SwipeVerticalBigLight style={{ ...getIconStyle(isDisplayed) }} />
+      <SwipeVerticalSmallLight style={{ ...getIconStyle(isDisplayed) }} />
     </BottomCentered>
   )
 }
@@ -57,7 +57,7 @@ function PortalClickIndicator(): JSX.Element {
   return (
     <div className='overlay center full-screen'>
       <div>
-        <ClickOneFingerBigLight style={{ ...getIconStyle(isDisplayed) }} />
+        <ClickOneFingerSmallLight style={{ ...getIconStyle(isDisplayed) }} />
       </div>
     </div>
   )
