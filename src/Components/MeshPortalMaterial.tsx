@@ -32,7 +32,7 @@ const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
      float xOffset = sin((position.x + uTime * 0.5) * 3.0);
      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
      vUv = uv;
-     uOffset = (vec2(xOffset, yOffset) + 1.0) / 1000.0; // [0;0.1]
+     uOffset = (vec2(xOffset, yOffset) + 1.0) / 1000.0; // [0;0.002]
    }`,
   `uniform sampler2D sdf;
    uniform sampler2D map;
@@ -119,7 +119,6 @@ const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
     useFrame(({ clock }) => {
       // If blend is > 0 then the portal is being entered, the render-priority must change
       if (ref.current && ref.current.uniforms) {
-        console.log(clock.elapsedTime)
         ref.current.uniforms.uTime.value = clock.elapsedTime
       }
       const p = ref.current.blend > 0 ? Math.max(1, renderPriority) : 0
