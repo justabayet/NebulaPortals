@@ -22,11 +22,17 @@ const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
     blend: 0,
     size: 0,
     resolution: /* @__PURE__ */ new Vector2(),
+    uTime: 0
   },
   `varying vec2 vUv;
+   varying vec2 uOffset;
+   uniform float uTime;
    void main() {
+     float yOffset = sin((position.y + uTime * 0.5) * 10.0);
+     float xOffset = sin((position.x + uTime * 0.5) * 3.0);
      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
      vUv = uv;
+     uOffset = (vec2(xOffset, yOffset) + 1.0) / 1000.0; // [0;0.1]
    }`,
   `uniform sampler2D sdf;
    uniform sampler2D map;
@@ -35,9 +41,11 @@ const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
    uniform float time;
    uniform vec2 resolution;
    varying vec2 vUv;
+   varying vec2 uOffset;
    #include <packing>
    void main() {
      vec2 uv = gl_FragCoord.xy / resolution.xy;
+     uv += uOffset;
      vec4 t = texture2D(map, uv);
      float k = blur;
      float d = texture2D(sdf, vUv).r/size;
@@ -108,8 +116,12 @@ const MeshPortalMaterial = /* @__PURE__ */ React.forwardRef(
     const maskRenderTarget = useFBO(resolution, resolution)
 
     const [priority, setPriority] = React.useState(0)
-    useFrame(() => {
+    useFrame(({ clock }) => {
       // If blend is > 0 then the portal is being entered, the render-priority must change
+      if (ref.current && ref.current.uniforms) {
+        console.log(clock.elapsedTime)
+        ref.current.uniforms.uTime.value = clock.elapsedTime
+      }
       const p = ref.current.blend > 0 ? Math.max(1, renderPriority) : 0
       if (priority !== p) setPriority(p)
     })
