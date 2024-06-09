@@ -12,7 +12,13 @@ import { useIntersect } from '@react-three/drei/core/useIntersect'
 import { useFBO } from '@react-three/drei/core/useFBO'
 import { RenderTexture } from '@react-three/drei/core/RenderTexture'
 import { shaderMaterial } from '@react-three/drei/core/shaderMaterial'
-import { Vector2, Texture, Mesh, BufferGeometry, MeshBasicMaterial, Box3, BufferAttribute, OrthographicCamera, Scene, ShaderMaterial, WebGLRenderTarget, LinearMipmapLinearFilter, LinearFilter, FloatType, RedFormat, NearestFilter, WebGLRenderer } from 'three'
+import { Vector2, Texture, Mesh, BufferGeometry, MeshBasicMaterial, Box3, BufferAttribute, OrthographicCamera, Scene, ShaderMaterial, WebGLRenderTarget, LinearMipmapLinearFilter, LinearFilter, FloatType, RedFormat, NearestFilter, WebGLRenderer, TextureLoader, SRGBColorSpace, RepeatWrapping } from 'three'
+
+const textureLoader = new TextureLoader()
+const texturePerlin = textureLoader.load('./perlin.png')
+texturePerlin.colorSpace = SRGBColorSpace
+texturePerlin.wrapS = RepeatWrapping
+texturePerlin.wrapT = RepeatWrapping
 
 const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
   {
@@ -22,38 +28,49 @@ const PortalMaterialImpl = /* @__PURE__ */ shaderMaterial(
     blend: 0,
     size: 0,
     resolution: /* @__PURE__ */ new Vector2(),
-    uTime: 0
+    uTime: 0,
+    uPerlinTexture: texturePerlin
   },
-  `varying vec2 vUv;
-   varying vec2 uOffset;
-   uniform float uTime;
-   void main() {
-     float yOffset = sin((position.y + uTime * 0.5) * 10.0);
-     float xOffset = sin((position.x + uTime * 0.5) * 3.0);
-     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-     vUv = uv;
-     uOffset = (vec2(xOffset, yOffset) + 1.0) / 1000.0; // [0;0.002]
-   }`,
-  `uniform sampler2D sdf;
-   uniform sampler2D map;
-   uniform float blur;
-   uniform float size;
-   uniform float time;
-   uniform vec2 resolution;
-   varying vec2 vUv;
-   varying vec2 uOffset;
-   #include <packing>
-   void main() {
-     vec2 uv = gl_FragCoord.xy / resolution.xy;
-     uv += uOffset;
-     vec4 t = texture2D(map, uv);
-     float k = blur;
-     float d = texture2D(sdf, vUv).r/size;
-     float alpha = 1.0 - smoothstep(0.0, 1.0, clamp(d/k + 1.0, 0.0, 1.0));
-     gl_FragColor = vec4(t.rgb, blur == 0.0 ? t.a : t.a * alpha);
-     #include <tonemapping_fragment>
-     #include <${version >= 154 ? 'colorspace_fragment' : 'encodings_fragment'}>
-   }`
+  `
+  varying vec2 vUv;
+  varying vec2 vOffset;
+  uniform float uTime;
+  uniform sampler2D uPerlinTexture;
+  void main() {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    vUv = uv;
+    float perlinValue = texture(uPerlinTexture, (vUv + uTime) / (20.0)).r; // [0;1]
+    perlinValue = pow(perlinValue, 2.0) - 0.5; // [-0.5; 0.5]
+
+    vOffset = vec2(
+      perlinValue * 1.0,
+      perlinValue * 3.0
+    ); // ([-0.5, 0.5], [-1.5, 1.5])
+    vOffset += vec2(0.45, 1.35);
+
+    vOffset /= 70.0; // [-1; 1]
+  }`,
+  `
+  uniform sampler2D sdf;
+  uniform sampler2D map;
+  uniform float blur;
+  uniform float size;
+  uniform float time;
+  uniform vec2 resolution;
+  varying vec2 vUv;
+  varying vec2 vOffset;
+  #include <packing>
+  void main() {
+    vec2 uv = gl_FragCoord.xy / resolution.xy;
+    uv += vOffset;
+    vec4 t = texture2D(map, uv);
+    float k = blur;
+    float d = texture2D(sdf, vUv).r/size;
+    float alpha = 1.0 - smoothstep(0.0, 1.0, clamp(d/k + 1.0, 0.0, 1.0));
+    gl_FragColor = vec4(t.rgb, blur == 0.0 ? t.a : t.a * alpha);
+    #include <tonemapping_fragment>
+    #include <${version >= 154 ? 'colorspace_fragment' : 'encodings_fragment'}>
+  }`
 )
 
 export type PortalMaterialType = {
